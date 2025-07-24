@@ -22,21 +22,18 @@ const HeaderLeft = styled.div`
 
 const HeaderLeftMealSet = styled.div`
   :hover {
-    color: #ef4444;
     font-weight: bold;
     cursor: pointer;
   }
 `;
 const HeaderLeftOneMeal = styled.div`
   :hover {
-    color: #ef4444;
     font-weight: bold;
     cursor: pointer;
   }
 `;
 const HeaderLeftMealTotal = styled.div`
   :hover {
-    color: #ef4444;
     font-weight: bold;
     cursor: pointer;
   }
@@ -58,7 +55,6 @@ const HomeLogo = styled.img`
 const HeaderRight = styled.div``;
 const HeaderUser = styled.div`
   :hover {
-    color: #ef4444;
     font-weight: bold;
     cursor: pointer;
   }
@@ -69,16 +65,32 @@ function Header() {
     <HomeHeader>
       <HeaderLeft>
         <HeaderLeftMealSet>
-          <Link to="/Mealset"></Link>밥상차리기
+          <Link to="/Mealset" className="link">
+            밥상차리기
+          </Link>
         </HeaderLeftMealSet>
-        <HeaderLeftOneMeal>한끼모음</HeaderLeftOneMeal>
-        <HeaderLeftMealTotal>밥상여정</HeaderLeftMealTotal>
+        <HeaderLeftOneMeal>
+          <Link to="/Onemeal" className="link">
+            한끼모음
+          </Link>
+        </HeaderLeftOneMeal>
+        <HeaderLeftMealTotal>
+          <Link to="/Mealtotal" className="link">
+            밥상여정
+          </Link>
+        </HeaderLeftMealTotal>
       </HeaderLeft>
       <HeaderMid>
-        <HomeLogo src={logo} alt="logo" />
+        <Link to="/Index" className="link">
+          <HomeLogo src={logo} alt="logo" />
+        </Link>
       </HeaderMid>
       <HeaderRight>
-        <HeaderUser>마이페이지</HeaderUser>
+        <HeaderUser>
+          <Link to="/User" className="link">
+            마이페이지
+          </Link>
+        </HeaderUser>
       </HeaderRight>
     </HomeHeader>
   );
