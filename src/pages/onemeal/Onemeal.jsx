@@ -139,7 +139,9 @@ function Onemeal() {
   // jsx자리
   return (
     <div>
-      <Header></Header>
+      <Header>
+        <div></div>
+      </Header>
       <main>
         <OnemealTitleWrap>
           <OnemealTitle>나의 한끼모음</OnemealTitle>
