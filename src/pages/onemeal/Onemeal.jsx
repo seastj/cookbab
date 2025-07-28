@@ -132,6 +132,12 @@ const OnemealItemTagPlus = styled.p`
   display: flex;
   align-items: center;
 `;
+const OnemealCateWrap = styled.div`
+  width: 1353px;
+  margin: 0 auto;
+  display: flex;
+
+`;
 
 function Onemeal() {
   // js자리
@@ -139,6 +145,7 @@ function Onemeal() {
   // jsx자리
   return (
     <div>
+
       <Header></Header>
       <main>
         <OnemealTitleWrap>
@@ -295,6 +302,31 @@ function Onemeal() {
             {/* itemboxs end */}
           </OnemealItemUl>
         </OnemealItemWrap>
+        </OnemealTitleDiv>
+        <OnemealCateWrap>
+          <div>
+            <OnemealInput type="text" />
+            <img src="Search" alt="검색" />
+          </div>
+          <div>
+            <div>전체</div>
+            <div>최신순</div>
+            <div>조리시간순</div>
+          </div>
+        </OnemealCateWrap>
+        <div>
+          <ul>
+            <li>
+              <div>
+                <img src="" alt="" />
+                <div>1시간</div>
+              </div>
+              <p>요리명</p>
+              <p>2025-10-22</p>
+              <div></div>
+            </li>
+          </ul>
+        </div>
       </main>
       <footer></footer>
     </div>
