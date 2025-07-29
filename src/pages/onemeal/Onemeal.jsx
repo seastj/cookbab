@@ -3,6 +3,7 @@ import React from "react";
 import mdisearch from "../../images/mdisearch.svg";
 import Header from "../../components/Header";
 import item1 from "../../images/oneitem1.jpg";
+import Footer from "../../components/Footer";
 
 // 스타일시트
 const OnemealTitleWrap = styled.div`
@@ -296,7 +297,7 @@ function Onemeal() {
           </OnemealItemUl>
         </OnemealItemWrap>
       </main>
-      <footer></footer>
+      <Footer></Footer>
     </div>
   );
 }
