@@ -23,16 +23,19 @@ const WeekInner = styled.div`
   display: flex;
 `;
 const Calender = styled.div`
-  display: flex;
+  position: relative;
+  justify-content: center;
   width: 820px;
+  display: flex;
   height: 250px;
   background-color: #fff;
   border: none;
   border-radius: 4px;
   box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.2);
-  gap: 30px;
-  padding-top: 50px;
-  padding-left: 40px;
+  padding: 50px 0px;
+  margin: 0 auto;
+  gap: 25px;
+  flex-shrink: 0;
 `;
 const CalenderContent = styled.div`
   display: block;
@@ -67,8 +70,37 @@ const WeekCommentWrap = styled.div`
   display: block;
   padding-left: 30px;
 `;
-const WeekCommentIcon = styled.div``;
-const WeekComment = styled.p``;
+const WeekCommentBox = styled.div`
+  position: relative;
+  align-items: center;
+  justify-content: left;
+  display: inline-flex;
+  word-break: break-word;
+  background-color: #f37373;
+  margin-bottom: 10px;
+  padding: 15px;
+  border-radius: 8px;
+  gap: 8px;
+`;
+const WeekCommentArrow = styled.div`
+  position: absolute;
+  top: 50%;
+  left: -5px;
+  width: 30px;
+  height: 30px;
+  transform: translateY(-50%) rotate(45deg);
+  background-color: #f37373;
+`;
+const WeekCommentIcon = styled.div`
+  display: flex;
+  z-index: 1;
+`;
+const WeekComment = styled.p`
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff;
+  padding: 15px;
+`;
 
 function WeekCook() {
   return (
@@ -142,17 +174,23 @@ function WeekCook() {
             </CalenderContent>
           </Calender>
           <WeekCommentWrap>
-            <WeekCommentIcon>
-              <img src={megaphone} alt="megaphone" />
-            </WeekCommentIcon>
-            <WeekComment>
-              3 일을 출석하셨군요! 전보다 더 출석하셨어요! 우리 조금 만 더
-              힘내볼까요?
-            </WeekComment>
-            <WeekCommentIcon>
-              <img src={megaphone} alt="megaphone" />
-            </WeekCommentIcon>
-            <WeekComment>다음주는 볶음밥 도전 ?</WeekComment>
+            <WeekCommentBox>
+              <WeekCommentArrow />
+              <WeekCommentIcon>
+                <img src={megaphone} alt="megaphone" />
+              </WeekCommentIcon>
+              <WeekComment>
+                3 일을 출석하셨군요! 전보다 더 출석하셨어요! <br />
+                우리 조금 만 더 힘내볼까요?
+              </WeekComment>
+            </WeekCommentBox>
+            <WeekCommentBox>
+              <WeekCommentArrow />
+              <WeekCommentIcon>
+                <img src={megaphone} alt="megaphone" />
+              </WeekCommentIcon>
+              <WeekComment>다음주는 볶음밥 도전 ?</WeekComment>
+            </WeekCommentBox>
           </WeekCommentWrap>
         </WeekInner>
       </WeekWrap>
