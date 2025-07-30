@@ -119,6 +119,7 @@ const SetBoxLevelButtonLi = styled.li`
   font-size: 20px;
   font-weight: bold;
   flex-shrink: 0;
+  cursor: pointer;
   &:hover {
     background-color: #f37373;
     color: #fff;
@@ -172,19 +173,16 @@ const SetBoxRegistration = styled.div`
   bottom: 78px;
   left: 50%;
   transform: translateX(-50%);
-  width: 225px;
-  height: 50px;
-  background-color: #ef4444;
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
 `;
-const SetBoxRegistrationText = styled.p`
+const SetBoxRegistrationText = styled.button`
   color: #fff;
   font-weight: bold;
   font-size: 20px;
+  padding: 15px 100px;
+  background-color: #ef4444;
+  border-radius: 12px;
+  cursor: pointer;
+  border: none;
 `;
 
 function Mealset() {

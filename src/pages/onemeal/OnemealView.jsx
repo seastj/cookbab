@@ -2,9 +2,10 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import styled from "@emotion/styled";
 import Back from "../../images/arrow.svg";
-import CameraPlus from "../../images/camera-plus.svg";
 import MealsetBase from "../../components/MealsetBase";
 import { useState } from "react";
+import Clock from "../../images/clock.svg";
+import FoodIcon from "../../images/foodicon.svg";
 
 const SetBoxWrap = styled.div`
   width: 1200px;
@@ -28,6 +29,7 @@ const SetBoxBackArrow = styled.div`
   }
 `;
 const SetBox = styled.div`
+  position: relative;
   width: 1240px;
   height: 1018px;
   background-color: #fff;
@@ -42,14 +44,9 @@ const SetBoxDetailWrap = styled.div`
   padding: 48px 92px;
 `;
 const SetBoxFoodPictureWrap = styled.div`
-  margin-bottom: 60px;
+  margin-bottom: 25px;
 `;
-const SetBOxMainTitle = styled.p`
-  font-weight: bold;
-  font-size: 25px;
-  color: #8e0c0c;
-  margin-bottom: 30px;
-`;
+
 const SetBoxPictureBox = styled.div`
   position: relative;
   background-color: #d9d9d9;
@@ -58,26 +55,18 @@ const SetBoxPictureBox = styled.div`
   border-radius: 20px;
   cursor: pointer;
 `;
-const SetBoxPictureBoxTitleWrap = styled.div`
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  margin: 0 auto;
-  width: 100%;
-  text-align: center;
-  img {
-    width: 41px;
-  }
-  p {
-    font-size: 20px;
-    color: #5c5c5c;
-  }
+const SetBoxCookName = styled.p`
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #ef4444;
 `;
+
 const SetBoxSubTitle = styled.p`
-  position: relative;
   font-size: 20px;
   color: #0f0f0f;
   margin-bottom: 19px;
+  font-weight: bold;
 `;
 const SetBoxCookNameInput = styled.input`
   width: 473px;
@@ -89,16 +78,21 @@ const SetBoxCookNameInput = styled.input`
 `;
 const SetBoxTextWrap = styled.div`
   margin-bottom: 30px;
+  display: flex;
 `;
-const SetBoxSelect = styled.select`
-  width: 473px;
-  height: 50px;
-  border-radius: 10px;
-  border: 1px solid #b3b3b3;
-  padding: 0px 20px;
-  font-size: 16px;
+const SetBoxCookCate = styled.div`
+  padding-right: 50px;
+  display: flex;
+  gap: 5px;
+  font-size: 20px;
+  align-items: center;
+  img {
+    width: 22px;
+  }
 `;
-
+const SetBoxLevelWrap = styled.div`
+  margin-bottom: 58px;
+`;
 const SetBoxLevelButtonWrap = styled.div``;
 const SetBoxLevelButtonUl = styled.ul`
   width: 100%;
@@ -155,23 +149,17 @@ const SetBoxCookStepsTextarea = styled.textarea`
   border-radius: 10px;
   margin-bottom: 24px;
 `;
-const SetBoxPlusBox = styled.div`
-  position: absolute;
-  left: 50%;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: #fff;
-  box-shadow: 0px 4px 12px 4px rgba(0, 0, 0, 0.15);
-  margin-bottom: 20px;
-  cursor: pointer;
-`;
 
 const SetBoxRegistration = styled.div`
   position: absolute;
   bottom: 78px;
   left: 50%;
   transform: translateX(-50%);
+  display: flex;
+  gap: 36px;
+  cursor: pointer;
+`;
+const SetBoxRegistrationAdd = styled.button`
   width: 225px;
   height: 50px;
   background-color: #ef4444;
@@ -179,36 +167,29 @@ const SetBoxRegistration = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-`;
-const SetBoxRegistrationText = styled.p`
   color: #fff;
   font-weight: bold;
   font-size: 20px;
+  border: none;
+  cursor: pointer;
+`;
+const SetBoxRegistrationDelete = styled.button`
+  width: 225px;
+  height: 50px;
+  background-color: #8f8f8f;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: bold;
+  font-size: 20px;
+  border: none;
+  cursor: pointer;
 `;
 
 function OnemealView() {
   // js 자리
-  const categories = [
-    "한식",
-    "중식",
-    "일식",
-    "양식",
-    "야식",
-    "다이어트",
-    "기타",
-  ];
-  const [category, setCategory] = useState();
-  // 조리시간
-  const times = [
-    "10분 미만",
-    "10~30분",
-    "30~60분",
-    "1시간~2시간",
-    "2시간~3시간",
-    "3시간이상",
-  ];
-  const [cookTime, setCookTime] = useState();
 
   // 해시태그들
   const [userTags, setUserTags] = useState([]);
@@ -227,30 +208,23 @@ function OnemealView() {
           <SetBox>
             <SetBoxDetailWrap>
               <SetBoxFoodPictureWrap>
-                <SetBOxMainTitle>요리사진</SetBOxMainTitle>
                 <SetBoxPictureBox>
-                  <SetBoxPictureBoxTitleWrap>
-                    <img src={CameraPlus} alt="사진추가" />
-                    <p>클릭해 사진을 추가해 하세요.</p>
-                  </SetBoxPictureBoxTitleWrap>
+                  <img src="#" alt="요리사진" />
                 </SetBoxPictureBox>
               </SetBoxFoodPictureWrap>
               <div>
-                <SetBOxMainTitle>기본정보</SetBOxMainTitle>
+                <SetBoxCookName>요리 이름</SetBoxCookName>
                 <SetBoxTextWrap>
-                  <SetBoxSubTitle>요리 이름</SetBoxSubTitle>
-                  <SetBoxCookNameInput
-                    type="text"
-                    placeholder="예: 김치볶음밥"
-                  />
+                  <SetBoxCookCate>
+                    <img src={FoodIcon} alt="카테고리" />
+                    카테고리
+                  </SetBoxCookCate>
+                  <SetBoxCookCate>
+                    <img src={Clock} alt="조리시간" />
+                    조리시간
+                  </SetBoxCookCate>
                 </SetBoxTextWrap>
-                <SetBoxTextWrap>
-                  <SetBoxSubTitle>카테고리</SetBoxSubTitle>
-                </SetBoxTextWrap>
-                <SetBoxTextWrap>
-                  <SetBoxSubTitle>조리시간</SetBoxSubTitle>
-                </SetBoxTextWrap>
-                <div>
+                <SetBoxLevelWrap>
                   <SetBoxSubTitle>난이도</SetBoxSubTitle>
                   <SetBoxLevelButtonWrap>
                     <SetBoxLevelButtonUl>
@@ -259,12 +233,7 @@ function OnemealView() {
                       <SetBoxLevelButtonLi>어려움</SetBoxLevelButtonLi>
                     </SetBoxLevelButtonUl>
                   </SetBoxLevelButtonWrap>
-                </div>
-              </div>
-            </SetBoxDetailWrap>
-            <SetBoxDetailWrap>
-              <SetBOxMainTitle>상세 정보</SetBOxMainTitle>
-              <SetBoxTextWrap>
+                </SetBoxLevelWrap>
                 <SetBoxSubTitle>재료</SetBoxSubTitle>
                 <SetBoxCookNameInput
                   type="text"
@@ -276,6 +245,10 @@ function OnemealView() {
                     <SetBoxTagSpan key={index}>#{item}</SetBoxTagSpan>
                   ))}
                 </SetBoxTagWrap>
+              </div>
+            </SetBoxDetailWrap>
+            <SetBoxDetailWrap>
+              <SetBoxTextWrap>
                 <div>
                   <SetBoxSubTitle>만드는 순서</SetBoxSubTitle>
                   <div>
@@ -287,15 +260,13 @@ function OnemealView() {
                       rows={3}
                     />
                   </div>
-                  <SetBoxPlusBox>
-                    <img src="#" alt="추가" />
-                  </SetBoxPlusBox>
                 </div>
               </SetBoxTextWrap>
-              <SetBoxRegistration>
-                <SetBoxRegistrationText>등록하기</SetBoxRegistrationText>
-              </SetBoxRegistration>
             </SetBoxDetailWrap>
+            <SetBoxRegistration>
+              <SetBoxRegistrationDelete>삭제하기</SetBoxRegistrationDelete>
+              <SetBoxRegistrationAdd>등록하기</SetBoxRegistrationAdd>
+            </SetBoxRegistration>
           </SetBox>
         </SetBoxWrap>
       </main>
