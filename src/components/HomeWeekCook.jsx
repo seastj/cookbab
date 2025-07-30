@@ -1,6 +1,7 @@
 import React from "react";
 import failIcon from "../images/fail_icon.svg";
 import megaphone from "../images/megaphone.svg";
+import success_w from "../images/success_white.svg";
 import styled from "@emotion/styled";
 
 const HomeWeek = styled.div`
@@ -47,21 +48,46 @@ const WeekDayOfWeek = styled.p`
   justify-content: center;
   margin-bottom: 10px;
 `;
-const CalenderContentInner = styled.div`
+const CalenderFail = styled.div`
   display: block;
   width: 80px;
   height: 80px;
   border: 1px solid #c2c2c2;
   border-radius: 4px;
   color: #c2c2c2;
+  background-color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 10px;
 `;
-const CalenderSuccessFail = styled.div`
+const CalenderFailComment = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const CalenderFailIcon = styled.div`
   display: flex;
   justify-content: center;
   padding-top: 10px;
-  /* align-items: center; */
 `;
-const CalenderInnerIcon = styled.div`
+const CalenderSuccess = styled.div`
+  display: block;
+  width: 80px;
+  height: 80px;
+  border: none;
+  background-color: #f37373;
+  border-radius: 4px;
+  color: #fff;
+  padding: 10px;
+  font-size: 20px;
+  font-weight: bold;
+`;
+const CalenderSuccessComment = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+const CalenderSuccessIcon = styled.div`
   display: flex;
   justify-content: center;
   padding-top: 10px;
@@ -102,7 +128,7 @@ const WeekComment = styled.p`
   padding: 15px;
 `;
 
-function WeekCook() {
+function HomeWeekCook() {
   return (
     <HomeWeek>
       <WeekWrap>
@@ -111,66 +137,66 @@ function WeekCook() {
           <Calender>
             <CalenderContent>
               <WeekDayOfWeek>월</WeekDayOfWeek>
-              <CalenderContentInner>
-                <CalenderSuccessFail>실패</CalenderSuccessFail>
-                <CalenderInnerIcon>
-                  <img src={failIcon} alt="failIcon " />
-                </CalenderInnerIcon>
-              </CalenderContentInner>
+              <CalenderFail>
+                <CalenderFailComment>실패</CalenderFailComment>
+                <CalenderFailIcon>
+                  <img src={failIcon} alt="failIcon" />
+                </CalenderFailIcon>
+              </CalenderFail>
             </CalenderContent>
             <CalenderContent>
               <WeekDayOfWeek>화</WeekDayOfWeek>
-              <CalenderContentInner>
-                <CalenderSuccessFail>실패</CalenderSuccessFail>
-                <CalenderInnerIcon>
+              <CalenderFail>
+                <CalenderFailComment>실패</CalenderFailComment>
+                <CalenderFailIcon>
                   <img src={failIcon} alt="failIcon " />
-                </CalenderInnerIcon>
-              </CalenderContentInner>
+                </CalenderFailIcon>
+              </CalenderFail>
             </CalenderContent>
             <CalenderContent>
               <WeekDayOfWeek>수</WeekDayOfWeek>
-              <CalenderContentInner>
-                <CalenderSuccessFail>실패</CalenderSuccessFail>
-                <CalenderInnerIcon>
+              <CalenderFail>
+                <CalenderFailComment>실패</CalenderFailComment>
+                <CalenderFailIcon>
                   <img src={failIcon} alt="failIcon " />
-                </CalenderInnerIcon>
-              </CalenderContentInner>
+                </CalenderFailIcon>
+              </CalenderFail>
             </CalenderContent>
             <CalenderContent>
               <WeekDayOfWeek>목</WeekDayOfWeek>
-              <CalenderContentInner>
-                <CalenderSuccessFail>실패</CalenderSuccessFail>
-                <CalenderInnerIcon>
-                  <img src={failIcon} alt="failIcon " />
-                </CalenderInnerIcon>
-              </CalenderContentInner>
+              <CalenderSuccess>
+                <CalenderSuccessComment>성공</CalenderSuccessComment>
+                <CalenderSuccessIcon>
+                  <img src={success_w} alt="success" />
+                </CalenderSuccessIcon>
+              </CalenderSuccess>
             </CalenderContent>
             <CalenderContent>
               <WeekDayOfWeek>금</WeekDayOfWeek>
-              <CalenderContentInner>
-                <CalenderSuccessFail>실패</CalenderSuccessFail>
-                <CalenderInnerIcon>
-                  <img src={failIcon} alt="failIcon " />
-                </CalenderInnerIcon>
-              </CalenderContentInner>
+              <CalenderSuccess>
+                <CalenderSuccessComment>성공</CalenderSuccessComment>
+                <CalenderSuccessIcon>
+                  <img src={success_w} alt="failIcon " />
+                </CalenderSuccessIcon>
+              </CalenderSuccess>
             </CalenderContent>
             <CalenderContent>
               <WeekDayOfWeek style={{ color: "red" }}>토</WeekDayOfWeek>
-              <CalenderContentInner>
-                <CalenderSuccessFail>실패</CalenderSuccessFail>
-                <CalenderInnerIcon>
+              <CalenderFail>
+                <CalenderFailComment>실패</CalenderFailComment>
+                <CalenderFailIcon>
                   <img src={failIcon} alt="failIcon " />
-                </CalenderInnerIcon>
-              </CalenderContentInner>
+                </CalenderFailIcon>
+              </CalenderFail>
             </CalenderContent>
             <CalenderContent>
               <WeekDayOfWeek style={{ color: "red" }}>일</WeekDayOfWeek>
-              <CalenderContentInner>
-                <CalenderSuccessFail>실패</CalenderSuccessFail>
-                <CalenderInnerIcon>
+              <CalenderFail>
+                <CalenderFailComment>실패</CalenderFailComment>
+                <CalenderFailIcon>
                   <img src={failIcon} alt="failIcon " />
-                </CalenderInnerIcon>
-              </CalenderContentInner>
+                </CalenderFailIcon>
+              </CalenderFail>
             </CalenderContent>
           </Calender>
           <WeekCommentWrap>
@@ -198,4 +224,4 @@ function WeekCook() {
   );
 }
 
-export default WeekCook;
+export default HomeWeekCook;

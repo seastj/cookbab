@@ -81,7 +81,7 @@ function Header() {
         </HeaderLeftMealTotal>
       </HeaderLeft>
       <HeaderMid>
-        <Link to="/Index" className="link">
+        <Link to="/ " className="link">
           <HomeLogo src={logo} alt="logo" />
         </Link>
       </HeaderMid>

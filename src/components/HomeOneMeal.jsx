@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import React from "react";
 import bab from "../images/oneitem1.jpg";
 import morebt from "../images/more_bt.svg";
+import { Link } from "react-router-dom";
 
 const HomeOneMealMain = styled.div`
   width: 1365px;
@@ -117,63 +118,73 @@ function HomeOneMeal() {
       <HomeOneMealWrap>
         <HomeOneMealTitle>최근 한끼모음집</HomeOneMealTitle>
         <HomeOneMealBannerWrap>
-          <HomeOneMealBt>밥상차리기</HomeOneMealBt>
+          <Link to="/Mealset">
+            <HomeOneMealBt>밥상차리기</HomeOneMealBt>
+          </Link>
           <HomeOneMealBanner>
-            <HomeOneMealBannerItem>
-              <BannerItemImgWrap>
-                <BannerItemImg src={bab} alt="" />
-              </BannerItemImgWrap>
-              <BannerItemText>
-                <BannerItemCookName>요리명</BannerItemCookName>
-                <BannerItemCookDate>2025-06-21</BannerItemCookDate>
-                <BannerItemCookMaterial>
-                  <BannerItemCookMaterialItems>
-                    <CookMaterialItem>#양파</CookMaterialItem>
-                    <CookMaterialItem>#마늘</CookMaterialItem>
-                    <CookMaterialItem>#파</CookMaterialItem>
-                  </BannerItemCookMaterialItems>
-                  <CookMaterialItemPlus>+3</CookMaterialItemPlus>
-                </BannerItemCookMaterial>
-              </BannerItemText>
-            </HomeOneMealBannerItem>
-            <HomeOneMealBannerItem>
-              <BannerItemImgWrap>
-                <BannerItemImg src={bab} alt="" />
-              </BannerItemImgWrap>
-              <BannerItemText>
-                <BannerItemCookName>요리명</BannerItemCookName>
-                <BannerItemCookDate>2025-06-21</BannerItemCookDate>
-                <BannerItemCookMaterial>
-                  <BannerItemCookMaterialItems>
-                    <CookMaterialItem>#양파</CookMaterialItem>
-                    <CookMaterialItem>#마늘</CookMaterialItem>
-                    <CookMaterialItem>#파</CookMaterialItem>
-                  </BannerItemCookMaterialItems>
-                  <CookMaterialItemPlus>+3</CookMaterialItemPlus>
-                </BannerItemCookMaterial>
-              </BannerItemText>
-            </HomeOneMealBannerItem>
-            <HomeOneMealBannerItem>
-              <BannerItemImgWrap>
-                <BannerItemImg src={bab} alt="" />
-              </BannerItemImgWrap>
-              <BannerItemText>
-                <BannerItemCookName>요리명</BannerItemCookName>
-                <BannerItemCookDate>2025-06-21</BannerItemCookDate>
-                <BannerItemCookMaterial>
-                  <BannerItemCookMaterialItems>
-                    <CookMaterialItem>#양파</CookMaterialItem>
-                    <CookMaterialItem>#마늘</CookMaterialItem>
-                    <CookMaterialItem>#파</CookMaterialItem>
-                  </BannerItemCookMaterialItems>
-                  <CookMaterialItemPlus>+3</CookMaterialItemPlus>
-                </BannerItemCookMaterial>
-              </BannerItemText>
-            </HomeOneMealBannerItem>
+            <Link to="/OnemealView">
+              <HomeOneMealBannerItem>
+                <BannerItemImgWrap>
+                  <BannerItemImg src={bab} alt="" />
+                </BannerItemImgWrap>
+                <BannerItemText>
+                  <BannerItemCookName>요리명</BannerItemCookName>
+                  <BannerItemCookDate>2025-06-21</BannerItemCookDate>
+                  <BannerItemCookMaterial>
+                    <BannerItemCookMaterialItems>
+                      <CookMaterialItem>#양파</CookMaterialItem>
+                      <CookMaterialItem>#마늘</CookMaterialItem>
+                      <CookMaterialItem>#파</CookMaterialItem>
+                    </BannerItemCookMaterialItems>
+                    <CookMaterialItemPlus>+3</CookMaterialItemPlus>
+                  </BannerItemCookMaterial>
+                </BannerItemText>
+              </HomeOneMealBannerItem>
+            </Link>
+            <Link to="/OnemealView">
+              <HomeOneMealBannerItem>
+                <BannerItemImgWrap>
+                  <BannerItemImg src={bab} alt="" />
+                </BannerItemImgWrap>
+                <BannerItemText>
+                  <BannerItemCookName>요리명</BannerItemCookName>
+                  <BannerItemCookDate>2025-06-21</BannerItemCookDate>
+                  <BannerItemCookMaterial>
+                    <BannerItemCookMaterialItems>
+                      <CookMaterialItem>#양파</CookMaterialItem>
+                      <CookMaterialItem>#마늘</CookMaterialItem>
+                      <CookMaterialItem>#파</CookMaterialItem>
+                    </BannerItemCookMaterialItems>
+                    <CookMaterialItemPlus>+3</CookMaterialItemPlus>
+                  </BannerItemCookMaterial>
+                </BannerItemText>
+              </HomeOneMealBannerItem>
+            </Link>
+            <Link to="/OnemealView">
+              <HomeOneMealBannerItem>
+                <BannerItemImgWrap>
+                  <BannerItemImg src={bab} alt="" />
+                </BannerItemImgWrap>
+                <BannerItemText>
+                  <BannerItemCookName>요리명</BannerItemCookName>
+                  <BannerItemCookDate>2025-06-21</BannerItemCookDate>
+                  <BannerItemCookMaterial>
+                    <BannerItemCookMaterialItems>
+                      <CookMaterialItem>#양파</CookMaterialItem>
+                      <CookMaterialItem>#마늘</CookMaterialItem>
+                      <CookMaterialItem>#파</CookMaterialItem>
+                    </BannerItemCookMaterialItems>
+                    <CookMaterialItemPlus>+3</CookMaterialItemPlus>
+                  </BannerItemCookMaterial>
+                </BannerItemText>
+              </HomeOneMealBannerItem>
+            </Link>
           </HomeOneMealBanner>
-          <MoreBt>
-            <img src={morebt} alt="more" />
-          </MoreBt>
+          <Link to="/Onemeal">
+            <MoreBt>
+              <img src={morebt} alt="more" />
+            </MoreBt>
+          </Link>
         </HomeOneMealBannerWrap>
       </HomeOneMealWrap>
     </HomeOneMealMain>

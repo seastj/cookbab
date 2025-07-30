@@ -2,6 +2,8 @@ import styled from "@emotion/styled";
 import megaphonegray from "../images/megaphone_gray.svg";
 import morebt from "../images/more_bt.svg";
 import MonthCookGraph from "./MonthCookGraph";
+import LevelCookGraph from "./LevelCookGraph";
+import { Link } from "react-router-dom";
 
 const MealTotalWrap = styled.div``;
 const MealTotalContent = styled.div`
@@ -85,7 +87,6 @@ const MyMedalTitle = styled.div`
     font-weight: bold;
     font-size: 31px;
     color: #8e0c0c;
-    cursor: pointer;
   }
 `;
 const MyMedalMore = styled.div``;
@@ -128,7 +129,6 @@ const MyMedalPlusBt = styled.div`
   align-items: center;
   transform: translate(50%, 50%);
   box-shadow: 0px 2px 10px 0px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
 `;
 const MyMedalComment = styled.div`
   margin-top: 30px;
@@ -144,16 +144,20 @@ const MegaphoneImg = styled.img`
   height: 24px;
   width: 24px;
 `;
-function MealTotal() {
+function HomeMealTotal() {
   return (
     <MealTotalWrap>
       <MealTotalContent>
         {/* 월별 요리 기록 */}
         <MonthCookData>
           <MonthCookDataTitle>
-            <p>월별 요리 기록</p>
+            <Link to="./Mealtotal">
+              <p>월별 요리 기록</p>
+            </Link>
             <MonthCookDataMore>
-              <img src={morebt} alt="이미지" />
+              <Link to="./Mealtotal">
+                <img src={morebt} alt="이미지" />
+              </Link>
             </MonthCookDataMore>
           </MonthCookDataTitle>
           <MonthCookDataGraph>
@@ -163,19 +167,29 @@ function MealTotal() {
         {/* 월별 난이도별 요리 */}
         <MonthLevelCook>
           <MonthLevelCookTitle>
-            <p>이번 달 난이도별 기록</p>
+            <Link to="./Mealtotal">
+              <p>이번 달 자주 사용한 식재료</p>
+            </Link>
             <MonthLevelCookMore>
-              <img src={morebt} alt="이미지" />
+              <Link to="./Mealtotal">
+                <img src={morebt} alt="이미지" />
+              </Link>
             </MonthLevelCookMore>
           </MonthLevelCookTitle>
-          <MonthLevelCookGraph>{/* 그래프 */}</MonthLevelCookGraph>
+          <MonthLevelCookGraph>
+            <LevelCookGraph />
+          </MonthLevelCookGraph>
         </MonthLevelCook>
         {/* 나의 훈장 */}
         <MyMedal>
           <MyMedalTitle>
-            <p>나의 훈장</p>
+            <Link to="./Mealtotal">
+              <p>나의 훈장</p>
+            </Link>
             <MyMedalMore>
-              <img src={morebt} alt="이미지" />
+              <Link to="./Mealtotal">
+                <img src={morebt} alt="이미지" />
+              </Link>
             </MyMedalMore>
           </MyMedalTitle>
           <MyMedalContent>
@@ -210,9 +224,11 @@ function MealTotal() {
                 </MyMedalBox>
                 <MyMedalName>재료부자</MyMedalName>
               </MyMedalListItem>
-              <MyMedalPlusBt>
-                <img src={morebt} alt="morebt" />
-              </MyMedalPlusBt>
+              <Link to="./user">
+                <MyMedalPlusBt>
+                  <img src={morebt} alt="morebt" />
+                </MyMedalPlusBt>
+              </Link>
             </MyMedalList>
             {/* 랜덤멘트 */}
             <MyMedalComment>
@@ -226,4 +242,4 @@ function MealTotal() {
   );
 }
 
-export default MealTotal;
+export default HomeMealTotal;

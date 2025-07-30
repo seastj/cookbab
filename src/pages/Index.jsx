@@ -1,10 +1,9 @@
-import React from "react";
+import Footer from "../components/Footer";
 import Header from "../components/Header";
 import HomeBanner from "../components/HomeBanner";
+import HomeMealTotal from "../components/HomeMealTotal";
 import HomeOneMeal from "../components/HomeOneMeal";
-import WeekCook from "../components/WeekCook";
-import MealTotal from "../components/MealTotal";
-import Footer from "../components/Footer";
+import HomeWeekCook from "../components/HomeWeekCook";
 
 function Index() {
   return (
@@ -15,8 +14,8 @@ function Index() {
       <div>
         <HomeBanner></HomeBanner>
         <HomeOneMeal></HomeOneMeal>
-        <WeekCook></WeekCook>
-        <MealTotal></MealTotal>
+        <HomeWeekCook></HomeWeekCook>
+        <HomeMealTotal></HomeMealTotal>
       </div>
       <div>
         <Footer></Footer>

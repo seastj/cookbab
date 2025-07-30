@@ -24,7 +24,7 @@ function Line() {
 
   return (
     <div>
-      <div style={{ width: 490, height: 480 }}>
+      <div style={{ width: 530, height: 480 }}>
         <ResponsiveLine /* or Line for fixed dimensions */
           data={data}
           margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
@@ -44,16 +44,17 @@ function Line() {
           pointLabelYOffset={-12}
           enableTouchCrosshair={true}
           useMesh={true}
-          legends={[
-            {
-              anchor: "bottom-right",
-              direction: "column",
-              translateX: 100,
-              itemWidth: 80,
-              itemHeight: 22,
-              symbolShape: "circle",
-            },
-          ]}
+          // 오른쪽 요리횟수 삭제처리
+          // legends={[
+          //   {
+          //     anchor: "bottom-right",
+          //     direction: "column",
+          //     translateX: 100,
+          //     itemWidth: 80,
+          //     itemHeight: 22,
+          //     symbolShape: "circle",
+          //   },
+          // ]}
         />
       </div>
     </div>
