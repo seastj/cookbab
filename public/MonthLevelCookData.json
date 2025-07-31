@@ -1,32 +1,32 @@
 [
   {
-    "id": "php",
-    "label": "php",
-    "value": 490,
+    "id": "양파",
+    "label": "params1",
+    "value": 12,
     "color": "#bd1010"
   },
   {
-    "id": "erlang",
-    "label": "erlang",
-    "value": 439,
+    "id": "감자",
+    "label": "params2",
+    "value": 6,
     "color": "#f7a2a2"
   },
   {
-    "id": "css",
-    "label": "css",
-    "value": 116,
+    "id": "스팸",
+    "label": "params3",
+    "value": 4,
     "color": "#f37373"
   },
   {
-    "id": "python",
-    "label": "python",
-    "value": 210,
+    "id": "김치",
+    "label": "params4",
+    "value": 5,
     "color": "#ef4444"
   },
   {
-    "id": "java",
-    "label": "java",
-    "value": 465,
+    "id": "버섯",
+    "label": "params5",
+    "value": 5,
     "color": "#eb1515"
   }
 ]

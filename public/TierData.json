@@ -1,0 +1,17 @@
+[
+  {
+    "color": "#f7a2a2",
+    "tier": "쉬움",
+    "value": 18
+  },
+  {
+    "color": "#ef4444",
+    "tier": "보통",
+    "value": 10
+  },
+  {
+    "color": "#bd1010",
+    "tier": "어려움",
+    "value": 3
+  }
+]
