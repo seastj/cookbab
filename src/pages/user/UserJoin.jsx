@@ -5,6 +5,7 @@ import { Button, Form, Input } from "antd";
 import Question from "../../images/question.svg";
 import CameraAdd from "../../images/camera-pink.svg";
 import Footer from "../../components/Footer";
+import { useNavigate } from "react-router-dom";
 
 const JoinTitleWrap = styled.div`
   padding-top: 60px;
@@ -19,14 +20,12 @@ const JoinTitle = styled.p`
 `;
 const JoinBox = styled.div`
   width: 1200px;
-  height: 710px;
   border: 0.5px solid #c2c2c2;
   border-radius: 4px;
   margin: 0 auto;
-  display: flex;
+  margin-bottom: 50px;
 `;
 const JoinBoxItemWrap = styled.div`
-  width: 50%;
   padding: 79px 61px;
 `;
 const JoinBoxItemTitel = styled.p`
@@ -83,11 +82,35 @@ const JoinBoxItemPictureAdd = styled.div`
     height: 25px;
   }
 `;
+const JoinButton = styled(Button)`
+  width: 140px;
+  height: 50px;
+  background-color: #ef4444;
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  position: absolute;
+  right: 0;
+  border: none;
+  border-radius: 12px;
+  &:hover {
+    border: 1px solid #ef4444 !important;
+    color: #ef4444 !important;
+  }
+`;
 
 const StarText = styled.p`
   color: #8f8f8f;
   font-size: 16px;
   padding-top: 40px;
+`;
+
+const JoinBoxSelfBox = styled(Input.TextArea)`
+  border-radius: 10px;
+  color: #8f8f8f;
+  font-size: 16px;
+  resize: none;
+  height: 200px;
 `;
 
 function UserJoin() {
@@ -105,19 +128,19 @@ function UserJoin() {
   const onFinish = values => {
     console.log(values);
   };
-  // 1. 비밀번호 같은지 다른지 상태저장
-  const [match, setMetch] = useState(true);
-  // 2. Ant Design 에서 Form 요소를 저장해 두고 참조하기
+  const [match, setMatch] = useState(true);
   const [form] = Form.useForm();
-  // 3. 비밀번호가 바뀔 때 마다 체크함.
   const handleChangePassword = () => {
-    // name 이 password 인 필드의 값, 즉 value 읽기
-    const pw = form.getFieldValue("password");
-    // name 이 passwordConfirm 인 필드의 값, 즉 value 읽기
+    const pw = form.getFieldValue("userPass");
     const pwConfirm = form.getFieldValue("passwordConfirm");
     if (pwConfirm) {
-      setMetch(pw === pwConfirm);
+      setMatch(pw === pwConfirm);
     }
+  };
+  // 가입하기 클릭시 userguest 로 이동
+  const navigate = useNavigate();
+  const handClick = () => {
+    navigate("/user/guest");
   };
 
   // jsx 자리
@@ -128,27 +151,29 @@ function UserJoin() {
         <JoinTitle>회원가입</JoinTitle>
       </JoinTitleWrap>
       <JoinBox>
-        <JoinBoxItemWrap>
-          {/* box의 left */}
-          <div>
-            <JoinBoxItemTitel>이미지등록</JoinBoxItemTitel>
-            <JoinBoxItemPictureWrap>
-              <JoinBoxItemPicture>
-                <img src={Question} alt="사진없음" />
-              </JoinBoxItemPicture>
-              <JoinBoxItemPictureAdd>
-                <img src={CameraAdd} alt="사진등록" />
-              </JoinBoxItemPictureAdd>
-            </JoinBoxItemPictureWrap>
-          </div>
-          <Form
-            layout="vertical"
-            initialValues={initialValue}
-            onFieldsChange={(field, allFields) =>
-              onFiledsChange(field, allFields)
-            }
-            onFinish={values => onFinish(values)}
-          >
+        <Form
+          form={form}
+          layout="vertical"
+          style={{ display: "flex" }}
+          initialValues={initialValue}
+          onFieldsChange={(field, allFields) =>
+            onFiledsChange(field, allFields)
+          }
+          onFinish={values => onFinish(values)}
+        >
+          <JoinBoxItemWrap>
+            {/* box의 left */}
+            <div>
+              <JoinBoxItemTitel>이미지등록</JoinBoxItemTitel>
+              <JoinBoxItemPictureWrap>
+                <JoinBoxItemPicture>
+                  <img src={Question} alt="사진없음" />
+                </JoinBoxItemPicture>
+                <JoinBoxItemPictureAdd>
+                  <img src={CameraAdd} alt="사진등록" />
+                </JoinBoxItemPictureAdd>
+              </JoinBoxItemPictureWrap>
+            </div>
             <div>
               <Form.Item
                 label={<JoinBoxItemTitel>아이디</JoinBoxItemTitel>}
@@ -179,7 +204,10 @@ function UserJoin() {
                 ]}
                 colon={false}
               >
-                <JoinBoxItemInputPw placeholder="비밀번호를 입력하세요." />
+                <JoinBoxItemInputPw
+                  placeholder="비밀번호를 입력하세요."
+                  onChange={handleChangePassword}
+                />
               </Form.Item>
             </div>
             <div>
@@ -187,6 +215,9 @@ function UserJoin() {
                 name={"passwordConfirm"}
                 label={<JoinBoxItemTitel>비밀번호확인</JoinBoxItemTitel>}
                 required={true}
+                rules={[
+                  { required: true, message: "비밀번호 확인은 필수입니다." },
+                ]}
                 colon={false}
               >
                 <JoinBoxItemInputPw
@@ -198,19 +229,11 @@ function UserJoin() {
                 <div style={{ color: "red" }}>비밀번호가 다릅니다.</div>
               )}
             </div>
-          </Form>
-          <StarText> `*` 는 필수 입력항목 입니다.</StarText>
-        </JoinBoxItemWrap>
-        <JoinBoxItemWrap>
-          {/* box의 right */}
-          <Form
-            layout="vertical"
-            initialValues={initialValue}
-            onFieldsChange={(field, allFields) =>
-              onFiledsChange(field, allFields)
-            }
-            onFinish={values => onFinish(values)}
-          >
+
+            <StarText> `*` 는 필수 입력항목 입니다.</StarText>
+          </JoinBoxItemWrap>
+          <JoinBoxItemWrap>
+            {/* box의 right */}
             <div>
               <Form.Item
                 label={<JoinBoxItemTitel>이메일</JoinBoxItemTitel>}
@@ -225,32 +248,39 @@ function UserJoin() {
                 <JoinBoxItemInput placeholder="이메일을 입력하세요." />
               </Form.Item>
             </div>
-            <dv>
+            <div>
               <Form.Item
                 label={<JoinBoxItemTitel>주소</JoinBoxItemTitel>}
                 name={"address"}
                 required={false}
-                rules={[{ required: true, message: "주소를 입력해주세요." }]}
               >
                 <JoinBoxItemInput placeholder="주소를 입력해주세요." />
               </Form.Item>
-            </dv>
+            </div>
             <div>
               <Form.Item
                 label={<JoinBoxItemTitel>소개글</JoinBoxItemTitel>}
                 name="introduction"
                 required={false}
-                rules={[{ required: true, message: "소개글을 입력해주세요." }]}
                 colon={false}
               >
-                {/* <CustomTextArea placeholder="자기소개를 입력해주세요." /> */}
+                <JoinBoxSelfBox
+                  placeholder="자기소개를 입력해주세요."
+                  rows={6}
+                />
               </Form.Item>
             </div>
             <Form.Item>
-              <Button htmlType="submit">가입하기</Button>
+              <JoinButton
+                htmlType="submit"
+                disabled={!match}
+                onClick={handClick}
+              >
+                가입하기
+              </JoinButton>
             </Form.Item>
-          </Form>
-        </JoinBoxItemWrap>
+          </JoinBoxItemWrap>
+        </Form>
       </JoinBox>
       <Footer />
     </>
