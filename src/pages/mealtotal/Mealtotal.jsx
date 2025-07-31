@@ -4,6 +4,10 @@ import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import MonthCookGraph from "../../components/MonthCookGraph";
 import Calendar from "react-calendar";
+import CategoryGraph from "../../components/CategoryGraph";
+import TierGraph from "../../components/TierGraph";
+import CookTimeGraph from "../../components/CookTimeGraph";
+import ParamsGraph from "../../components/ParamsGraph";
 
 const MealTotalWrap = styled.div`
   width: 1200px;
@@ -159,27 +163,33 @@ const ChartsCalendar = styled.div`
   border: 1px solid #dbdbdb;
   width: 40%;
   min-height: 400px;
+  padding: 15px;
 `;
 const ChartsMonthCook = styled.div`
   border: 1px solid #dbdbdb;
   width: 60%;
+  padding: 15px;
 `;
 const ChartsRestLine = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
 `;
-const ChartsTierCook = styled.div`
-  border: 1px solid #dbdbdb;
-`;
 const ChartsCategoryCook = styled.div`
   border: 1px solid #dbdbdb;
+  padding: 15px;
+`;
+const ChartsTierCook = styled.div`
+  border: 1px solid #dbdbdb;
+  padding: 15px;
 `;
 const ChartsCookTime = styled.div`
   border: 1px solid #dbdbdb;
+  padding: 15px;
 `;
 const ChartsParams = styled.div`
   border: 1px solid #dbdbdb;
+  padding: 15px;
 `;
 
 function Mealtotal() {
@@ -250,10 +260,21 @@ function Mealtotal() {
               </ChartsMonthCook>
             </ChartsFirstLine>
             <ChartsRestLine>
-              <ChartsCategoryCook>카테고리별 분포</ChartsCategoryCook>
-              <ChartsTierCook>난이도별 요리 수</ChartsTierCook>
-              <ChartsCookTime>요리 시간 분포</ChartsCookTime>
-              <ChartsParams>자주 사용하는 재료</ChartsParams>
+              <ChartsCategoryCook>
+                카테고리별 분포
+                <CategoryGraph />
+              </ChartsCategoryCook>
+              <ChartsTierCook>
+                난이도별 요리 수<TierGraph />
+              </ChartsTierCook>
+              <ChartsCookTime>
+                요리 시간 분포
+                <CookTimeGraph />
+              </ChartsCookTime>
+              <ChartsParams>
+                자주 사용하는 재료
+                <ParamsGraph />
+              </ChartsParams>
             </ChartsRestLine>
           </ChartsWrap>
         </UserPerformanceWrap>

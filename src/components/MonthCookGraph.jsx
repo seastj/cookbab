@@ -24,9 +24,10 @@ function Line() {
 
   return (
     <div>
-      <div style={{ width: 530, height: 480 }}>
+      <div style={{ width: 750, height: 500 }}>
         <ResponsiveLine /* or Line for fixed dimensions */
           data={data}
+          colors={{ datum: "color" }}
           margin={{ top: 50, right: 110, bottom: 50, left: 60 }}
           yScale={{
             type: "linear",
