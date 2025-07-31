@@ -1,0 +1,32 @@
+[
+  {
+    "id": "php",
+    "label": "php",
+    "value": 490,
+    "color": "#bd1010"
+  },
+  {
+    "id": "erlang",
+    "label": "erlang",
+    "value": 439,
+    "color": "#f7a2a2"
+  },
+  {
+    "id": "css",
+    "label": "css",
+    "value": 116,
+    "color": "#f37373"
+  },
+  {
+    "id": "python",
+    "label": "python",
+    "value": 210,
+    "color": "#ef4444"
+  },
+  {
+    "id": "java",
+    "label": "java",
+    "value": 465,
+    "color": "#eb1515"
+  }
+]

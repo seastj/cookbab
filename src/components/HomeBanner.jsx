@@ -10,7 +10,7 @@ const BannerWrap = styled.div`
   & p {
     position: absolute;
     z-index: 100;
-    top: 54%;
+    top: 60%;
     left: 50%;
     transform: translate(-50%, 50%);
     color: #c2c2c2;
@@ -23,7 +23,7 @@ const BannerWrap = styled.div`
 const BannerImgWrap = styled.div`
   position: relative;
   display: block;
-  height: 600px;
+  height: 400px;
   width: 100%;
   &::after {
     position: absolute;

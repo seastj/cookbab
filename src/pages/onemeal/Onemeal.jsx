@@ -298,8 +298,9 @@ function Onemeal() {
             {/* itemboxs end */}
           </OnemealItemUl>
         </OnemealItemWrap>
-      </main>
-      <Footer></Footer>
+       </main>
+      <footer></footer>
+
     </div>
   );
 }
