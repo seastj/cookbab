@@ -32,6 +32,25 @@ function Onemeal() {
   // js자리
   // 전체 음식 관리 변수
   const [foodList, setFoodList] = useState([]);
+  //더미 데이터
+  const [foodPost, setFoodPost] = useState([
+    {
+      id: 1,
+      name: "김치볶음밥",
+      date: "2025-07-21",
+      cookTime: "10분 미만",
+      tags: ["스팸", "김치", "다진마늘"],
+      number: {},
+    },
+     {
+      id: 2,
+      name: "샐러드",
+      date: "2025-06-21",
+      cookTime: "1시간 미만",
+      tags: ["스팸", "김치", "다진마늘"],
+      number: {},
+    },
+  ]);
 
   // li 클릭시 이동
   const navigate = useNavigate();
