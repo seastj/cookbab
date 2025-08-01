@@ -50,12 +50,13 @@ export const OnemealClickWrap = styled.div`
 export const OnemealCateButton = styled.button`
   padding: 10px 30px;
   font-size: 20px;
-  background-color: #fff;
+  background-color: #dbdbdb;
   border: none;
   display: flex;
   text-align: center;
   align-items: center;
   font-weight: bold;
+  border-radius: 8px;
   color: #757575;
 `;
 export const OnemealItemWrap = styled.div`

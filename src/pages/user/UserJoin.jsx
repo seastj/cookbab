@@ -127,6 +127,7 @@ function UserJoin() {
   };
   const onFinish = values => {
     console.log(values);
+    navigate("/user/guest");
   };
   const [match, setMatch] = useState(true);
   const [form] = Form.useForm();
@@ -139,9 +140,6 @@ function UserJoin() {
   };
   // 가입하기 클릭시 userguest 로 이동
   const navigate = useNavigate();
-  const handClick = () => {
-    navigate("/user/guest");
-  };
 
   // jsx 자리
   return (
@@ -271,11 +269,7 @@ function UserJoin() {
               </Form.Item>
             </div>
             <Form.Item>
-              <JoinButton
-                htmlType="submit"
-                disabled={!match}
-                onClick={handClick}
-              >
+              <JoinButton htmlType="submit" disabled={!match}>
                 가입하기
               </JoinButton>
             </Form.Item>
