@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import UserSummaryInfo from "../../components/UserSummaryInfo";
 import styled from "@emotion/styled";
 import Header from "../../components/Header";
@@ -9,6 +9,7 @@ import arrow from "../../images/arrow.svg";
 import arrowfill from "../../images/arrow-filled.svg";
 import logouticon from "../../images/exit-light.svg";
 import questioncircled from "../../images/question-mark-circled.svg";
+import UserEditModal from "./UserEditModal";
 
 const UserWrap = styled.div`
   width: 1200px;
@@ -177,6 +178,10 @@ const UserMenuRight = styled.div`
 `;
 
 function User() {
+  const [userEdit, setUserEdit] = useState(false);
+  const openEdit = () => setUserEdit(true);
+  const closeEdit = () => setUserEdit(false);
+
   return (
     <>
       <Header />
@@ -194,7 +199,8 @@ function User() {
             </InfoLeftText>
           </UserInfoLeft>
           <InfoRight>
-            <InfoRightBt>프로필 수정</InfoRightBt>
+            <InfoRightBt onClick={openEdit}>프로필 수정</InfoRightBt>
+            {userEdit && <UserEditModal onClose={closeEdit} />}
           </InfoRight>
         </UserInfo>
         <UserSummaryInfoWrap>
