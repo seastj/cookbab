@@ -48,6 +48,17 @@ const UserInfoDate = styled.p`
   color: #292929;
 `;
 
+const UserSummaryInfoWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+const UserSummaryTitle = styled.p`
+  font-size: 25px;
+  font-weight: bold;
+  color: #8e0c0c;
+`;
+
 const UserPerformanceWrap = styled.div`
   display: flex;
   flex-direction: column;
@@ -129,7 +140,10 @@ function Mealtotal() {
           </UserInfo>
           <UserInfoDate>2025-06-15 부터 요리 시작</UserInfoDate>
         </UserInfoWrap>
-        <UserSummaryInfo />
+        <UserSummaryInfoWrap>
+          <UserSummaryTitle>이름님의 여정</UserSummaryTitle>
+          <UserSummaryInfo />
+        </UserSummaryInfoWrap>
         <UserPerformanceWrap>
           <UserPerformanceTitle>이름님의 성과</UserPerformanceTitle>
           <ChartsWrap>

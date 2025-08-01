@@ -5,11 +5,6 @@ const UserSummaryWrap = styled.div`
   flex-direction: column;
   gap: 10px;
 `;
-const UserSummaryTitle = styled.p`
-  font-size: 25px;
-  font-weight: bold;
-  color: #8e0c0c;
-`;
 const UserSummary = styled.div`
   display: flex;
   gap: 40px;
@@ -94,7 +89,6 @@ const UserSummaryComment = styled.p`
 function UserSummaryInfo() {
   return (
     <UserSummaryWrap>
-      <UserSummaryTitle>이름님의 여정 요약</UserSummaryTitle>
       <UserSummary>
         <UserSummaryItemW>
           <UserSummaryItemTitleW>나의 요리 레벨</UserSummaryItemTitleW>
