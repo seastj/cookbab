@@ -164,7 +164,7 @@ function HomeMealTotal() {
             <MonthCookGraph />
           </MonthCookDataGraph>
         </MonthCookData>
-        {/* 월별 난이도별 요리 */}
+        {/* 이번 달 자주사용한 식재료 */}
         <MonthLevelCook>
           <MonthLevelCookTitle>
             <Link to="./Mealtotal">

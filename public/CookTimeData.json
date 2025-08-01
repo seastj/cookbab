@@ -1,0 +1,32 @@
+[
+  {
+    "color": "#f7a2a2",
+    "time": "10분 미만",
+    "value": 5
+  },
+  {
+    "color": "#f37373",
+    "time": "10~30분",
+    "value": 10
+  },
+  {
+    "color": "#ef4444",
+    "time": "30~60분",
+    "value": 14
+  },
+  {
+    "color": "#eb1515",
+    "time": "1~2시간",
+    "value": 3
+  },
+  {
+    "color": "#bd1010",
+    "time": "2~3시간",
+    "value": 4
+  },
+  {
+    "color": "#8e0c0c",
+    "time": "3시간이상",
+    "value": 2
+  }
+]

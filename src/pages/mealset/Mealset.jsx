@@ -188,11 +188,13 @@ const SetBoxRegistrationText = styled.button`
 function Mealset() {
   // js 자리
   //  카테고리
+  // 종류가 많아서 value=4 미만은 숨김처리
   const categories = [
     "한식",
     "중식",
     "일식",
     "양식",
+    "분식",
     "야식",
     "다이어트",
     "기타",

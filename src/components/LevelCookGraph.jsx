@@ -39,6 +39,7 @@ function LevelCookGraph() {
       arcLabel={e => `${e.id} (${e.value})`}
       arcLabelsSkipAngle={11}
       arcLabelsTextColor="#ffffff"
+      theme={{ labels: { text: { fontWeight: "bold", fontSize: "16px" } } }}
       motionConfig={{
         mass: 1,
         tension: 170,

@@ -1,0 +1,50 @@
+[
+  {
+    "id": "한식",
+    "label": "params1",
+    "value": 12,
+    "color": "#f7a2a2"
+  },
+  {
+    "id": "중식",
+    "label": "params2",
+    "value": 6,
+    "color": "#f37373"
+  },
+  {
+    "id": "일식",
+    "label": "params3",
+    "value": 4,
+    "color": "#ef4444"
+  },
+  {
+    "id": "양식",
+    "label": "params4",
+    "value": 5,
+    "color": "#eb1515"
+  },
+  {
+    "id": "분식",
+    "label": "params5",
+    "value": 1,
+    "color": "#bd1010"
+  },
+  {
+    "id": "야식",
+    "label": "params6",
+    "value": 2,
+    "color": "#8e0c0c"
+  },
+  {
+    "id": "다이어트",
+    "label": "params7",
+    "value": 21,
+    "color": "#5f0808"
+  },
+  {
+    "id": "기타",
+    "label": "params8",
+    "value": 11,
+    "color": "#fbd1d1"
+  }
+]
