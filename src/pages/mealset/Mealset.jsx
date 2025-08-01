@@ -5,6 +5,7 @@ import styled from "@emotion/styled";
 import Back from "../../images/arrow.svg";
 import CameraPlus from "../../images/camera-plus.svg";
 import MealsetBase from "../../components/MealsetBase";
+import PlusMore from "../../images/more_bt.svg";
 
 const SetBoxWrap = styled.div`
   width: 1200px;
@@ -165,7 +166,13 @@ const SetBoxPlusBox = styled.div`
   background-color: #fff;
   box-shadow: 0px 4px 12px 4px rgba(0, 0, 0, 0.15);
   margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   cursor: pointer;
+  img {
+    width: 25px;
+  }
 `;
 
 const SetBoxRegistration = styled.div`
@@ -312,7 +319,7 @@ function Mealset() {
                     />
                   </div>
                   <SetBoxPlusBox>
-                    <img src="#" alt="추가" />
+                    <img src={PlusMore} alt="추가" />
                   </SetBoxPlusBox>
                 </div>
               </SetBoxTextWrap>
