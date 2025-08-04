@@ -182,7 +182,7 @@ const UserMenuRight = styled.div`
 function User() {
   const navigate = useNavigate();
   const handleCs = () => {
-    navigate("/CustomerServiceModal");
+    navigate(CustomerServiceModal);
   };
 
   const [userEdit, setUserEdit] = useState(false);
