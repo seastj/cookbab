@@ -1,8 +1,8 @@
 import styled from "@emotion/styled";
 import { Button, Form, Input } from "antd";
 import { useState } from "react";
-import CameraAdd from "../../images/camera-pink.svg";
-import Question from "../../images/question.svg";
+import CameraAdd from "../../../images/camera-pink.svg";
+import Question from "../../../images/question.svg";
 
 const Overlay = styled.div`
   position: fixed;

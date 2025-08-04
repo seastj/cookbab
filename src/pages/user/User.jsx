@@ -9,9 +9,9 @@ import arrow from "../../images/arrow.svg";
 import arrowfill from "../../images/arrow-filled.svg";
 import logouticon from "../../images/exit-light.svg";
 import questioncircled from "../../images/question-mark-circled.svg";
-import UserEditModal from "../../components/modal/UserEditModal";
+import UserEditModal from "../../components/modal/usereditmodal/UserEditModal";
 import { useNavigate } from "react-router-dom";
-import CustomerServiceModal from "../../components/modal/CustomerServiceModal";
+import CustomerServiceModal from "../../components/modal/customerservicemodal/CustomerServiceModal";
 
 const UserWrap = styled.div`
   width: 1200px;
@@ -180,14 +180,13 @@ const UserMenuRight = styled.div`
 `;
 
 function User() {
-  const navigate = useNavigate();
-  const handleCs = () => {
-    navigate(CustomerServiceModal);
-  };
-
   const [userEdit, setUserEdit] = useState(false);
   const openEdit = () => setUserEdit(true);
   const closeEdit = () => setUserEdit(false);
+
+  const [userCs, setUserCs] = useState(false);
+  const openCs = () => setUserCs(true);
+  const closeCs = () => setUserCs(false);
 
   return (
     <>
@@ -206,8 +205,8 @@ function User() {
             </InfoLeftText>
           </UserInfoLeft>
           <InfoRight>
-            <InfoRightBt onClick={openEdit}>프로필 수정</InfoRightBt>
             {userEdit && <UserEditModal closeEdit={closeEdit} />}
+            <InfoRightBt onClick={openEdit}>프로필 수정</InfoRightBt>
           </InfoRight>
         </UserInfo>
         <UserSummaryInfoWrap>
@@ -228,9 +227,10 @@ function User() {
           </MedalContents>
         </UserMedalWrap>
         <UserMenuWrap>
-          <UserMenu>
+          <UserMenu onClick={openCs}>
+            {userCs && <CustomerServiceModal closeCs={closeCs} />}
             <UserMenuLeft>
-              <UserMenuLeftIcon onClick={handleCs}>
+              <UserMenuLeftIcon>
                 <img src={questioncircled} alt="고객센터" />
               </UserMenuLeftIcon>
               <UserMenuLeftText>고객센터</UserMenuLeftText>
