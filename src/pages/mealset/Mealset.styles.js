@@ -117,11 +117,6 @@ export const SetBoxLevelButtonLi = styled.li`
   font-weight: bold;
   flex-shrink: 0;
   cursor: pointer;
-  &:hover {
-    background-color: #f37373;
-    color: #fff;
-    border: none;
-  }
 `;
 export const SetBoxTagWrap = styled.div`
   display: flex;

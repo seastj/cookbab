@@ -34,6 +34,7 @@ import {
   SetBoxTextWrap,
   SetBoxWrap,
 } from "./Mealset.styles";
+import { useNavigate } from "react-router-dom";
 
 function Mealset() {
   // js 자리
@@ -66,6 +67,9 @@ function Mealset() {
 
   // 난이도
   const [level, setLevel] = useState();
+  const onLevelClick = selectedLevel => {
+    setLevel(selectedLevel);
+  };
 
   // 해시태그들
   const [ingredientInput, setIngredientInput] = useState("");
@@ -214,9 +218,33 @@ function Mealset() {
                   <SetBoxSubTitle>난이도</SetBoxSubTitle>
                   <SetBoxLevelButtonWrap>
                     <SetBoxLevelButtonUl>
-                      <SetBoxLevelButtonLi>쉬움</SetBoxLevelButtonLi>
-                      <SetBoxLevelButtonLi>보통</SetBoxLevelButtonLi>
-                      <SetBoxLevelButtonLi>어려움</SetBoxLevelButtonLi>
+                      {["쉬움", "보통", "어려움"].map(item =>
+                        level === item ? (
+                          <SetBoxLevelButtonLi
+                            key={item}
+                            onClick={() => onLevelClick(item)}
+                            style={{
+                              backgroundColor: "#f37373",
+                              color: "#fff",
+                              border: "none",
+                            }}
+                          >
+                            {item}
+                          </SetBoxLevelButtonLi>
+                        ) : (
+                          <SetBoxLevelButtonLi
+                            key={item}
+                            onClick={() => onLevelClick(item)}
+                            style={{
+                              backgroundColor: "#fff",
+                              color: "#a8a8a8",
+                              border: "1px solid #a8a8a8",
+                            }}
+                          >
+                            {item}
+                          </SetBoxLevelButtonLi>
+                        ),
+                      )}
                     </SetBoxLevelButtonUl>
                   </SetBoxLevelButtonWrap>
                 </div>
