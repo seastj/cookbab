@@ -10,6 +10,7 @@ import CookTimeGraph from "../../components/CookTimeGraph";
 import ParamsGraph from "../../components/ParamsGraph";
 import LevelCookGraph from "../../components/LevelCookGraph";
 import UserSummaryInfo from "../../components/UserSummaryInfo";
+import "../../pages/calendar.css";
 
 const MealTotalWrap = styled.div`
   width: 1200px;
@@ -87,6 +88,9 @@ const ChartsCalendar = styled.div`
   width: 40%;
   min-height: 400px;
   padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 
   border-radius: 4px;
 `;

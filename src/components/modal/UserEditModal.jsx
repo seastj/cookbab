@@ -89,7 +89,7 @@ const JoinButton = styled(Button)`
   font-size: 20px;
   font-weight: bold;
   position: absolute;
-  right: 0;
+  right: 35%;
   border: none;
   border-radius: 12px;
   &:hover {
@@ -128,7 +128,7 @@ const JoinBoxSelfBox = styled(Input.TextArea)`
   height: 200px;
 `;
 
-function UserEditModal() {
+function UserEditModal({ closeEdit }) {
   // js 자리
   const initialValue = {
     userId: "",
@@ -277,7 +277,7 @@ function UserEditModal() {
             </div>
             <Form.Item>
               <JoinButton htmlType="submit">수정</JoinButton>
-              <CancleButton>취소</CancleButton>
+              <CancleButton onClick={closeEdit}>취소</CancleButton>
             </Form.Item>
           </JoinBoxItemWrap>
         </Form>
