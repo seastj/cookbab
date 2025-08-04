@@ -9,7 +9,9 @@ import arrow from "../../images/arrow.svg";
 import arrowfill from "../../images/arrow-filled.svg";
 import logouticon from "../../images/exit-light.svg";
 import questioncircled from "../../images/question-mark-circled.svg";
-import UserEditModal from "./UserEditModal";
+import UserEditModal from "../../components/modal/UserEditModal";
+import { useNavigate } from "react-router-dom";
+import CustomerServiceModal from "../../components/modal/CustomerServiceModal";
 
 const UserWrap = styled.div`
   width: 1200px;
@@ -178,6 +180,11 @@ const UserMenuRight = styled.div`
 `;
 
 function User() {
+  const navigate = useNavigate();
+  const handleCs = () => {
+    navigate("/CustomerServiceModal");
+  };
+
   const [userEdit, setUserEdit] = useState(false);
   const openEdit = () => setUserEdit(true);
   const closeEdit = () => setUserEdit(false);
@@ -200,7 +207,7 @@ function User() {
           </UserInfoLeft>
           <InfoRight>
             <InfoRightBt onClick={openEdit}>프로필 수정</InfoRightBt>
-            {userEdit && <UserEditModal onClose={closeEdit} />}
+            {userEdit && <UserEditModal closeEdit={closeEdit} />}
           </InfoRight>
         </UserInfo>
         <UserSummaryInfoWrap>
@@ -223,7 +230,7 @@ function User() {
         <UserMenuWrap>
           <UserMenu>
             <UserMenuLeft>
-              <UserMenuLeftIcon>
+              <UserMenuLeftIcon onClick={handleCs}>
                 <img src={questioncircled} alt="고객센터" />
               </UserMenuLeftIcon>
               <UserMenuLeftText>고객센터</UserMenuLeftText>
