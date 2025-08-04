@@ -23,7 +23,6 @@ export const SetBoxBackArrow = styled.div`
 `;
 export const SetBox = styled.div`
   width: 1240px;
-  height: 1018px;
   background-color: #fff;
   box-shadow: 3px 3px 20px 0px rgba(0, 0, 0, 0.25);
   display: flex;
@@ -34,6 +33,7 @@ export const SetBoxDetailWrap = styled.div`
   height: 100%;
   width: 600px;
   padding: 48px 92px;
+  padding-right: 38px;
 `;
 export const SetBoxFoodPictureWrap = styled.div`
   margin-bottom: 60px;
@@ -51,6 +51,8 @@ export const SetBoxPictureBox = styled.div`
   height: 242px;
   border-radius: 20px;
   cursor: pointer;
+  overflow: hidden;
+  object-fit: contain;
 `;
 export const SetBoxPictureBoxTitleWrap = styled.div`
   position: absolute;
@@ -59,6 +61,7 @@ export const SetBoxPictureBoxTitleWrap = styled.div`
   margin: 0 auto;
   width: 100%;
   text-align: center;
+
   img {
     width: 41px;
   }
@@ -125,10 +128,16 @@ export const SetBoxTagWrap = styled.div`
   flex-wrap: wrap;
   gap: 14px;
   margin-bottom: 30px;
+  margin-top: 10px;
 `;
 export const SetBoxTagSpan = styled.span`
   border: 1px solid #8f8f8f;
-  padding: 10px 8px;
+  padding: 6px 8px;
+  border-radius: 10px;
+`;
+export const SetBoxCookStepWrap = styled.div`
+  position: relative;
+  display: block;
 `;
 
 export const SetBoxCookStepsNumber = styled.div`
@@ -153,6 +162,7 @@ export const SetBoxCookStepsTextarea = styled.textarea`
 export const SetBoxPlusBox = styled.div`
   position: absolute;
   left: 50%;
+  transform: translateX(-50%);
   width: 50px;
   height: 50px;
   border-radius: 50%;
@@ -168,11 +178,26 @@ export const SetBoxPlusBox = styled.div`
   }
 `;
 
-export const SetBoxRegistration = styled.div`
+export const SetBoxMinusBox = styled.button`
   position: absolute;
+  right: 0px;
+  top: 0;
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  background-color: #fff;
+  box-shadow: 0px 4px 12px 4px rgba(0, 0, 0, 0.15);
+  border: none;
+  cursor: pointer;
+  img {
+    width: 100%;
+  }
+`;
+
+export const SetBoxRegistration = styled.div`
   bottom: 78px;
   left: 50%;
-  transform: translateX(-50%);
+  padding-top: 50px;
 `;
 export const SetBoxRegistrationText = styled.button`
   color: #fff;
@@ -183,4 +208,10 @@ export const SetBoxRegistrationText = styled.button`
   border-radius: 12px;
   cursor: pointer;
   border: none;
+  margin: 30px auto;
+  display: block;
+`;
+
+export const SetBoxNumMiuWrap = styled.div`
+  position: relative;
 `;

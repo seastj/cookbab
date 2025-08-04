@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import styled from "@emotion/styled";
@@ -6,18 +6,22 @@ import Back from "../../images/arrow.svg";
 import CameraPlus from "../../images/camera-plus.svg";
 import MealsetBase from "../../components/MealsetBase";
 import PlusMore from "../../images/more_bt.svg";
+import Minus from "../../images/minus.svg";
 import {
   SetBox,
   SetBoxBackArrow,
   SetBoxCookNameInput,
   SetBoxCookStepsNumber,
   SetBoxCookStepsTextarea,
+  SetBoxCookStepWrap,
   SetBoxDetailWrap,
   SetBoxFoodPictureWrap,
   SetBoxLevelButtonLi,
   SetBoxLevelButtonUl,
   SetBoxLevelButtonWrap,
   SetBOxMainTitle,
+  SetBoxMinusBox,
+  SetBoxNumMiuWrap,
   SetBoxPictureBox,
   SetBoxPictureBoxTitleWrap,
   SetBoxPlusBox,
@@ -64,16 +68,69 @@ function Mealset() {
   const [level, setLevel] = useState();
 
   // 해시태그들
+  const [ingredientInput, setIngredientInput] = useState("");
   const [userTags, setUserTags] = useState([]);
+
+  // 인풋의 값 변경 핸들러
+  const onIngredientInputChange = e => {
+    setIngredientInput(e.target.value);
+  };
+
+  // Enter(혹은 ,) 키를 눌렀을 때 태그 추가
+  const onIngredientInputKeyDown = e => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      const newTag = ingredientInput.trim();
+      if (newTag && !userTags.includes(newTag)) {
+        setUserTags(prev => [...prev, newTag]);
+      }
+      setIngredientInput("");
+    }
+  };
+
+  // 태그 삭제 함수(필요시)
+  const removeTag = tagToRemove => {
+    setUserTags(userTags.filter(tag => tag !== tagToRemove));
+  };
+
   //조리단계
-  const [text, setText] = useState();
+  const [cookSteps, setCookSteps] = useState([""]);
+  const onCookStepChange = (index, value) => {
+    const newSteps = [...cookSteps];
+    newSteps[index] = value;
+    setCookSteps(newSteps);
+  };
+  // 새 조리단계 추가
+  const onAddCookStep = () => {
+    setCookSteps([...cookSteps, ""]);
+  };
+  // 조리단계 삭제
+  const onRemoveCookStep = idx => {
+    setCookSteps(steps => steps.filter((_, i) => i !== idx));
+  };
   // 새로고침방지
   const handleSubmit = e => {
     e.preventDefault();
   };
 
-// 버튼클릭시 아무내용 없을시
-
+  // 사진추가
+  const [imageUrl, setImageUrl] = useState(null);
+  const fileInputRef = useRef(null);
+  // 클릭하면 숨겨진 파일 선택창 열기
+  const onPictureBoxClick = () => {
+    fileInputRef.current.click();
+  };
+  // 파일 선택 후 미리보기 생성
+  const onFileChange = e => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImageUrl(reader.result); // base64 이미지 URL
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   // jsx 자리
   return (
@@ -90,9 +147,29 @@ function Mealset() {
               <SetBoxFoodPictureWrap>
                 <SetBOxMainTitle>요리사진</SetBOxMainTitle>
                 <SetBoxPictureBox>
-                  <SetBoxPictureBoxTitleWrap>
-                    <img src={CameraPlus} alt="사진추가" />
-                    <p>클릭해 사진을 추가해 하세요.</p>
+                  <SetBoxPictureBoxTitleWrap onClick={onPictureBoxClick}>
+                    {imageUrl ? (
+                      <img
+                        src={imageUrl}
+                        alt="선택된 사진"
+                        style={{
+                          width: "100%",
+                          height: "100%",
+                        }}
+                      />
+                    ) : (
+                      <>
+                        <img src={CameraPlus} alt="사진추가" />
+                        <p>클릭해 사진을 추가해 하세요.</p>
+                      </>
+                    )}
+                    <input
+                      type="file"
+                      accept="image/*"
+                      style={{ display: "none" }}
+                      ref={fileInputRef}
+                      onChange={onFileChange}
+                    />
                   </SetBoxPictureBoxTitleWrap>
                 </SetBoxPictureBox>
               </SetBoxFoodPictureWrap>
@@ -152,28 +229,51 @@ function Mealset() {
                 <SetBoxCookNameInput
                   type="text"
                   placeholder="# 재료 입력 후 Enter를 눌러주세요."
+                  value={ingredientInput}
+                  onChange={onIngredientInputChange}
+                  onKeyDown={onIngredientInputKeyDown}
                 />
                 <SetBoxTagWrap>
                   {/* 사용자가 입력한 내용 */}
                   {userTags.map((item, index) => (
-                    <SetBoxTagSpan key={index}>#{item}</SetBoxTagSpan>
+                    <SetBoxTagSpan
+                      key={index}
+                      onClick={() => removeTag(item)}
+                      style={{ cursor: "pointer" }}
+                    >
+                      #{item}
+                    </SetBoxTagSpan>
                   ))}
                 </SetBoxTagWrap>
-                <div>
+                <SetBoxCookStepWrap>
                   <SetBoxSubTitle>만드는 순서</SetBoxSubTitle>
-                  <div>
-                    <SetBoxCookStepsNumber>1</SetBoxCookStepsNumber>
-                    <SetBoxCookStepsTextarea
-                      value={text}
-                      onChange={e => setText(e.target.value)}
-                      placeholder="단계를 설명해주세요."
-                      rows={3}
-                    />
-                  </div>
-                  <SetBoxPlusBox>
+                  {cookSteps.map((step, index) => (
+                    <div key={index} style={{ marginBottom: 20 }}>
+                      <SetBoxNumMiuWrap>
+                        <SetBoxCookStepsNumber>
+                          {index + 1}
+                        </SetBoxCookStepsNumber>
+                        {index > 0 && (
+                          <SetBoxMinusBox
+                            type="button"
+                            onClick={() => onRemoveCookStep(index)}
+                          >
+                            <img src={Minus} alt="빼기" />
+                          </SetBoxMinusBox>
+                        )}
+                      </SetBoxNumMiuWrap>
+                      <SetBoxCookStepsTextarea
+                        value={step}
+                        onChange={e => onCookStepChange(index, e.target.value)}
+                        placeholder="단계를 설명해주세요."
+                        rows={3}
+                      />
+                    </div>
+                  ))}
+                  <SetBoxPlusBox onClick={onAddCookStep}>
                     <img src={PlusMore} alt="추가" />
                   </SetBoxPlusBox>
-                </div>
+                </SetBoxCookStepWrap>
               </SetBoxTextWrap>
               <SetBoxRegistration>
                 <SetBoxRegistrationText type="submit">
