@@ -92,13 +92,9 @@ export const OnemealCookTime = styled.div`
   position: absolute;
   top: 14px;
   right: 16px;
-  background-color: rgba(255, 255, 255, 0.8);
-  width: 66px;
-  height: 30px;
-  display: flex;
-  text-align: center;
-  align-items: center;
-  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 5px 8px;
+  font-size: 16px;
   border-radius: 10px;
 `;
 export const OnemealTextWrap = styled.div`
@@ -119,7 +115,7 @@ export const OnemealItemTagWrap = styled.div`
   gap: 10px;
 `;
 export const OnemealItemTag = styled.p`
-  padding: 8px 10px;
+  padding: 5px 8px;
   border: 1px solid #8f8f8f;
   border-radius: 10px;
   font-size: 16px;

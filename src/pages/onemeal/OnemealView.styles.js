@@ -22,7 +22,9 @@ export const SetBoxBackArrow = styled.div`
   }
 `;
 export const SetBox = styled.div`
+  position: relative;
   width: 1240px;
+  height: 1018px;
   background-color: #fff;
   box-shadow: 3px 3px 20px 0px rgba(0, 0, 0, 0.25);
   display: flex;
@@ -30,20 +32,14 @@ export const SetBox = styled.div`
 `;
 export const SetBoxDetailWrap = styled.div`
   position: relative;
-
+  height: 100%;
   width: 600px;
   padding: 48px 92px;
-  padding-right: 38px;
 `;
 export const SetBoxFoodPictureWrap = styled.div`
-  margin-bottom: 60px;
+  margin-bottom: 25px;
 `;
-export const SetBOxMainTitle = styled.p`
-  font-weight: bold;
-  font-size: 25px;
-  color: #8e0c0c;
-  margin-bottom: 30px;
-`;
+
 export const SetBoxPictureBox = styled.div`
   position: relative;
   background-color: #d9d9d9;
@@ -51,51 +47,38 @@ export const SetBoxPictureBox = styled.div`
   height: 242px;
   border-radius: 20px;
   cursor: pointer;
-  overflow: hidden;
-  object-fit: contain;
 `;
-export const SetBoxPictureBoxTitleWrap = styled.div`
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  margin: 0 auto;
-  width: 100%;
-  text-align: center;
+export const SetBoxCookName = styled.p`
+  font-size: 25px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #ef4444;
+`;
 
-  img {
-    width: 41px;
-  }
-  p {
-    font-size: 20px;
-    color: #5c5c5c;
-  }
-`;
 export const SetBoxSubTitle = styled.p`
-  position: relative;
   font-size: 20px;
   color: #0f0f0f;
   margin-bottom: 19px;
-`;
-export const SetBoxCookNameInput = styled.input`
-  width: 473px;
-  height: 50px;
-  border-radius: 10px;
-  border: 1px solid #b3b3b3;
-  padding-left: 20px;
-  font-size: 16px;
-`;
-export const SetBoxTextWrap = styled.div`
-  margin-bottom: 30px;
-`;
-export const SetBoxSelect = styled.select`
-  width: 473px;
-  height: 50px;
-  border-radius: 10px;
-  border: 1px solid #b3b3b3;
-  padding: 0px 20px;
-  font-size: 16px;
+  font-weight: bold;
 `;
 
+export const SetBoxTextWrap = styled.div`
+  margin-bottom: 30px;
+  display: flex;
+`;
+export const SetBoxCookCate = styled.div`
+  padding-right: 50px;
+  display: flex;
+  gap: 5px;
+  font-size: 20px;
+  align-items: center;
+  img {
+    width: 22px;
+  }
+`;
+export const SetBoxLevelWrap = styled.div`
+  margin-bottom: 58px;
+`;
 export const SetBoxLevelButtonWrap = styled.div``;
 export const SetBoxLevelButtonUl = styled.ul`
   width: 100%;
@@ -116,24 +99,21 @@ export const SetBoxLevelButtonLi = styled.li`
   font-size: 20px;
   font-weight: bold;
   flex-shrink: 0;
-  cursor: pointer;
+  &:hover {
+    background-color: #f37373;
+    color: #fff;
+    border: none;
+  }
 `;
 export const SetBoxTagWrap = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 14px;
   margin-bottom: 30px;
-  margin-top: 10px;
 `;
 export const SetBoxTagSpan = styled.span`
   border: 1px solid #8f8f8f;
-  padding: 6px 8px;
-  border-radius: 10px;
-`;
-export const SetBoxCookStepWrap = styled.div`
-  position: relative;
-
-  padding-bottom: 130px;
+  padding: 10px 8px;
 `;
 
 export const SetBoxCookStepsNumber = styled.div`
@@ -155,60 +135,41 @@ export const SetBoxCookStepsTextarea = styled.textarea`
   border-radius: 10px;
   margin-bottom: 24px;
 `;
-export const SetBoxPlusBox = styled.div`
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: #fff;
-  box-shadow: 0px 4px 12px 4px rgba(0, 0, 0, 0.15);
-  margin-bottom: 20px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  img {
-    width: 25px;
-  }
-`;
-
-export const SetBoxMinusBox = styled.button`
-  position: absolute;
-  right: 0px;
-  top: 0;
-  height: 25px;
-  width: 25px;
-  border-radius: 50%;
-  background-color: #fff;
-  box-shadow: 0px 4px 12px 4px rgba(0, 0, 0, 0.15);
-  border: none;
-  cursor: pointer;
-  img {
-    width: 100%;
-  }
-`;
 
 export const SetBoxRegistration = styled.div`
   position: absolute;
-  bottom: 20px;
-  left: 35%;
+  bottom: 78px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 36px;
+  cursor: pointer;
 `;
-export const SetBoxRegistrationText = styled.button`
-  color: #fff;
-  font-weight: bold;
-  font-size: 20px;
+export const SetBoxRegistrationAdd = styled.button`
   width: 225px;
   height: 50px;
   background-color: #ef4444;
   border-radius: 12px;
-  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: bold;
+  font-size: 20px;
   border: none;
-  margin: 30px auto;
-  display: block;
+  cursor: pointer;
 `;
-
-export const SetBoxNumMiuWrap = styled.div`
-  position: relative;
+export const SetBoxRegistrationDelete = styled.button`
+  width: 225px;
+  height: 50px;
+  background-color: #8f8f8f;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-weight: bold;
+  font-size: 20px;
+  border: none;
+  cursor: pointer;
 `;
