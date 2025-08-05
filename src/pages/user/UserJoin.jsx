@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import Header from "../../components/Header";
 import styled from "@emotion/styled";
 import { Button, Form, Input } from "antd";
@@ -6,115 +6,26 @@ import Question from "../../images/question.svg";
 import CameraAdd from "../../images/camera-pink.svg";
 import Footer from "../../components/Footer";
 import { useNavigate } from "react-router-dom";
-
-const JoinTitleWrap = styled.div`
-  padding-top: 60px;
-  margin-bottom: 76px;
-`;
-const JoinTitle = styled.p`
-  display: flex;
-  justify-content: center;
-  font-weight: bold;
-  font-size: 31px;
-  color: #ef4444;
-`;
-const JoinBox = styled.div`
-  width: 1200px;
-  border: 0.5px solid #c2c2c2;
-  border-radius: 4px;
-  margin: 0 auto;
-  margin-bottom: 50px;
-`;
-const JoinBoxItemWrap = styled.div`
-  padding: 79px 61px;
-`;
-const JoinBoxItemTitel = styled.p`
-  font-size: 25px;
-  font-weight: bold;
-`;
-const JoinBoxItemInput = styled(Input)`
-  width: 473px;
-  height: 50px;
-  border-radius: 10px;
-  border: 1px solid #b3b3b3;
-  font-size: 16px;
-`;
-const JoinBoxItemInputPw = styled(Input.Password)`
-  width: 473px;
-  height: 50px;
-  border-radius: 10px;
-  border: 1px solid #b3b3b3;
-  font-size: 16px;
-`;
-const JoinBoxItemPictureWrap = styled.div`
-  position: relative;
-  left: 40%;
-  margin-bottom: 25px;
-`;
-const JoinBoxItemPicture = styled.div`
-  position: relative;
-  width: 111px;
-  height: 111px;
-  background-color: #d9d9d9;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  img {
-    width: 31px;
-  }
-`;
-const JoinBoxItemPictureAdd = styled.div`
-  position: absolute;
-  bottom: -5px;
-  left: 85px;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: #fff;
-  box-shadow: 0px 4px 12px 4px rgba(0, 0, 0, 0.15);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  img {
-    width: 25px;
-    height: 25px;
-  }
-`;
-const JoinButton = styled(Button)`
-  width: 140px;
-  height: 50px;
-  background-color: #ef4444;
-  color: #fff;
-  font-size: 20px;
-  font-weight: bold;
-  position: absolute;
-  right: 0;
-  border: none;
-  border-radius: 12px;
-  &:hover {
-    border: 1px solid #ef4444 !important;
-    color: #ef4444 !important;
-  }
-`;
-
-const StarText = styled.p`
-  color: #8f8f8f;
-  font-size: 16px;
-  padding-top: 40px;
-`;
-
-const JoinBoxSelfBox = styled(Input.TextArea)`
-  border-radius: 10px;
-  color: #8f8f8f;
-  font-size: 16px;
-  resize: none;
-  height: 200px;
-`;
+import {
+  JoinBox,
+  JoinBoxItemInput,
+  JoinBoxItemInputPw,
+  JoinBoxItemPicture,
+  JoinBoxItemPictureAdd,
+  JoinBoxItemPictureWrap,
+  JoinBoxItemTitel,
+  JoinBoxItemWrap,
+  JoinBoxSelfBox,
+  JoinButton,
+  JoinTitle,
+  JoinTitleWrap,
+  StarText,
+} from "./UserJoin.styles";
 
 function UserJoin() {
   // js 자리
+
+  // 첫화면
   const initialValue = {
     userId: "",
     userPass: "",
@@ -122,6 +33,7 @@ function UserJoin() {
     email: "",
     address: "",
   };
+
   const onFiledsChange = (field, allFields) => {
     console.log(field[0].value);
   };
@@ -140,6 +52,25 @@ function UserJoin() {
   };
   // 가입하기 클릭시 userguest 로 이동
   const navigate = useNavigate();
+
+  // 이미지 추가
+  const [profileImg, setProfileImg] = useState(null);
+  const fileInputRef = useRef(null);
+
+  const onCameraClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const onProfileImgChange = e => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setProfileImg(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   // jsx 자리
   return (
@@ -165,10 +96,25 @@ function UserJoin() {
               <JoinBoxItemTitel>이미지등록</JoinBoxItemTitel>
               <JoinBoxItemPictureWrap>
                 <JoinBoxItemPicture>
-                  <img src={Question} alt="사진없음" />
+                  {profileImg ? (
+                    <img src={profileImg} alt="프로필" />
+                  ) : (
+                    <img
+                      src={Question}
+                      style={{ width: "30px", height: "30px" }}
+                      alt="사진없음"
+                    />
+                  )}
                 </JoinBoxItemPicture>
-                <JoinBoxItemPictureAdd>
+                <JoinBoxItemPictureAdd onClick={onCameraClick}>
                   <img src={CameraAdd} alt="사진등록" />
+                  <input
+                    type="file"
+                    accept="image/*"
+                    style={{ display: "none" }}
+                    ref={fileInputRef}
+                    onChange={onProfileImgChange}
+                  />
                 </JoinBoxItemPictureAdd>
               </JoinBoxItemPictureWrap>
             </div>

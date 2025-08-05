@@ -38,9 +38,19 @@ import { useNavigate } from "react-router-dom";
 
 function Mealset() {
   // js 자리
+  // 뒤로가기
+  const navigate = useNavigate();
+  const BackButton = () => {
+    navigate("/");
+  };
+  //등록하기클릭시 view 로 이동
+
+  const RegistrationButton = () => {
+    navigate("/onemeal/view");
+  };
 
   // 요리명
-  const [cookName, setCookName] = useState();
+  const [cookName, setCookName] = useState("");
 
   // 종류가 많아서 value=4 미만은 숨김처리
   const categories = [
@@ -53,7 +63,7 @@ function Mealset() {
     "다이어트",
     "기타",
   ];
-  const [category, setCategory] = useState();
+  const [category, setCategory] = useState("");
   // 조리시간
   const times = [
     "10분 미만",
@@ -63,10 +73,10 @@ function Mealset() {
     "2시간~3시간",
     "3시간이상",
   ];
-  const [cookTime, setCookTime] = useState();
+  const [cookTime, setCookTime] = useState("");
 
   // 난이도
-  const [level, setLevel] = useState();
+  const [level, setLevel] = useState("");
   const onLevelClick = selectedLevel => {
     setLevel(selectedLevel);
   };
@@ -136,6 +146,37 @@ function Mealset() {
     }
   };
 
+  // 모든 데이터 정보 검사 함수
+  const dataFinishValid = () => {
+    if (!imageUrl) return "요리사진을 추가해주세요.";
+    if (!cookName || cookName.trim() === "") return "요리 이름을 입력해주세요.";
+    if (!category || category.trim() === "") return "카테고리를 선택해주세요.";
+    if (!cookTime || cookTime.trim() === "") return "조리시간을 선택해주세요.";
+    if (!level || level.trim() === "") return "난이도를 선택해주세요.";
+    if (userTags.length === 0) return "재료를 1개 이상 입력해주세요.";
+    if (cookSteps.length === 0) return "만드는 순서를 1단계 이상 입력해주세요.";
+    for (const step of cookSteps) {
+      if (!step || step.trim() === "")
+        return "만드는 순서에 빈칸이 있습니다. 모두 작성해주세요.";
+    }
+    return null;
+  };
+  const finishRegisterClick = () => {
+    const errorMessage = dataFinishValid();
+    if (errorMessage) {
+      alert(errorMessage);
+      return;
+    }
+    const confirmResult = window.confirm("정말 등록하시겠습니까?");
+    if (confirmResult) {
+      RegistrationButton(); // 등록 처리 및 페이지 이동
+    } else {
+      // 취소 시 별도 작업 없음
+    }
+  };
+
+  // 등록하기 버튼 클릭시 확인창
+
   // jsx 자리
   return (
     <>
@@ -143,7 +184,7 @@ function Mealset() {
       <main>
         <MealsetBase />
         <SetBoxWrap>
-          <SetBoxBackArrow>
+          <SetBoxBackArrow onClick={BackButton}>
             <img src={Back} alt="이전" />
           </SetBoxBackArrow>
           <SetBox onSubmit={handleSubmit}>
@@ -184,6 +225,8 @@ function Mealset() {
                   <SetBoxCookNameInput
                     type="text"
                     placeholder="예: 김치볶음밥"
+                    value={cookName || ""}
+                    onChange={e => setCookName(e.target.value)}
                   />
                 </SetBoxTextWrap>
                 <SetBoxTextWrap>
@@ -262,7 +305,6 @@ function Mealset() {
                   onKeyDown={onIngredientInputKeyDown}
                 />
                 <SetBoxTagWrap>
-                  {/* 사용자가 입력한 내용 */}
                   {userTags.map((item, index) => (
                     <SetBoxTagSpan
                       key={index}
@@ -304,7 +346,10 @@ function Mealset() {
                 </SetBoxCookStepWrap>
               </SetBoxTextWrap>
               <SetBoxRegistration>
-                <SetBoxRegistrationText type="submit">
+                <SetBoxRegistrationText
+                  type="submit"
+                  onClick={finishRegisterClick}
+                >
                   등록하기
                 </SetBoxRegistrationText>
               </SetBoxRegistration>
