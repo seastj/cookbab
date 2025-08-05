@@ -1,5 +1,7 @@
 import { useState } from "react";
 import "./customerservicemodal.css";
+import ButtonSubmit from "../../buttons/ButtonSubmit";
+import ButtonCancle from "../../buttons/ButtonCancle";
 
 function CustomerServiceModal({ closeCs }) {
   const categories = [
@@ -24,18 +26,24 @@ function CustomerServiceModal({ closeCs }) {
             >
               <option value="">문의 종류</option>
               {categories.map(option => (
-                <option className="cs_category_list"key={option} value={option}>
+                <option
+                  className="cs_category_list"
+                  key={option}
+                  value={option}
+                >
                   {option}
                 </option>
               ))}
             </select>
           </div>
-          <div className="cs_text">문의 내용</div>
+          <textarea type="text" className="cs_text" placeholder="문의 내용" />
           <div className="cs_bts">
-            <div className="cs_submit_bt" onClick={closeCs}>
-              보내기
-            </div>
-            <div className="cs_cancle_bt">취소</div>
+            <ButtonSubmit className="cs_submit_bt" label="보내기" />
+            <ButtonCancle
+              className="cs_cancle_bt"
+              label="취소"
+              onClick={closeCs}
+            />
           </div>
         </div>
       </div>
