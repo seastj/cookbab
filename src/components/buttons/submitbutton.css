@@ -1,0 +1,15 @@
+.submit_button {
+  color: #fff;
+  font-weight: bold;
+  font-size: 20px;
+  background-color: #ef4444;
+  border-radius: 12px;
+  padding: 10px 40px;
+  cursor: pointer;
+  border: none;
+}
+.submit_button:hover {
+  border: 1px solid #ef4444;
+  background-color: #fff;
+  color: #ef4444;
+}

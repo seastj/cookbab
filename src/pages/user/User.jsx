@@ -227,8 +227,8 @@ function User() {
           </MedalContents>
         </UserMedalWrap>
         <UserMenuWrap>
+          {userCs && <CustomerServiceModal closeCs={closeCs} />}
           <UserMenu onClick={openCs}>
-            {userCs && <CustomerServiceModal closeCs={closeCs} />}
             <UserMenuLeft>
               <UserMenuLeftIcon>
                 <img src={questioncircled} alt="고객센터" />

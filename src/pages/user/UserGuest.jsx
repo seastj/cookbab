@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import React from "react";
+import React, { useState } from "react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import guestimg from "../../images/question.svg";
@@ -7,6 +7,7 @@ import googleicon from "../../images/google_logo.svg";
 import kakaoicon from "../../images/kakao_logo.svg";
 import arrow from "../../images/arrow-filled.svg";
 import megaphongray from "../../images/megaphone_gray.svg";
+import LoginModal from "../../components/modal/loginmodal/LoginModal";
 
 const UserGuestWrap = styled.div`
   width: 1200px;
@@ -147,6 +148,10 @@ const JoinComment = styled.p`
 `;
 
 function UserGuest() {
+  const [loginPage, setloginPage] = useState(false);
+  const openLogin = () => setloginPage(true);
+  const closeLogin = () => setloginPage(false);
+
   return (
     <>
       <Header />
@@ -160,7 +165,8 @@ function UserGuest() {
               <GuestInfoLeftText>Guest</GuestInfoLeftText>
             </GuestInfoLeft>
             <GuestInfoRight>
-              <RightLoginBt>로그인</RightLoginBt>
+              {loginPage && <LoginModal closeLogin={closeLogin} />}
+              <RightLoginBt onClick={openLogin}>로그인</RightLoginBt>
               <RightJoinBt>회원가입</RightJoinBt>
             </GuestInfoRight>
           </GuestInfo>

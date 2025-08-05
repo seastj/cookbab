@@ -1,0 +1,17 @@
+.cancle_button {
+  width: 140px;
+  height: 50px;
+  background-color: #8f8f8f;
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  right: 0;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+}
+.cancle_button:hover {
+  border: 1px solid #8f8f8f;
+  background-color: #fff;
+  color: #8f8f8f;
+}
