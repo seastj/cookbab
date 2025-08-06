@@ -8,6 +8,8 @@ import kakaoicon from "../../images/kakao_logo.svg";
 import arrow from "../../images/arrow-filled.svg";
 import megaphongray from "../../images/megaphone_gray.svg";
 import LoginModal from "../../components/modal/loginmodal/LoginModal";
+import { getKakaoLoginLink } from "../../kko/kkoapi";
+import { Link } from "react-router-dom";
 
 const UserGuestWrap = styled.div`
   width: 1200px;
@@ -93,7 +95,7 @@ const IdHubWrap = styled.div`
   display: flex;
   flex-direction: column;
 `;
-const IdHub = styled.div`
+const IdHub = styled(Link)`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -152,6 +154,10 @@ function UserGuest() {
   const openLogin = () => setloginPage(true);
   const closeLogin = () => setloginPage(false);
 
+  // 카카오 로그인 연동
+  const kkoLoginUrl = getKakaoLoginLink();
+  console.log(kkoLoginUrl);
+
   return (
     <>
       <Header />
@@ -182,7 +188,7 @@ function UserGuest() {
                 <img src={arrow} alt="move" />
               </HubArrow>
             </IdHub>
-            <IdHub>
+            <IdHub to={kkoLoginUrl}>
               <IdHubInner>
                 <IdHubIcon>
                   <img src={kakaoicon} alt="Kakao" />
