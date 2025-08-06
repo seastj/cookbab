@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { getAccessToken, getMemberWithAccessToken } from "../../kko/kkoapi";
+import { LoginDispatchContext } from "../../contexts/LoginContext";
 
 function AfterKko() {
   // 사용자 정보 관리
@@ -23,6 +24,16 @@ function AfterKko() {
   useEffect(() => {
     getAccessTokenCall();
   }, [authCode]);
+
+  const dispatch = useContext(LoginDispatchContext);
+  dispatch({
+    type: "LOGIN",
+    payload: {
+      profilimage: userInfo.kakao_account.profile.thumbnail_image_url,
+      nickname: userInfo.kakao_account.profile.nickname,
+      email: userInfo.kakao_account.email,
+    },
+  });
 
   return (
     <div>

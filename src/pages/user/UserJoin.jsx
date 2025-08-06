@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Header from "../../components/Header";
 import styled from "@emotion/styled";
 import { Button, Form, Input } from "antd";
@@ -21,6 +21,7 @@ import {
   JoinTitleWrap,
   StarText,
 } from "./UserJoin.styles";
+import { LoginStateContext } from "../../contexts/LoginContext";
 
 function UserJoin() {
   // js 자리
@@ -72,7 +73,19 @@ function UserJoin() {
       reader.readAsDataURL(file);
     }
   };
+  // 초기값 데이터 가져오기
+  const auth = useContext(LoginStateContext);
+  const [email, setEmail] = useState("");
+  const [nickname, setNickname] = useState("");
+  const [profileImage, setProfileImage] = useState("");
 
+  useEffect(() => {
+    if (auth) {
+      setEmail(auth.email || "");
+      setNickname(auth.nickname || "");
+      setProfileImage(auth.profileImage || "");
+    }
+  }, [auth]);
   // jsx 자리
   return (
     <>
@@ -190,7 +203,10 @@ function UserJoin() {
                 ]}
                 colon={false}
               >
-                <JoinBoxItemInput placeholder="이메일을 입력하세요." />
+                <JoinBoxItemInput
+                  onChange={e => setEmail(e.target.value)}
+                  placeholder="이메일을 입력하세요."
+                />
               </Form.Item>
             </div>
             <div>
