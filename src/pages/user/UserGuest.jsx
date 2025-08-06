@@ -11,6 +11,8 @@ import LoginModal from "../../components/modal/loginmodal/LoginModal";
 import AfterGoogle from "../member/AfterGoogle";
 import { Link, useNavigate } from "react-router-dom";
 import { getGoogleLoginLink } from "../../google/googleapi";
+import { getKakaoLoginLink } from "../../kko/kkoapi";
+import { Link } from "react-router-dom";
 
 const UserGuestWrap = styled.div`
   width: 1200px;
@@ -96,7 +98,7 @@ const IdHubWrap = styled.div`
   display: flex;
   flex-direction: column;
 `;
-const IdHub = styled.div`
+const IdHub = styled(Link)`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -159,6 +161,9 @@ function UserGuest() {
   const googleLogin = () => {
     getGoogleLoginLink();
   };
+  // 카카오 로그인 연동
+  const kkoLoginUrl = getKakaoLoginLink();
+  console.log(kkoLoginUrl);
 
   return (
     <>
@@ -190,7 +195,7 @@ function UserGuest() {
                 <img src={arrow} alt="move" />
               </HubArrow>
             </IdHub>
-            <IdHub>
+            <IdHub to={kkoLoginUrl}>
               <IdHubInner>
                 <IdHubIcon>
                   <img src={kakaoicon} alt="Kakao" />

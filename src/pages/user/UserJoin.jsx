@@ -29,9 +29,10 @@ function UserJoin() {
   const initialValue = {
     userId: "",
     userPass: "",
-    nickName: "",
+    passwordConfirm: "",
     email: "",
-    address: "",
+    ninkname: "",
+    introduction: "",
   };
 
   const onFiledsChange = (field, allFields) => {
@@ -194,8 +195,8 @@ function UserJoin() {
             </div>
             <div>
               <Form.Item
-                label={<JoinBoxItemTitel>주소</JoinBoxItemTitel>}
-                name={"address"}
+                label={<JoinBoxItemTitel>닉네임</JoinBoxItemTitel>}
+                name={"ninkname"}
                 required={false}
               >
                 <JoinBoxItemInput placeholder="주소를 입력해주세요." />
@@ -204,7 +205,7 @@ function UserJoin() {
             <div>
               <Form.Item
                 label={<JoinBoxItemTitel>소개글</JoinBoxItemTitel>}
-                name="introduction"
+                name={"introduction"}
                 required={false}
                 colon={false}
               >
