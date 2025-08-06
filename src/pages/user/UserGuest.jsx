@@ -8,6 +8,9 @@ import kakaoicon from "../../images/kakao_logo.svg";
 import arrow from "../../images/arrow-filled.svg";
 import megaphongray from "../../images/megaphone_gray.svg";
 import LoginModal from "../../components/modal/loginmodal/LoginModal";
+import AfterGoogle from "../member/AfterGoogle";
+import { Link, useNavigate } from "react-router-dom";
+import { getGoogleLoginLink } from "../../google/googleapi";
 
 const UserGuestWrap = styled.div`
   width: 1200px;
@@ -152,6 +155,11 @@ function UserGuest() {
   const openLogin = () => setloginPage(true);
   const closeLogin = () => setloginPage(false);
 
+  // 구글 로그인
+  const googleLogin = () => {
+    getGoogleLoginLink();
+  };
+
   return (
     <>
       <Header />
@@ -171,7 +179,7 @@ function UserGuest() {
             </GuestInfoRight>
           </GuestInfo>
           <IdHubWrap>
-            <IdHub>
+            <IdHub onClick={googleLogin}>
               <IdHubInner>
                 <IdHubIcon>
                   <img src={googleicon} alt="Google" />

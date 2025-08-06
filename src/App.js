@@ -9,6 +9,7 @@ import MealsetEdit from "./pages/mealset/MealsetEdit";
 import OnemealView from "./pages/onemeal/OnemealView";
 import UserGuest from "./pages/user/UserGuest";
 import UserJoin from "./pages/user/UserJoin";
+import AfterGoogle from "./pages/member/AfterGoogle";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
           <Route path="/mealtotal" element={<Mealtotal></Mealtotal>}></Route>
           <Route path="/user" element={<User></User>}></Route>
           <Route path="/user/guest" element={<UserGuest></UserGuest>}></Route>
+          <Route path="/member/google" element={<AfterGoogle />}></Route>
           <Route path="/user/join" element={<UserJoin></UserJoin>}></Route>
         </Routes>
       </Router>
