@@ -12,7 +12,6 @@ import AfterGoogle from "../member/AfterGoogle";
 import { Link, useNavigate } from "react-router-dom";
 import { getGoogleLoginLink } from "../../google/googleapi";
 import { getKakaoLoginLink } from "../../kko/kkoapi";
-import { Link } from "react-router-dom";
 
 const UserGuestWrap = styled.div`
   width: 1200px;

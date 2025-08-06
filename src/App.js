@@ -11,34 +11,36 @@ import UserGuest from "./pages/user/UserGuest";
 import UserJoin from "./pages/user/UserJoin";
 import AfterGoogle from "./pages/member/AfterGoogle";
 import AfterKko from "./pages/member/AfterKko";
-
+import { LoginProvider } from "./contexts/LoginProvider";
 
 function App() {
   return (
     <div>
-      <Router>
-        <Routes>
-          <Route path="/" element={<Index />}></Route>
-          <Route path="/user/guest" element={<UserGuest></UserGuest>}></Route>
-          <Route path="/mealset" element={<Mealset></Mealset>}></Route>
-          <Route
-            path="/mealset/edit"
-            element={<MealsetEdit></MealsetEdit>}
-          ></Route>
+      <LoginProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Index />}></Route>
+            <Route path="/user/guest" element={<UserGuest></UserGuest>}></Route>
+            <Route path="/mealset" element={<Mealset></Mealset>}></Route>
+            <Route
+              path="/mealset/edit"
+              element={<MealsetEdit></MealsetEdit>}
+            ></Route>
 
-          <Route path="/onemeal" element={<Onemeal></Onemeal>}></Route>
-          <Route
-            path="/onemeal/view"
-            element={<OnemealView></OnemealView>}
-          ></Route>
-          <Route path="/mealtotal" element={<Mealtotal></Mealtotal>}></Route>
-          <Route path="/user" element={<User></User>}></Route>
-          <Route path="/user/guest" element={<UserGuest></UserGuest>}></Route>
-          <Route path="/member/google" element={<AfterGoogle />}></Route>
-          <Route path="member/kko" element={<AfterKko />}></Route>
-          <Route path="/user/join" element={<UserJoin></UserJoin>}></Route>
-        </Routes>
-      </Router>
+            <Route path="/onemeal" element={<Onemeal></Onemeal>}></Route>
+            <Route
+              path="/onemeal/view"
+              element={<OnemealView></OnemealView>}
+            ></Route>
+            <Route path="/mealtotal" element={<Mealtotal></Mealtotal>}></Route>
+            <Route path="/user" element={<User></User>}></Route>
+            <Route path="/user/guest" element={<UserGuest></UserGuest>}></Route>
+            <Route path="/member/google" element={<AfterGoogle />}></Route>
+            <Route path="member/kko" element={<AfterKko />}></Route>
+            <Route path="/user/join" element={<UserJoin></UserJoin>}></Route>
+          </Routes>
+        </Router>
+      </LoginProvider>
     </div>
   );
 }
