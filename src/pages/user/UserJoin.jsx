@@ -162,7 +162,6 @@ function UserJoin() {
                 rules={[
                   { required: true, message: "아이디는 필수입니다." },
                   { min: 4, message: " 아이디는 4자 이상입니다." },
-                  { max: 8, message: "아이디는 최대 8자입니다." },
                 ]}
                 colon={false}
               >

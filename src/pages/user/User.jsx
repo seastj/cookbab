@@ -12,7 +12,10 @@ import questioncircled from "../../images/question-mark-circled.svg";
 import UserEditModal from "../../components/modal/usereditmodal/UserEditModal";
 import { useNavigate } from "react-router-dom";
 import CustomerServiceModal from "../../components/modal/customerservicemodal/CustomerServiceModal";
-import { LoginStateContext } from "../../contexts/LoginContext";
+import {
+  LoginDispatchContext,
+  LoginStateContext,
+} from "../../contexts/LoginContext";
 
 const UserWrap = styled.div`
   width: 1200px;
@@ -183,6 +186,14 @@ const UserMenuRight = styled.div`
 function User() {
   // 정보불러오기
   const user = useContext(LoginStateContext);
+  const dispatch = useContext(LoginDispatchContext);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch({ type: "LOGOUT" });
+    localStorage.removeItem("userInfo");
+    navigate("/");
+  };
 
   const [userEdit, setUserEdit] = useState(false);
   const openEdit = () => setUserEdit(true);
@@ -203,15 +214,12 @@ function User() {
             </InfoLeftImg>
             <InfoLeftText>
               <InfoLeftTextTitle>
-                
                 {user?.nickname ? `${user.nickname} 요리사님` : "요리사님"}
               </InfoLeftTextTitle>
               <InfoLeftTextEmail>
-              
                 {user?.email || "aaa@gmail.com"}
               </InfoLeftTextEmail>
               <InfoLeftTextintro>
-                
                 {user?.introduction || "요리해봅시다."}
               </InfoLeftTextintro>
               <InfoLeftTextdate>2025-06-15 부터 요리 시작</InfoLeftTextdate>
@@ -252,7 +260,7 @@ function User() {
               <img src={arrowfill} alt="바로가기" />
             </UserMenuRight>
           </UserMenu>
-          <UserMenu>
+          <UserMenu onClick={handleLogout}>
             <UserMenuLeft>
               <UserMenuLeftIcon>
                 <img src={logouticon} alt="로그아웃" />
