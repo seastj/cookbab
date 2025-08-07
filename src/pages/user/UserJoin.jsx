@@ -109,7 +109,7 @@ function UserJoin() {
     // navigate("/user");
 
     // 기존 회원 목록 불러오기 (없으면 빈 배열)
-    const users = JSON.parse(localStorage.getItem("users1")) || [];
+    const users = JSON.parse(localStorage.getItem("users")) || [];
 
     // 중복 아이디 체크
     const isDuplicated = users.some(user => user.userId === values.userId);
@@ -128,7 +128,7 @@ function UserJoin() {
     users.push(newUser);
     localStorage.setItem("users", JSON.stringify(users));
 
-    // 로그인 처리 (LoginContext 등 활용)
+    // 로그인 처리 (LoginContext 활용)
     dispatch({
       type: "LOGIN",
       payload: newUser,
