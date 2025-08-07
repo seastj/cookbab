@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import React from "react";
+import React, { useContext } from "react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import MonthCookGraph from "../../components/MonthCookGraph";
@@ -11,6 +11,7 @@ import ParamsGraph from "../../components/ParamsGraph";
 import LevelCookGraph from "../../components/LevelCookGraph";
 import UserSummaryInfo from "../../components/UserSummaryInfo";
 import "../../pages/calendar.css";
+import { LoginStateContext } from "../../contexts/LoginContext";
 
 const MealTotalWrap = styled.div`
   width: 1200px;
@@ -133,27 +134,37 @@ const ChartsParams = styled.div`
 `;
 
 function Mealtotal() {
+  const user = useContext(LoginStateContext);
+
   return (
     <>
       <Header />
       <MealTotalWrap>
         <UserInfoWrap>
           <UserInfo>
-            <UserInfoName>이름 요리사님</UserInfoName>
-            <UserInfoEmail>asdfghjjkla@gmail.com</UserInfoEmail>
+            <UserInfoName>
+              {user?.nickname ? `${user.nickname} ` : "요리사님"}
+              요리사님
+            </UserInfoName>
+            <UserInfoEmail>
+              {user?.email ? `${user.email}` : "로그인이 필요한 서비스입니다."}
+            </UserInfoEmail>
           </UserInfo>
           <UserInfoDate>2025-06-15 부터 요리 시작</UserInfoDate>
         </UserInfoWrap>
         <UserSummaryInfoWrap>
-          <UserSummaryTitle>이름님의 여정</UserSummaryTitle>
+          <UserSummaryTitle>
+            {user?.nickname ? `${user.nickname} ` : "요리사님"}님의 여정
+          </UserSummaryTitle>
           <UserSummaryInfo />
         </UserSummaryInfoWrap>
         <UserPerformanceWrap>
-          <UserPerformanceTitle>이름님의 성과</UserPerformanceTitle>
+          <UserPerformanceTitle>
+            {user?.nickname ? `${user.nickname} ` : "요리사님"}님의 성과
+          </UserPerformanceTitle>
           <ChartsWrap>
             <ChartsFirstLine>
               <ChartsCalendar>
-                이름님의 캘린더
                 <Calendar />
               </ChartsCalendar>
               <ChartsMonthCook>
