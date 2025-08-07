@@ -26,6 +26,7 @@
   width: 140px;
   height: 80px;
   margin-bottom: 20px;
+  cursor: pointer;
 }
 .logoimg img {
   width: 100%;

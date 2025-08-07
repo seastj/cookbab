@@ -164,6 +164,9 @@ function UserGuest() {
   const kkoLoginUrl = getKakaoLoginLink();
   console.log(kkoLoginUrl);
 
+  const navigate = useNavigate();
+  const joinNavi = () => navigate("/User/join");
+
   return (
     <>
       <Header />
@@ -179,7 +182,7 @@ function UserGuest() {
             <GuestInfoRight>
               {loginPage && <LoginModal closeLogin={closeLogin} />}
               <RightLoginBt onClick={openLogin}>로그인</RightLoginBt>
-              <RightJoinBt>회원가입</RightJoinBt>
+              <RightJoinBt onClick={joinNavi}>회원가입</RightJoinBt>
             </GuestInfoRight>
           </GuestInfo>
           <IdHubWrap>

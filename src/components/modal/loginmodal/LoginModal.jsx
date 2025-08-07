@@ -3,15 +3,20 @@ import logo from "../../../images/cookbab_logo.png";
 import { useState } from "react";
 import ButtonSubmit from "../../buttons/ButtonSubmit";
 import ButtonCancle from "../../buttons/ButtonCancle";
+import { useNavigate } from "react-router-dom";
 
 function LoginModal({ closeLogin }) {
   const initUser = { id: "", pw: "" };
   const [user, setUser] = useState(initUser);
 
+  const navigate = useNavigate();
+  const joinNavi = () => navigate("/User/join");
+  const homeNavi = () => navigate("/");
+
   return (
     <div className="overlay" onClick={closeLogin}>
       <div className="loginwrap" onClick={e => e.stopPropagation()}>
-        <div className="logoimg">
+        <div className="logoimg" onClick={homeNavi}>
           <img src={logo} alt="logo" />
         </div>
         <div className="logintitle">로그인</div>
@@ -37,7 +42,7 @@ function LoginModal({ closeLogin }) {
         </div>
         <div className="loginbts">
           <ButtonSubmit label={"로그인"} />
-          <ButtonCancle label={"회원가입"} />
+          <ButtonCancle onClick={joinNavi} label={"회원가입"} />
         </div>
       </div>
     </div>

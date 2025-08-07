@@ -1,8 +1,9 @@
 import styled from "@emotion/styled";
 import { Button, Form, Input } from "antd";
-import { useState } from "react";
+import { useContext, useRef, useState } from "react";
 import CameraAdd from "../../../images/camera-pink.svg";
 import Question from "../../../images/question.svg";
+import { LoginStateContext } from "../../../contexts/LoginContext";
 
 const Overlay = styled.div`
   position: fixed;
@@ -59,6 +60,7 @@ const JoinBoxItemPicture = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
   img {
     width: 31px;
   }
@@ -130,12 +132,18 @@ const JoinBoxSelfBox = styled(Input.TextArea)`
 
 function UserEditModal({ closeEdit }) {
   // js 자리
+
+  const user = useContext(LoginStateContext);
+  const [profileImg, setprofileImg] = useState(user.profileImage);
+
   const initialValue = {
-    userId: "",
-    userPass: "",
-    nickName: "",
-    email: "",
-    address: "",
+    profileImg: `${user.profileImage}`,
+    userId: `${user.userId}`,
+    userPass: `${user.userPass}`,
+    passwordConfirm: `${user.passwordConfirm}`,
+    nickName: `${user.nickname}`,
+    email: `${user.email}`,
+    introduction: `${user.introduction}`,
   };
   const onFiledsChange = (field, allFields) => {
     console.log(field[0].value);
@@ -150,6 +158,19 @@ function UserEditModal({ closeEdit }) {
     const pwConfirm = form.getFieldValue("passwordConfirm");
     if (pwConfirm) {
       setMatch(pw === pwConfirm);
+    }
+  };
+
+  // 프로필 이미지 변경
+  const onCameraClick = () => fileInputRef.current.click();
+  const fileInputRef = useRef(null);
+
+  const onProfileImgChange = e => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => setprofileImg(reader.result);
+      reader.readAsDataURL(file);
     }
   };
 
@@ -172,10 +193,25 @@ function UserEditModal({ closeEdit }) {
               <JoinBoxItemTitel>이미지등록</JoinBoxItemTitel>
               <JoinBoxItemPictureWrap>
                 <JoinBoxItemPicture>
-                  <img src={Question} alt="사진없음" />
+                  {profileImg ? (
+                    <img
+                      style={{ width: "100%", height: "100%" }}
+                      src={profileImg}
+                      alt="프로필"
+                    />
+                  ) : (
+                    <img src={Question} alt="사진없음" />
+                  )}
                 </JoinBoxItemPicture>
-                <JoinBoxItemPictureAdd>
+                <JoinBoxItemPictureAdd onClick={onCameraClick}>
                   <img src={CameraAdd} alt="사진등록" />
+                  <input
+                    type="file"
+                    accept="image/*"
+                    style={{ display: "none" }}
+                    ref={fileInputRef}
+                    onChange={onProfileImgChange}
+                  />
                 </JoinBoxItemPictureAdd>
               </JoinBoxItemPictureWrap>
             </div>
@@ -255,11 +291,11 @@ function UserEditModal({ closeEdit }) {
             </div>
             <div>
               <Form.Item
-                label={<JoinBoxItemTitel>주소</JoinBoxItemTitel>}
-                name={"address"}
+                label={<JoinBoxItemTitel>닉네임</JoinBoxItemTitel>}
+                name="nickName"
                 required={false}
               >
-                <JoinBoxItemInput placeholder="주소를 입력해주세요." />
+                <JoinBoxItemInput placeholder="닉네임을 입력해주세요." />
               </Form.Item>
             </div>
             <div>
