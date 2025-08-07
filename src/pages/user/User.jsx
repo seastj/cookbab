@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import UserSummaryInfo from "../../components/UserSummaryInfo";
 import styled from "@emotion/styled";
 import Header from "../../components/Header";
@@ -12,6 +12,7 @@ import questioncircled from "../../images/question-mark-circled.svg";
 import UserEditModal from "../../components/modal/usereditmodal/UserEditModal";
 import { useNavigate } from "react-router-dom";
 import CustomerServiceModal from "../../components/modal/customerservicemodal/CustomerServiceModal";
+import { LoginStateContext } from "../../contexts/LoginContext";
 
 const UserWrap = styled.div`
   width: 1200px;
@@ -180,6 +181,9 @@ const UserMenuRight = styled.div`
 `;
 
 function User() {
+  // 정보불러오기
+  const user = useContext(LoginStateContext);
+
   const [userEdit, setUserEdit] = useState(false);
   const openEdit = () => setUserEdit(true);
   const closeEdit = () => setUserEdit(false);
@@ -195,12 +199,21 @@ function User() {
         <UserInfo>
           <UserInfoLeft>
             <InfoLeftImg>
-              <img src={userimg} alt="userimg" />
+              <img src={user?.profileImage || userimg} alt="userimg" />
             </InfoLeftImg>
             <InfoLeftText>
-              <InfoLeftTextTitle>이름 요리사님</InfoLeftTextTitle>
-              <InfoLeftTextEmail>qwer13@gmail.com</InfoLeftTextEmail>
-              <InfoLeftTextintro>다짐 한마디</InfoLeftTextintro>
+              <InfoLeftTextTitle>
+                {" "}
+                {user?.nickname ? `${user.nickname} 요리사님` : "요리사님"}
+              </InfoLeftTextTitle>
+              <InfoLeftTextEmail>
+                {" "}
+                {user?.email || "aaa@gmail.com"}
+              </InfoLeftTextEmail>
+              <InfoLeftTextintro>
+                {" "}
+                {user?.introduction || "요리해봅시다."}
+              </InfoLeftTextintro>
               <InfoLeftTextdate>2025-06-15 부터 요리 시작</InfoLeftTextdate>
             </InfoLeftText>
           </UserInfoLeft>
