@@ -13,6 +13,7 @@ import AfterGoogle from "./pages/member/AfterGoogle";
 import AfterKko from "./pages/member/AfterKko";
 import { LoginProvider } from "./contexts/LoginProvider";
 import LoginState from "./components/ui/LoginState";
+import ProtectedRoute from "./components/ui/ProtectedRoute";
 
 function App() {
   return (
@@ -22,18 +23,39 @@ function App() {
           <Routes>
             <Route path="/" element={<Index />}></Route>
             <Route path="/user/guest" element={<UserGuest></UserGuest>}></Route>
-            <Route path="/mealset" element={<Mealset></Mealset>}></Route>
+            <Route
+              path="/mealset"
+              element={
+                <ProtectedRoute>
+                  <Mealset />
+                </ProtectedRoute>
+              }
+            ></Route>
             <Route
               path="/mealset/edit"
               element={<MealsetEdit></MealsetEdit>}
             ></Route>
 
-            <Route path="/onemeal" element={<Onemeal></Onemeal>}></Route>
+            <Route
+              path="/onemeal"
+              element={
+                <ProtectedRoute>
+                  <Onemeal />
+                </ProtectedRoute>
+              }
+            ></Route>
             <Route
               path="/onemeal/view"
               element={<OnemealView></OnemealView>}
             ></Route>
-            <Route path="/mealtotal" element={<Mealtotal></Mealtotal>}></Route>
+            <Route
+              path="/mealtotal"
+              element={
+                <ProtectedRoute>
+                  <Mealtotal />
+                </ProtectedRoute>
+              }
+            ></Route>
             <Route path="/user" element={<User></User>}></Route>
             <Route path="/user/guest" element={<UserGuest></UserGuest>}></Route>
             <Route path="/member/google" element={<AfterGoogle />}></Route>
