@@ -31,7 +31,6 @@ function UserJoin() {
     userId: "",
     userPass: "",
     passwordConfirm: "",
-
     ninkname: "",
     introduction: "",
   };
@@ -85,18 +84,24 @@ function UserJoin() {
   // 프로필 이미지 변경
   const onCameraClick = () => fileInputRef.current.click();
 
-  const onProfileImgChange = e => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => setProfileImg(reader.result);
-      reader.readAsDataURL(file);
-    }
-  };
+  const onFinish = async values => {
+    try {
+      const userData = {
+        userId: values.userId,
+        userPass: values.userPass,
+        email: values.email,
+        nickname: values.nickname || nickname,
+        introduction: values.introduction || "",
+        profileImage: profileImg || "",
+      };
 
-  const onFinish = values => {
-    console.log("회원가입 제출 값:", values);
-    // 실제 회원가입 처리
+      localStorage.setItem(`user_${values.userId}`, JSON.stringify(userData));
+
+      alert("회원가입 성공! 로컬스토리지에 저장되었습니다.");
+      navigate("/user/guest");
+    } catch (err) {
+      alert("회원가입 실패: " + err.message);
+    }
   };
 
   return (
@@ -139,7 +144,6 @@ function UserJoin() {
                     accept="image/*"
                     style={{ display: "none" }}
                     ref={fileInputRef}
-                    onChange={onProfileImgChange}
                   />
                 </JoinBoxItemPictureAdd>
               </JoinBoxItemPictureWrap>
