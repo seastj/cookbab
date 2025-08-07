@@ -87,7 +87,7 @@ function Header() {
       </HeaderMid>
       <HeaderRight>
         <HeaderUser>
-          <Link to="/User/guest" className="link">
+          <Link to="/mypage" className="link">
             마이페이지
           </Link>
         </HeaderUser>

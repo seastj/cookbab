@@ -12,6 +12,7 @@ import UserJoin from "./pages/user/UserJoin";
 import AfterGoogle from "./pages/member/AfterGoogle";
 import AfterKko from "./pages/member/AfterKko";
 import { LoginProvider } from "./contexts/LoginProvider";
+import LoginState from "./components/ui/LoginState";
 
 function App() {
   return (
@@ -38,6 +39,7 @@ function App() {
             <Route path="/member/google" element={<AfterGoogle />}></Route>
             <Route path="member/kko" element={<AfterKko />}></Route>
             <Route path="/user/join" element={<UserJoin></UserJoin>}></Route>
+            <Route path="/mypage" element={<LoginState />} />
           </Routes>
         </Router>
       </LoginProvider>
