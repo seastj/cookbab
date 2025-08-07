@@ -9,3 +9,7 @@
 
 - 신동재: index, mealtotal, user, guest, userEdit, guest, userEdit, customerervice, login,
 - 여채현: onemeal, mealset, mealsetEdit, onemealView, join
+
+## 3. 일정 관리
+
+- https://fair-mimosa-69b.notion.site/2419f76bdabf8077b15cfe0c74d5c1c5?source=copy_link
