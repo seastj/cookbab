@@ -11,7 +11,7 @@ import {
 
 function LoginModal({ closeLogin }) {
   const initUser = { id: "", pw: "" };
-  const userdata = JSON.parse(localStorage.getItem("userInfo")) || {};
+  const userdata = JSON.parse(localStorage.getItem("users")) || [];
   const [user, setUser] = useState(initUser);
   const dispatch = useContext(LoginDispatchContext);
   const navigate = useNavigate();
@@ -20,16 +20,19 @@ function LoginModal({ closeLogin }) {
 
   const handleLogin = () => {
     // 입력값이 회원가입 데이터와 일치하는지 확인
-    if (user.id === userdata.id && user.pw === userdata.pw) {
+    const foundUser = userdata.find(
+      u => u.userId === user.id && u.userPass === user.pw,
+    );
+    if (foundUser) {
       // 로그인 성공 처리: Context 로그인 상태 업데이트
       dispatch({
         type: "LOGIN",
         payload: {
           isLogin: true,
-          id: userdata.id,
-          email: userdata.email,
-          nickname: userdata.nickname,
-          profileImage: userdata.profileImage,
+          id: foundUser.userId,
+          email: foundUser.email,
+          nickname: foundUser.nickname,
+          profileImage: foundUser.profileImage,
           // pw는 보통 저장하지 않음
         },
       });
