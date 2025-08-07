@@ -203,15 +203,15 @@ function User() {
             </InfoLeftImg>
             <InfoLeftText>
               <InfoLeftTextTitle>
-                {" "}
+                
                 {user?.nickname ? `${user.nickname} 요리사님` : "요리사님"}
               </InfoLeftTextTitle>
               <InfoLeftTextEmail>
-                {" "}
+              
                 {user?.email || "aaa@gmail.com"}
               </InfoLeftTextEmail>
               <InfoLeftTextintro>
-                {" "}
+                
                 {user?.introduction || "요리해봅시다."}
               </InfoLeftTextintro>
               <InfoLeftTextdate>2025-06-15 부터 요리 시작</InfoLeftTextdate>

@@ -51,7 +51,7 @@ function UserJoin() {
       setMatch(pw === pwConfirm);
     }
   };
-  // 가입하기 클릭시 userguest 로 이동
+
   const navigate = useNavigate();
 
   // 이미지 추가
