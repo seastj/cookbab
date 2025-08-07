@@ -1,6 +1,22 @@
 import Password from "antd/es/input/Password";
 import { LoginDispatchContext, LoginStateContext } from "./LoginContext";
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
+
+// 로컬스토리지
+const localStorageKey = "myAppLoginState";
+
+// 로컬스토리지에서 상태 읽기 함수
+const getInitialState = () => {
+  const stored = localStorage.getItem(localStorageKey);
+  if (stored) {
+    try {
+      return JSON.parse(stored);
+    } catch {
+      return null;
+    }
+  }
+  return null;
+};
 
 // 초기값 로그인전
 const initialLoginState = {
@@ -27,7 +43,18 @@ function LoginReducer(state, action) {
 }
 
 export function LoginProvider({ children }) {
-  const [loginState, dispatch] = useReducer(LoginReducer, initialLoginState);
+  const initialState = getInitialState() || initialLoginState;
+  const [loginState, dispatch] = useReducer(LoginReducer, initialState);
+
+  // 상태 변경시마다 localStorage에 저장
+  useEffect(() => {
+    if (loginState.isLogin) {
+      localStorage.setItem(localStorageKey, JSON.stringify(loginState));
+      console.log(localStorageKey);
+    } else {
+      localStorage.removeItem(localStorageKey);
+    }
+  }, [loginState]);
 
   return (
     <LoginStateContext.Provider value={loginState}>

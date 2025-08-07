@@ -36,6 +36,7 @@ function AfterKko() {
         navigate("/user/join");
       } catch (error) {
         alert("카카오 로그인 실패: " + error.message);
+        navigate("/user/guest");
       } finally {
         setLoading(false);
       }

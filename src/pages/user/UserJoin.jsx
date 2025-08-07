@@ -21,7 +21,10 @@ import {
   JoinTitleWrap,
   StarText,
 } from "./UserJoin.styles";
-import { LoginStateContext } from "../../contexts/LoginContext";
+import {
+  LoginDispatchContext,
+  LoginStateContext,
+} from "../../contexts/LoginContext";
 
 function UserJoin() {
   // js 자리
@@ -31,13 +34,12 @@ function UserJoin() {
     userId: "",
     userPass: "",
     passwordConfirm: "",
-
     ninkname: "",
     introduction: "",
   };
 
   const onFiledsChange = (field, allFields) => {
-    console.log(field[0].value);
+    // console.log(field[0].value);
   };
 
   const [match, setMatch] = useState(true);
@@ -94,9 +96,17 @@ function UserJoin() {
     }
   };
 
+  const dispatch = useContext(LoginDispatchContext);
+
   const onFinish = values => {
-    console.log("회원가입 제출 값:", values);
-    // 실제 회원가입 처리
+    dispatch({
+      type: "LOGIN",
+      payload: {
+        ...values,
+        profileImage: profileImg,
+      },
+    });
+    navigate("/user");
   };
 
   return (
