@@ -21,7 +21,10 @@ import {
   JoinTitleWrap,
   StarText,
 } from "./UserJoin.styles";
-import { LoginStateContext } from "../../contexts/LoginContext";
+import {
+  LoginDispatchContext,
+  LoginStateContext,
+} from "../../contexts/LoginContext";
 
 function UserJoin() {
   // js 자리
@@ -36,7 +39,7 @@ function UserJoin() {
   };
 
   const onFiledsChange = (field, allFields) => {
-    console.log(field[0].value);
+    // console.log(field[0].value);
   };
 
   const [match, setMatch] = useState(true);
@@ -84,24 +87,26 @@ function UserJoin() {
   // 프로필 이미지 변경
   const onCameraClick = () => fileInputRef.current.click();
 
-  const onFinish = async values => {
-    try {
-      const userData = {
-        userId: values.userId,
-        userPass: values.userPass,
-        email: values.email,
-        nickname: values.nickname || nickname,
-        introduction: values.introduction || "",
-        profileImage: profileImg || "",
-      };
-
-      localStorage.setItem(`user_${values.userId}`, JSON.stringify(userData));
-
-      alert("회원가입 성공! 로컬스토리지에 저장되었습니다.");
-      navigate("/user/guest");
-    } catch (err) {
-      alert("회원가입 실패: " + err.message);
+  const onProfileImgChange = e => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => setProfileImg(reader.result);
+      reader.readAsDataURL(file);
     }
+  };
+
+  const dispatch = useContext(LoginDispatchContext);
+
+  const onFinish = values => {
+    dispatch({
+      type: "LOGIN",
+      payload: {
+        ...values,
+        profileImage: profileImg,
+      },
+    });
+    navigate("/user");
   };
 
   return (
@@ -144,6 +149,7 @@ function UserJoin() {
                     accept="image/*"
                     style={{ display: "none" }}
                     ref={fileInputRef}
+                    onChange={onProfileImgChange}
                   />
                 </JoinBoxItemPictureAdd>
               </JoinBoxItemPictureWrap>
