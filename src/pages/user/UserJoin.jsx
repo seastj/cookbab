@@ -31,7 +31,7 @@ function UserJoin() {
     userId: "",
     userPass: "",
     passwordConfirm: "",
-    email: "",
+
     ninkname: "",
     introduction: "",
   };
@@ -39,10 +39,7 @@ function UserJoin() {
   const onFiledsChange = (field, allFields) => {
     console.log(field[0].value);
   };
-  const onFinish = values => {
-    console.log(values);
-    navigate("/user/guest");
-  };
+
   const [match, setMatch] = useState(true);
   const [form] = Form.useForm();
   const handleChangePassword = () => {
@@ -59,20 +56,6 @@ function UserJoin() {
   const [profileImg, setProfileImg] = useState(null);
   const fileInputRef = useRef(null);
 
-  const onCameraClick = () => {
-    fileInputRef.current.click();
-  };
-
-  const onProfileImgChange = e => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setProfileImg(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
   // 초기값 데이터 가져오기
   const auth = useContext(LoginStateContext);
   const [email, setEmail] = useState("");
@@ -87,6 +70,35 @@ function UserJoin() {
     }
   }, [auth]);
   // jsx 자리
+
+  // 카카오 정보 form에 적용(이메일, 닉네임, 프로필사진)
+  useEffect(() => {
+    if (auth) {
+      form.setFieldsValue({
+        email: auth.email || "",
+        nickname: auth.nickname || "",
+      });
+      setProfileImg(auth.profileImage || null);
+    }
+  }, [auth, form]);
+
+  // 프로필 이미지 변경
+  const onCameraClick = () => fileInputRef.current.click();
+
+  const onProfileImgChange = e => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => setProfileImg(reader.result);
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const onFinish = values => {
+    console.log("회원가입 제출 값:", values);
+    // 실제 회원가입 처리
+  };
+
   return (
     <>
       <Header />
@@ -212,10 +224,10 @@ function UserJoin() {
             <div>
               <Form.Item
                 label={<JoinBoxItemTitel>닉네임</JoinBoxItemTitel>}
-                name={"ninkname"}
+                name={"nickname"}
                 required={false}
               >
-                <JoinBoxItemInput placeholder="주소를 입력해주세요." />
+                <JoinBoxItemInput placeholder="닉네임을 입력해주세요." />
               </Form.Item>
             </div>
             <div>
