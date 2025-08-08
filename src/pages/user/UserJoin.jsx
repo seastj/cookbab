@@ -63,24 +63,20 @@ function UserJoin() {
   const [email, setEmail] = useState("");
   const [nickname, setNickname] = useState("");
   const [profileImage, setProfileImage] = useState("");
+  const dispatch = useContext(LoginDispatchContext);
 
   useEffect(() => {
-    if (auth) {
-      setEmail(auth.email || "");
-      setNickname(auth.nickname || "");
-      setProfileImage(auth.profileImage || "");
-    }
-  }, [auth]);
-  // jsx 자리
-
-  // 카카오 정보 form에 적용(이메일, 닉네임, 프로필사진)
-  useEffect(() => {
-    if (auth) {
+    if (auth && auth.provider === "kakao") {
+      // 카카오 계정인 경우에만 초기값 설정
       form.setFieldsValue({
         email: auth.email || "",
         nickname: auth.nickname || "",
       });
       setProfileImg(auth.profileImage || null);
+    } else {
+      // 일반 회원가입 시 폼은 비워둠
+      form.resetFields();
+      setProfileImg(null);
     }
   }, [auth, form]);
 
@@ -96,18 +92,7 @@ function UserJoin() {
     }
   };
 
-  const dispatch = useContext(LoginDispatchContext);
-
   const onFinish = values => {
-    // dispatch({
-    //   type: "LOGIN",
-    //   payload: {
-    //     ...values,
-    //     profileImage: profileImg,
-    //   },
-    // });
-    // navigate("/user");
-
     // 기존 회원 목록 불러오기 (없으면 빈 배열)
     const users = JSON.parse(localStorage.getItem("users")) || [];
 
@@ -135,7 +120,7 @@ function UserJoin() {
     });
 
     // 유저 페이지로 이동
-    navigate("/user");
+    navigate("/user/guest");
   };
 
   return (

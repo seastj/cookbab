@@ -22,12 +22,12 @@ const getInitialState = () => {
 const initialLoginState = {
   isLogin: false,
   provider: null,
-  id: "",
+  userId: "",
   profileImage: "",
-  pw: "",
-  pwConfirm: "",
+  userPass: "",
+  passwordConfirm: "",
   email: "",
-  nickname: "",
+  nickName: "",
   introduction: "",
 };
 
