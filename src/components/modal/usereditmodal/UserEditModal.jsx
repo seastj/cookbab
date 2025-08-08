@@ -3,7 +3,10 @@ import { Button, Form, Input } from "antd";
 import { useContext, useRef, useState } from "react";
 import CameraAdd from "../../../images/camera-pink.svg";
 import Question from "../../../images/question.svg";
-import { LoginStateContext } from "../../../contexts/LoginContext";
+import {
+  LoginDispatchContext,
+  LoginStateContext,
+} from "../../../contexts/LoginContext";
 
 const Overlay = styled.div`
   position: fixed;
@@ -132,9 +135,14 @@ const JoinBoxSelfBox = styled(Input.TextArea)`
 
 function UserEditModal({ closeEdit }) {
   // js 자리
-
   const user = useContext(LoginStateContext);
   const [profileImg, setprofileImg] = useState(user.profileImage);
+  const [match, setMatch] = useState(true);
+  const [form] = Form.useForm();
+  // 프로필 이미지 변경
+  const onCameraClick = () => fileInputRef.current.click();
+  const fileInputRef = useRef(null);
+  const dispatch = useContext(LoginDispatchContext);
 
   const initialValue = {
     profileImg: `${user.profileImage}`,
@@ -145,25 +153,48 @@ function UserEditModal({ closeEdit }) {
     email: `${user.email}`,
     introduction: `${user.introduction}`,
   };
+
   const onFiledsChange = (field, allFields) => {
     console.log(field[0].value);
   };
+
   const onFinish = values => {
-    console.log(values);
+    const currentUser = JSON.parse(localStorage.getItem("auth"));
+    if (!currentUser) return;
+
+    // 업데이트된 유저 정보
+    const updatedUser = {
+      ...currentUser,
+      userId: values.userId,
+      email: values.email,
+      nickname: values.nickName,
+      introduction: values.introduction,
+      profileImage: profileImg,
+      userPass: values.userPass,
+      passwordConfirm: values.passwordConfirm,
+    };
+
+    // auth 정보 업데이트
+    localStorage.setItem("auth", JSON.stringify(updatedUser));
+    // loginState 업데이트
+    dispatch({ type: "LOGIN", payload: updatedUser });
+
+    // users 배열 불러오기
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+    // userId 기준으로 해당 유저 찾아서 수정
+    const updatedUsers = users.map(user =>
+      user.userId === updatedUser.userId ? updatedUser : user,
+    );
+    // localStorage에 저장
+    localStorage.setItem("users", JSON.stringify(updatedUsers));
+    closeEdit();
   };
-  const [match, setMatch] = useState(true);
-  const [form] = Form.useForm();
+
   const handleChangePassword = () => {
     const pw = form.getFieldValue("userPass");
     const pwConfirm = form.getFieldValue("passwordConfirm");
-    if (pwConfirm) {
-      setMatch(pw === pwConfirm);
-    }
+    setMatch(pw === pwConfirm);
   };
-
-  // 프로필 이미지 변경
-  const onCameraClick = () => fileInputRef.current.click();
-  const fileInputRef = useRef(null);
 
   const onProfileImgChange = e => {
     const file = e.target.files[0];
@@ -223,7 +254,6 @@ function UserEditModal({ closeEdit }) {
                 rules={[
                   { required: true, message: "아이디는 필수입니다." },
                   { min: 4, message: " 아이디는 4자 이상입니다." },
-                  { max: 8, message: "아이디는 최대 8자입니다." },
                 ]}
                 colon={false}
               >
