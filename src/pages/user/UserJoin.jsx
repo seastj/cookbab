@@ -34,7 +34,7 @@ function UserJoin() {
     userId: "",
     userPass: "",
     passwordConfirm: "",
-    ninkname: "",
+    nickname: "",
     introduction: "",
   };
 
@@ -99,13 +99,42 @@ function UserJoin() {
   const dispatch = useContext(LoginDispatchContext);
 
   const onFinish = values => {
+    // dispatch({
+    //   type: "LOGIN",
+    //   payload: {
+    //     ...values,
+    //     profileImage: profileImg,
+    //   },
+    // });
+    // navigate("/user");
+
+    // 기존 회원 목록 불러오기 (없으면 빈 배열)
+    const users = JSON.parse(localStorage.getItem("users")) || [];
+
+    // 중복 아이디 체크
+    const isDuplicated = users.some(user => user.userId === values.userId);
+    if (isDuplicated) {
+      alert("이미 존재하는 아이디입니다.");
+      return;
+    }
+
+    // 새 유저 정보 만들기
+    const newUser = {
+      ...values,
+      profileImage: profileImg, // 프로필 이미지 포함
+    };
+
+    // 회원 목록에 추가 후 저장
+    users.push(newUser);
+    localStorage.setItem("users", JSON.stringify(users));
+
+    // 로그인 처리 (LoginContext 활용)
     dispatch({
       type: "LOGIN",
-      payload: {
-        ...values,
-        profileImage: profileImg,
-      },
+      payload: newUser,
     });
+
+    // 유저 페이지로 이동
     navigate("/user");
   };
 
