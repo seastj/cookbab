@@ -123,7 +123,7 @@ export const SetBoxTagWrap = styled.div`
   flex-wrap: wrap;
   gap: 14px;
   margin-bottom: 30px;
-  margin-top: 10px;
+  padding-top: 15px;
 `;
 export const SetBoxTagSpan = styled.span`
   border: 1px solid #8f8f8f;

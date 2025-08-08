@@ -24,11 +24,11 @@ export const SetBoxBackArrow = styled.div`
 export const SetBox = styled.div`
   position: relative;
   width: 1240px;
-  height: 1018px;
   background-color: #fff;
   box-shadow: 3px 3px 20px 0px rgba(0, 0, 0, 0.25);
   display: flex;
   margin-bottom: 82px;
+  flex-wrap: wrap;
 `;
 export const SetBoxDetailWrap = styled.div`
   position: relative;
@@ -47,6 +47,12 @@ export const SetBoxPictureBox = styled.div`
   height: 242px;
   border-radius: 20px;
   cursor: pointer;
+  overflow: hidden;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 `;
 export const SetBoxCookName = styled.p`
   font-size: 25px;
@@ -114,6 +120,7 @@ export const SetBoxTagWrap = styled.div`
 export const SetBoxTagSpan = styled.span`
   border: 1px solid #8f8f8f;
   padding: 10px 8px;
+  border-radius: 10px;
 `;
 
 export const SetBoxCookStepsNumber = styled.div`
@@ -137,13 +144,14 @@ export const SetBoxCookStepsTextarea = styled.textarea`
 `;
 
 export const SetBoxRegistration = styled.div`
-  position: absolute;
+  /* position: absolute;
   bottom: 78px;
   left: 50%;
-  transform: translateX(-50%);
+  transform: translateX(-50%); */
   display: flex;
   gap: 36px;
   cursor: pointer;
+  margin: 50px auto;
 `;
 export const SetBoxRegistrationAdd = styled.button`
   width: 225px;
