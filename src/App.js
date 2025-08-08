@@ -14,56 +14,65 @@ import AfterKko from "./pages/member/AfterKko";
 import { LoginProvider } from "./contexts/LoginProvider";
 import LoginState from "./components/ui/LoginState";
 import ProtectedRoute from "./components/ui/ProtectedRoute";
+import { CookProvider } from "./contexts/cook/CookInfoProvider";
 
 function App() {
   return (
     <div>
       <LoginProvider>
-        <Router>
-          <Routes>
-            <Route path="/" element={<Index />}></Route>
-            <Route path="/user/guest" element={<UserGuest></UserGuest>}></Route>
-            <Route
-              path="/mealset"
-              element={
-                <ProtectedRoute>
-                  <Mealset />
-                </ProtectedRoute>
-              }
-            ></Route>
-            <Route
-              path="/mealset/edit"
-              element={<MealsetEdit></MealsetEdit>}
-            ></Route>
+        <CookProvider>
+          <Router>
+            <Routes>
+              <Route path="/" element={<Index />}></Route>
+              <Route
+                path="/user/guest"
+                element={<UserGuest></UserGuest>}
+              ></Route>
+              <Route
+                path="/mealset"
+                element={
+                  <ProtectedRoute>
+                    <Mealset />
+                  </ProtectedRoute>
+                }
+              ></Route>
+              <Route
+                path="/mealset/edit/:id"
+                element={<MealsetEdit></MealsetEdit>}
+              ></Route>
 
-            <Route
-              path="/onemeal"
-              element={
-                <ProtectedRoute>
-                  <Onemeal />
-                </ProtectedRoute>
-              }
-            ></Route>
-            <Route
-              path="/onemeal/view"
-              element={<OnemealView></OnemealView>}
-            ></Route>
-            <Route
-              path="/mealtotal"
-              element={
-                <ProtectedRoute>
-                  <Mealtotal />
-                </ProtectedRoute>
-              }
-            ></Route>
-            <Route path="/user" element={<User></User>}></Route>
-            <Route path="/user/guest" element={<UserGuest></UserGuest>}></Route>
-            <Route path="/member/google" element={<AfterGoogle />}></Route>
-            <Route path="member/kko" element={<AfterKko />}></Route>
-            <Route path="/user/join" element={<UserJoin></UserJoin>}></Route>
-            <Route path="/mypage" element={<LoginState />} />
-          </Routes>
-        </Router>
+              <Route
+                path="/onemeal"
+                element={
+                  <ProtectedRoute>
+                    <Onemeal />
+                  </ProtectedRoute>
+                }
+              ></Route>
+              <Route
+                path="/onemeal/view/:id"
+                element={<OnemealView></OnemealView>}
+              ></Route>
+              <Route
+                path="/mealtotal"
+                element={
+                  <ProtectedRoute>
+                    <Mealtotal />
+                  </ProtectedRoute>
+                }
+              ></Route>
+              <Route path="/user" element={<User></User>}></Route>
+              <Route
+                path="/user/guest"
+                element={<UserGuest></UserGuest>}
+              ></Route>
+              <Route path="/member/google" element={<AfterGoogle />}></Route>
+              <Route path="member/kko" element={<AfterKko />}></Route>
+              <Route path="/user/join" element={<UserJoin></UserJoin>}></Route>
+              <Route path="/mypage" element={<LoginState />} />
+            </Routes>
+          </Router>
+        </CookProvider>
       </LoginProvider>
     </div>
   );

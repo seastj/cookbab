@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import styled from "@emotion/styled";
@@ -34,25 +34,35 @@ import {
   SetBoxTextWrap,
   SetBoxWrap,
 } from "./Mealset.styles";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { CookDispatchContext } from "../../contexts/cook/CookInfoContext";
 
 function Mealset() {
   // js 자리
+
   // 뒤로가기
   const navigate = useNavigate();
   const BackButton = () => {
     navigate("/");
   };
-  //등록하기클릭시 view 로 이동
-
-  const RegistrationButton = () => {
-    navigate("/onemeal/view");
+  //view로 이동
+  const RegistrationButton = newId => {
+    navigate(`/onemeal/view/${newId}`);
   };
 
   // 요리명
   const [cookName, setCookName] = useState("");
+  const [cookTime, setCookTime] = useState("");
+  const [category, setCategory] = useState("");
+  const [level, setLevel] = useState("");
+  const [ingredientInput, setIngredientInput] = useState("");
+  const [userTags, setUserTags] = useState([]);
+  const [cookSteps, setCookSteps] = useState([""]);
+  const [imageUrl, setImageUrl] = useState(null);
+  const fileInputRef = useRef(null);
 
-  // 종류가 많아서 value=4 미만은 숨김처리
+  const { addCook } = useContext(CookDispatchContext);
+
   const categories = [
     "한식",
     "중식",
@@ -63,8 +73,6 @@ function Mealset() {
     "다이어트",
     "기타",
   ];
-  const [category, setCategory] = useState("");
-  // 조리시간
   const times = [
     "10분 미만",
     "10~30분",
@@ -73,17 +81,14 @@ function Mealset() {
     "2시간~3시간",
     "3시간이상",
   ];
-  const [cookTime, setCookTime] = useState("");
 
   // 난이도
-  const [level, setLevel] = useState("");
+
   const onLevelClick = selectedLevel => {
     setLevel(selectedLevel);
   };
 
   // 해시태그들
-  const [ingredientInput, setIngredientInput] = useState("");
-  const [userTags, setUserTags] = useState([]);
 
   // 인풋의 값 변경 핸들러
   const onIngredientInputChange = e => {
@@ -108,7 +113,7 @@ function Mealset() {
   };
 
   //조리단계
-  const [cookSteps, setCookSteps] = useState([""]);
+
   const onCookStepChange = (index, value) => {
     const newSteps = [...cookSteps];
     newSteps[index] = value;
@@ -128,8 +133,7 @@ function Mealset() {
   };
 
   // 사진추가
-  const [imageUrl, setImageUrl] = useState(null);
-  const fileInputRef = useRef(null);
+
   // 클릭하면 숨겨진 파일 선택창 열기
   const onPictureBoxClick = () => {
     fileInputRef.current.click();
@@ -167,11 +171,21 @@ function Mealset() {
       alert(errorMessage);
       return;
     }
-    const confirmResult = window.confirm("정말 등록하시겠습니까?");
-    if (confirmResult) {
-      RegistrationButton(); // 등록 처리 및 페이지 이동
-    } else {
-      // 취소 시 별도 작업 없음
+    if (window.confirm("정말 등록하시겠습니까?")) {
+      const newId = addCook({
+        imageUrl,
+        cookName,
+        category,
+        cookTime,
+        level,
+        userTags,
+        cookSteps,
+      });
+      if (newId) {
+        navigate(`/onemeal/view/${newId}`);
+      } else {
+        alert("글 등록에 실패했습니다.");
+      }
     }
   };
 
@@ -191,8 +205,8 @@ function Mealset() {
             <SetBoxDetailWrap>
               <SetBoxFoodPictureWrap>
                 <SetBOxMainTitle>요리사진</SetBOxMainTitle>
-                <SetBoxPictureBox>
-                  <SetBoxPictureBoxTitleWrap onClick={onPictureBoxClick}>
+                <SetBoxPictureBox onClick={onPictureBoxClick}>
+                  <SetBoxPictureBoxTitleWrap>
                     {imageUrl ? (
                       <img
                         src={imageUrl}

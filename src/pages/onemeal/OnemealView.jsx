@@ -3,10 +3,10 @@ import Footer from "../../components/Footer";
 import styled from "@emotion/styled";
 import Back from "../../images/arrow.svg";
 import MealsetBase from "../../components/MealsetBase";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Clock from "../../images/clock.svg";
 import FoodIcon from "../../images/foodicon.svg";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   SetBox,
   SetBoxBackArrow,
@@ -30,22 +30,46 @@ import {
   SetBoxTextWrap,
   SetBoxWrap,
 } from "./OnemealView.styles";
+import {
+  CookDispatchContext,
+  CookStateContext,
+} from "../../contexts/cook/CookInfoContext";
 
 function OnemealView() {
   // js 자리
+
   // 뒤로가기
   const navigate = useNavigate();
   const BackButton = () => {
     navigate("/onemeal");
   };
-  //등록하기클릭시 view 로 이동
-  const EditButton = () => {
-    navigate("/mealset/edit");
+
+  //데이터연동
+  const { id } = useParams();
+  const cooks = useContext(CookStateContext) || [];
+  const [cookDetail, setCookDetail] = useState(null);
+
+  useEffect(() => {
+    if (id) {
+      const found = cooks.find(cook => String(cook.id) === String(id));
+      if (found) {
+        setCookDetail(found);
+      } else {
+        navigate("/onemeal");
+      }
+    }
+  }, [id, cooks, navigate]);
+
+  //삭제함수
+  const { removeCook } = useContext(CookDispatchContext);
+  const handleDeleteButton = () => {
+    if (window.confirm("정말 삭제하시겠습니까?")) {
+      removeCook(id);
+      alert("글이 삭제되었습니다.");
+      navigate("/onemeal");
+    }
   };
-  // 해시태그들
-  const [userTags, setUserTags] = useState([]);
-  //조리단계
-  const [text, setText] = useState();
+
   // jsx 자리
   return (
     <div>
@@ -60,36 +84,66 @@ function OnemealView() {
             <SetBoxDetailWrap>
               <SetBoxFoodPictureWrap>
                 <SetBoxPictureBox>
-                  <img src="#" alt="요리사진" />
+                  {cookDetail?.imageUrl ? (
+                    <img src={cookDetail.imageUrl} alt="요리사진" />
+                  ) : (
+                    <div
+                      style={{
+                        width: "100%",
+                        height: "200px",
+                        backgroundColor: "#eee",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      사진 없음
+                    </div>
+                  )}
                 </SetBoxPictureBox>
               </SetBoxFoodPictureWrap>
               <div>
-                <SetBoxCookName>요리 이름</SetBoxCookName>
+                <SetBoxCookName>
+                  {cookDetail?.cookName || "요리 이름 없음"}
+                </SetBoxCookName>
                 <SetBoxTextWrap>
                   <SetBoxCookCate>
                     <img src={FoodIcon} alt="카테고리" />
-                    카테고리
+                    {cookDetail?.category || "카테고리 없음"}
                   </SetBoxCookCate>
                   <SetBoxCookCate>
                     <img src={Clock} alt="조리시간" />
-                    조리시간
+                    {cookDetail?.cookTime || "조리시간 없음"}
                   </SetBoxCookCate>
                 </SetBoxTextWrap>
                 <SetBoxLevelWrap>
                   <SetBoxSubTitle>난이도</SetBoxSubTitle>
                   <SetBoxLevelButtonWrap>
                     <SetBoxLevelButtonUl>
-                      <SetBoxLevelButtonLi>쉬움</SetBoxLevelButtonLi>
-                      <SetBoxLevelButtonLi>보통</SetBoxLevelButtonLi>
-                      <SetBoxLevelButtonLi>어려움</SetBoxLevelButtonLi>
+                      {["쉬움", "보통", "어려움"].map(level => (
+                        <SetBoxLevelButtonLi
+                          key={level}
+                          style={{
+                            backgroundColor:
+                              cookDetail?.level === level ? "#f37373" : "#fff",
+                            color:
+                              cookDetail?.level === level ? "#fff" : "#a8a8a8",
+                            border:
+                              cookDetail?.level === level
+                                ? "none"
+                                : "1px solid #a8a8a8",
+                          }}
+                        >
+                          {level}
+                        </SetBoxLevelButtonLi>
+                      ))}
                     </SetBoxLevelButtonUl>
                   </SetBoxLevelButtonWrap>
                 </SetBoxLevelWrap>
                 <SetBoxSubTitle>재료</SetBoxSubTitle>
                 <SetBoxTagWrap>
-                  {/* 사용자가 입력한 내용 */}
-                  {userTags.map((item, index) => (
-                    <SetBoxTagSpan key={index}>#{item}</SetBoxTagSpan>
+                  {(cookDetail?.userTags || []).map((tag, idx) => (
+                    <SetBoxTagSpan key={idx}>#{tag}</SetBoxTagSpan>
                   ))}
                 </SetBoxTagWrap>
               </div>
@@ -98,21 +152,27 @@ function OnemealView() {
               <SetBoxTextWrap>
                 <div>
                   <SetBoxSubTitle>만드는 순서</SetBoxSubTitle>
-                  <div>
-                    <SetBoxCookStepsNumber>1</SetBoxCookStepsNumber>
-                    <SetBoxCookStepsTextarea
-                      value={text}
-                      onChange={e => setText(e.target.value)}
-                      placeholder="단계를 설명해주세요."
-                      rows={3}
-                    />
-                  </div>
+                  {(cookDetail?.cookSteps || []).map((step, index) => (
+                    <div key={index} style={{ marginBottom: 20 }}>
+                      <SetBoxCookStepsNumber>{index + 1}</SetBoxCookStepsNumber>
+                      <SetBoxCookStepsTextarea
+                        value={step}
+                        readOnly
+                        rows={3}
+                        style={{ resize: "none" }}
+                      />
+                    </div>
+                  ))}
                 </div>
               </SetBoxTextWrap>
             </SetBoxDetailWrap>
             <SetBoxRegistration>
-              <SetBoxRegistrationDelete>삭제하기</SetBoxRegistrationDelete>
-              <SetBoxRegistrationAdd onClick={EditButton}>
+              <SetBoxRegistrationDelete onClick={handleDeleteButton}>
+                삭제하기
+              </SetBoxRegistrationDelete>
+              <SetBoxRegistrationAdd
+                onClick={() => navigate(`/mealset/edit/${id}`)}
+              >
                 수정하기
               </SetBoxRegistrationAdd>
             </SetBoxRegistration>

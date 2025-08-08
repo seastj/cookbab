@@ -34,6 +34,12 @@ export const SetBoxPictureBox = styled.div`
   height: 242px;
   border-radius: 20px;
   cursor: pointer;
+  overflow: hidden;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 `;
 export const SetBoxPictureBoxTitleWrap = styled.div`
   position: absolute;
@@ -108,10 +114,12 @@ export const SetBoxTagWrap = styled.div`
   flex-wrap: wrap;
   gap: 14px;
   margin-bottom: 30px;
+  padding-top: 15px;
 `;
 export const SetBoxTagSpan = styled.span`
   border: 1px solid #8f8f8f;
   padding: 10px 8px;
+  border-radius: 10px;
 `;
 
 export const SetBoxCookStepsNumber = styled.div`

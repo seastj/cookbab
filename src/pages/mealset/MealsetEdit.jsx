@@ -1,5 +1,5 @@
-import { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useContext, useEffect, useRef, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import Footer from "../../components/Footer";
 import Header from "../../components/Header";
 import MealsetBase from "../../components/MealsetBase";
@@ -31,6 +31,10 @@ import {
   SetBoxTagWrap,
   SetBoxTextWrap,
 } from "./MealsetEdit.styles";
+import {
+  CookDispatchContext,
+  CookStateContext,
+} from "../../contexts/cook/CookInfoContext";
 
 function MealsetEdit() {
   // js 자리
@@ -38,11 +42,7 @@ function MealsetEdit() {
   // 취소버튼
   const navigate = useNavigate();
   const BackButton = () => {
-    navigate("/onemeal/view");
-  };
-  //등록하기클릭시 view 로 이동
-  const EditFinishButton = () => {
-    navigate("/onemeal/view");
+    navigate(`/onemeal/view/${id}`);
   };
 
   //  카테고리
@@ -77,12 +77,10 @@ function MealsetEdit() {
   const [ingredientInput, setIngredientInput] = useState("");
   const [userTags, setUserTags] = useState([]);
 
-  // 인풋의 값 변경 핸들러
+  //태그 추가
   const onIngredientInputChange = e => {
     setIngredientInput(e.target.value);
   };
-
-  // Enter(혹은 ,) 키를 눌렀을 때 태그 추가
   const onIngredientInputKeyDown = e => {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -94,7 +92,7 @@ function MealsetEdit() {
     }
   };
 
-  // 태그 삭제 함수(필요시)
+  // 태그 삭제
   const removeTag = tagToRemove => {
     setUserTags(userTags.filter(tag => tag !== tagToRemove));
   };
@@ -113,10 +111,6 @@ function MealsetEdit() {
   // 조리단계 삭제
   const onRemoveCookStep = idx => {
     setCookSteps(steps => steps.filter((_, i) => i !== idx));
-  };
-  // 새로고침방지
-  const handleSubmit = e => {
-    e.preventDefault();
   };
 
   // 사진추가
@@ -137,13 +131,81 @@ function MealsetEdit() {
       reader.readAsDataURL(file);
     }
   };
+
+  // 데이터 연동
+  const { id } = useParams();
+  const cooks = useContext(CookStateContext) || [];
+  const { editCook } = useContext(CookDispatchContext);
+  const [cookName, setCookName] = useState("");
+  useEffect(() => {
+    if (id && cooks.length > 0) {
+      const found = cooks.find(cook => String(cook.id) === String(id));
+      if (found) {
+        setCookName(found.cookName || "");
+        setCategory(found.category || "");
+        setCookTime(found.cookTime || "");
+        setLevel(found.level || "");
+        setUserTags(found.userTags || []);
+        setCookSteps(found.cookSteps || [""]);
+        setImageUrl(found.imageUrl || null);
+      } else {
+        alert("존재하지 않는 글입니다.");
+        navigate("/onemeal");
+      }
+    }
+  }, [id, cooks, navigate]);
+
+  // 검사
+  const dataFinishValid = () => {
+    if (!imageUrl) return "요리사진을 추가해주세요.";
+    if (!cookName || cookName.trim() === "") return "요리 이름을 입력해주세요.";
+    if (!category || category.trim() === "") return "카테고리를 선택해주세요.";
+    if (!cookTime || cookTime.trim() === "") return "조리시간을 선택해주세요.";
+    if (!level || level.trim() === "") return "난이도를 선택해주세요.";
+    if (userTags.length === 0) return "재료를 1개 이상 입력해주세요.";
+    if (cookSteps.length === 0) return "만드는 순서를 1단계 이상 입력해주세요.";
+    for (const step of cookSteps) {
+      if (!step || step.trim() === "")
+        return "만드는 순서에 빈칸이 있습니다. 모두 작성해주세요.";
+    }
+    return null;
+  };
+
+  const finishRegisterClick = () => {
+    const errorMessage = dataFinishValid();
+    if (errorMessage) {
+      alert(errorMessage);
+      return;
+    }
+    if (window.confirm("정말 수정하시겠습니까?")) {
+      const updatedCook = {
+        id,
+        cookName,
+        category,
+        cookTime,
+        level,
+        userTags,
+        cookSteps,
+        imageUrl,
+      };
+      editCook(updatedCook);
+      alert("글이 수정되었습니다!");
+      navigate(`/onemeal/view/${id}`);
+    }
+  };
+
+  // --- 새로고침 방지 ---
+  const handleSubmit = e => {
+    e.preventDefault();
+  };
+
   return (
     <>
       <Header />
       <main>
         <MealsetBase />
         <SetBoxWrap>
-          <SetBox>
+          <SetBox onSubmit={handleSubmit}>
             <SetBoxDetailWrap>
               <SetBoxFoodPictureWrap>
                 <SetBOxMainTitle>요리사진</SetBOxMainTitle>
@@ -181,6 +243,8 @@ function MealsetEdit() {
                   <SetBoxCookNameInput
                     type="text"
                     placeholder="예: 김치볶음밥"
+                    value={cookName || ""}
+                    onChange={e => setCookName(e.target.value)}
                   />
                 </SetBoxTextWrap>
                 <SetBoxTextWrap>
@@ -302,7 +366,7 @@ function MealsetEdit() {
                 </SetBoxCookStepWrap>
               </SetBoxTextWrap>
               <SetBoxRegistration>
-                <SetBoxRegistrationButton onClick={EditFinishButton}>
+                <SetBoxRegistrationButton onClick={finishRegisterClick}>
                   수정완료
                 </SetBoxRegistrationButton>
                 <SetBoxCancelButton onClick={BackButton}>
