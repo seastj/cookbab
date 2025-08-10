@@ -214,14 +214,10 @@ function User() {
             </InfoLeftImg>
             <InfoLeftText>
               <InfoLeftTextTitle>
-                {user?.nickname ? `${user.nickname} 요리사님` : "요리사님"}
+                {user?.nickName ? `${user.nickName} 요리사님` : "요리사님"}
               </InfoLeftTextTitle>
-              <InfoLeftTextEmail>
-                {user?.email || "aaa@gmail.com"}
-              </InfoLeftTextEmail>
-              <InfoLeftTextintro>
-                {user?.introduction || "요리해봅시다."}
-              </InfoLeftTextintro>
+              <InfoLeftTextEmail>{user?.email || ""}</InfoLeftTextEmail>
+              <InfoLeftTextintro>{user?.introduction || ""}</InfoLeftTextintro>
               <InfoLeftTextdate>2025-06-15 부터 요리 시작</InfoLeftTextdate>
             </InfoLeftText>
           </UserInfoLeft>

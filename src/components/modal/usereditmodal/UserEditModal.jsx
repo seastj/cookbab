@@ -145,48 +145,44 @@ function UserEditModal({ closeEdit }) {
   const dispatch = useContext(LoginDispatchContext);
 
   const initialValue = {
-    profileImg: `${user.profileImage}`,
-    userId: `${user.userId}`,
-    userPass: `${user.userPass}`,
-    passwordConfirm: `${user.passwordConfirm}`,
-    nickName: `${user.nickname}`,
-    email: `${user.email}`,
-    introduction: `${user.introduction}`,
+    profileImg: user.profileImage || "",
+    userId: user.userId || "",
+    userPass: user.userPass || "",
+    passwordConfirm: user.passwordConfirm || "",
+    nickName: user.nickName || "",
+    email: user.email || "",
+    introduction: user.introduction || "",
   };
 
-  const onFiledsChange = (field, allFields) => {
-    console.log(field[0].value);
-  };
+  const handleFinish = values => {
+    const users = JSON.parse(localStorage.getItem("users")) || [];
 
-  const onFinish = values => {
-    const currentUser = JSON.parse(localStorage.getItem("auth"));
-    if (!currentUser) return;
+    // 현재 로그인한 유저를 찾아서 수정
+    const updatedUsers = users.map(user => {
+      if (user.userId === values.userId) {
+        return {
+          ...user,
+          userId: user.userId,
+          email: values.email,
+          nickName: values.nickName,
+          introduction: values.introduction,
+          profileImage: profileImg,
+          userPass: values.userPass,
+          passwordConfirm: values.passwordConfirm,
+        };
+      }
+      return user;
+    });
 
-    // 업데이트된 유저 정보
-    const updatedUser = {
-      ...currentUser,
-      userId: values.userId,
-      email: values.email,
-      nickname: values.nickName,
-      introduction: values.introduction,
-      profileImage: profileImg,
-      userPass: values.userPass,
-      passwordConfirm: values.passwordConfirm,
-    };
+    // localStorage에 수정된 배열 저장
+    localStorage.setItem("users", JSON.stringify(updatedUsers));
 
-    // auth 정보 업데이트
-    localStorage.setItem("auth", JSON.stringify(updatedUser));
-    // loginState 업데이트
+    // 로그인 상태 업데이트
+    const updatedUser = updatedUsers.find(
+      user => user.userId === values.userId,
+    );
     dispatch({ type: "LOGIN", payload: updatedUser });
 
-    // users 배열 불러오기
-    const users = JSON.parse(localStorage.getItem("users")) || [];
-    // userId 기준으로 해당 유저 찾아서 수정
-    const updatedUsers = users.map(user =>
-      user.userId === updatedUser.userId ? updatedUser : user,
-    );
-    // localStorage에 저장
-    localStorage.setItem("users", JSON.stringify(updatedUsers));
     closeEdit();
   };
 
@@ -213,10 +209,7 @@ function UserEditModal({ closeEdit }) {
           layout="vertical"
           style={{ display: "flex" }}
           initialValues={initialValue}
-          onFieldsChange={(field, allFields) =>
-            onFiledsChange(field, allFields)
-          }
-          onFinish={values => onFinish(values)}
+          onFinish={handleFinish}
         >
           <JoinBoxItemWrap>
             {/* box의 left */}
