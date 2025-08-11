@@ -12,6 +12,7 @@ import AfterGoogle from "../member/AfterGoogle";
 import { Link, useNavigate } from "react-router-dom";
 import { getGoogleLoginLink } from "../../google/googleapi";
 import { getKakaoLoginLink } from "../../kko/kkoapi";
+import SignupMessage from "../../components/randommessage/SignupMessage";
 
 const UserGuestWrap = styled.div`
   width: 1200px;
@@ -214,7 +215,9 @@ function UserGuest() {
           <IdHubIcon>
             <img src={megaphongray} alt="joinmegaphone" />
           </IdHubIcon>
-          <JoinComment>가입 권유 문구</JoinComment>
+          <JoinComment>
+            <SignupMessage />
+          </JoinComment>
         </JoinCommentWrap>
       </UserGuestWrap>
       <Footer />
