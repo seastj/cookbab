@@ -1,17 +1,14 @@
-import "./loginmodal.css";
-import logo from "../../../images/cookbab_logo.png";
 import { useContext, useState } from "react";
-import ButtonSubmit from "../../buttons/ButtonSubmit";
-import ButtonCancle from "../../buttons/ButtonCancle";
 import { useNavigate } from "react-router-dom";
-import {
-  LoginStateContext,
-  LoginDispatchContext,
-} from "../../../contexts/LoginContext";
+import { LoginDispatchContext } from "../../../contexts/LoginContext";
+import logo from "../../../images/cookbab_logo.png";
+import ButtonCancle from "../../buttons/ButtonCancle";
+import ButtonSubmit from "../../buttons/ButtonSubmit";
+import "./loginmodal.css";
 
 function LoginModal({ closeLogin }) {
   const initUser = { id: "", pw: "" };
-  const userdata = JSON.parse(localStorage.getItem("users")) || [];
+  let userdata = JSON.parse(localStorage.getItem("users")) || [];
   const [user, setUser] = useState(initUser);
   const dispatch = useContext(LoginDispatchContext);
   const navigate = useNavigate();
@@ -29,16 +26,20 @@ function LoginModal({ closeLogin }) {
         type: "LOGIN",
         payload: {
           isLogin: true,
-          id: foundUser.userId,
+          userId: foundUser.userId,
+          userPass: foundUser.userPass,
           email: foundUser.email,
-          nickname: foundUser.nickname,
+          nickName: foundUser.nickName,
+          introduction: foundUser.introduction,
           profileImage: foundUser.profileImage,
-          // pw는 보통 저장하지 않음
+          passwordConfirm: foundUser.passwordConfirm,
+          profileImage: foundUser.profileImage,
+          provider: foundUser.provider || null,
         },
       });
       alert("로그인 성공!");
       closeLogin(); // 모달 닫기
-      navigate("/user"); // 마이페이지로 이동
+      navigate("/user");
     } else {
       alert("아이디 또는 비밀번호가 일치하지 않습니다.");
     }

@@ -143,7 +143,7 @@ function Mealtotal() {
         <UserInfoWrap>
           <UserInfo>
             <UserInfoName>
-              {user?.nickname ? `${user.nickname} ` : "요리사님"}
+              {user?.nickName ? `${user.nickName} ` : "요리사님"}
               요리사님
             </UserInfoName>
             <UserInfoEmail>
@@ -154,13 +154,13 @@ function Mealtotal() {
         </UserInfoWrap>
         <UserSummaryInfoWrap>
           <UserSummaryTitle>
-            {user?.nickname ? `${user.nickname} ` : "요리사님"}님의 여정
+            {user?.nickName ? `${user.nickName} ` : "요리사님"}님의 여정
           </UserSummaryTitle>
           <UserSummaryInfo />
         </UserSummaryInfoWrap>
         <UserPerformanceWrap>
           <UserPerformanceTitle>
-            {user?.nickname ? `${user.nickname} ` : "요리사님"}님의 성과
+            {user?.nickName ? `${user.nickName} ` : "요리사님"}님의 성과
           </UserPerformanceTitle>
           <ChartsWrap>
             <ChartsFirstLine>

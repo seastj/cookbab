@@ -1,11 +1,10 @@
-import Password from "antd/es/input/Password";
-import { LoginDispatchContext, LoginStateContext } from "./LoginContext";
 import { useEffect, useReducer } from "react";
+import { LoginDispatchContext, LoginStateContext } from "./LoginContext";
 
 // 로컬스토리지
 const localStorageKey = "myAppLoginState";
 
-// 로컬스토리지에서 상태 읽기 함수
+// 로컬스토리지에서 상태 읽기
 const getInitialState = () => {
   const stored = localStorage.getItem(localStorageKey);
   if (stored) {
@@ -22,11 +21,11 @@ const getInitialState = () => {
 const initialLoginState = {
   isLogin: false,
   provider: null,
-  userId: "",
   profileImage: "",
+  userId: "",
+  email: "",
   userPass: "",
   passwordConfirm: "",
-  email: "",
   nickName: "",
   introduction: "",
 };
@@ -50,7 +49,6 @@ export function LoginProvider({ children }) {
   useEffect(() => {
     if (loginState.isLogin) {
       localStorage.setItem(localStorageKey, JSON.stringify(loginState));
-      console.log(localStorageKey);
     } else {
       localStorage.removeItem(localStorageKey);
     }

@@ -28,18 +28,24 @@ import {
 
 function UserJoin() {
   // js 자리
+  const navigate = useNavigate();
+  const fileInputRef = useRef(null);
+  // 이미지 추가
+  const [profileImg, setProfileImg] = useState(null);
+  // 초기값 데이터 가져오기
+  const auth = useContext(LoginStateContext);
+  const dispatch = useContext(LoginDispatchContext);
+  const [email, setEmail] = useState("");
+  const [nickName, setNickName] = useState("");
+  const [profileImage, setProfileImage] = useState("");
 
   // 첫화면
   const initialValue = {
     userId: "",
     userPass: "",
     passwordConfirm: "",
-    nickname: "",
+    nickName: "",
     introduction: "",
-  };
-
-  const onFiledsChange = (field, allFields) => {
-    // console.log(field[0].value);
   };
 
   const [match, setMatch] = useState(true);
@@ -52,25 +58,12 @@ function UserJoin() {
     }
   };
 
-  const navigate = useNavigate();
-
-  // 이미지 추가
-  const [profileImg, setProfileImg] = useState(null);
-  const fileInputRef = useRef(null);
-
-  // 초기값 데이터 가져오기
-  const auth = useContext(LoginStateContext);
-  const [email, setEmail] = useState("");
-  const [nickname, setNickname] = useState("");
-  const [profileImage, setProfileImage] = useState("");
-  const dispatch = useContext(LoginDispatchContext);
-
   useEffect(() => {
     if (auth && auth.provider === "kakao") {
       // 카카오 계정인 경우에만 초기값 설정
       form.setFieldsValue({
         email: auth.email || "",
-        nickname: auth.nickname || "",
+        nickName: auth.nickName || "",
       });
       setProfileImg(auth.profileImage || null);
     } else {
@@ -135,9 +128,6 @@ function UserJoin() {
           layout="vertical"
           style={{ display: "flex" }}
           initialValues={initialValue}
-          onFieldsChange={(field, allFields) =>
-            onFiledsChange(field, allFields)
-          }
           onFinish={values => onFinish(values)}
         >
           <JoinBoxItemWrap>
@@ -239,7 +229,7 @@ function UserJoin() {
                 colon={false}
               >
                 <JoinBoxItemInput
-                  onChange={e => setEmail(e.target.value)}
+                  // onChange={e => setEmail(e.target.value)}
                   placeholder="이메일을 입력하세요."
                 />
               </Form.Item>
@@ -247,7 +237,7 @@ function UserJoin() {
             <div>
               <Form.Item
                 label={<JoinBoxItemTitel>닉네임</JoinBoxItemTitel>}
-                name={"nickname"}
+                name={"nickName"}
                 required={false}
               >
                 <JoinBoxItemInput placeholder="닉네임을 입력해주세요." />
