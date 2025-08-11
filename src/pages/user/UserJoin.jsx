@@ -100,6 +100,9 @@ function UserJoin() {
     const newUser = {
       ...values,
       profileImage: profileImg, // 프로필 이미지 포함
+      joinDate: new Date(Date.now() + 9 * 60 * 60 * 1000)
+        .toISOString()
+        .slice(0, 10),
     };
 
     // 회원 목록에 추가 후 저장
