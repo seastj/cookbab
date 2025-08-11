@@ -44,38 +44,46 @@ function LoginModal({ closeLogin }) {
       alert("아이디 또는 비밀번호가 일치하지 않습니다.");
     }
   };
-
   return (
-    <div className="overlay" onClick={closeLogin}>
-      <div className="loginwrap" onClick={e => e.stopPropagation()}>
+    <div
+      className="overlay"
+      onMouseDown={e => e.target === e.currentTarget && closeLogin()}
+    >
+      <div className="loginwrap">
         <div className="logoimg" onClick={homeNavi}>
           <img src={logo} alt="logo" />
         </div>
         <div className="logintitle">로그인</div>
-        <form className="loginid">
-          <label>아이디</label>
-          <input
-            name="id"
-            value={user.id}
-            type="text"
-            placeholder="아이디를 입력해주세요."
-            onChange={e => setUser({ ...user, id: e.target.value })}
-          />
+        <form className="user_login">
+          <div className="loginid">
+            <label>아이디</label>
+            <input
+              name="id"
+              value={user.id}
+              type="text"
+              placeholder="아이디를 입력해주세요."
+              onChange={e => setUser({ ...user, id: e.target.value })}
+            />
+          </div>
+          <div className="loginpw">
+            <label>비밀번호</label>
+            <input
+              name="pw"
+              value={user.pw}
+              type="password"
+              placeholder="비밀번호를 입력해주세요."
+              onChange={e => setUser({ ...user, pw: e.target.value })}
+            />
+          </div>
+          <div className="loginbts">
+            <ButtonSubmit
+              type="submit"
+              onClick={handleLogin}
+              label={"로그인"}
+            />
+            <ButtonCancle onClick={joinNavi} label={"회원가입"} />
+          </div>
         </form>
-        <form className="loginpw">
-          <label>비밀번호</label>
-          <input
-            name="pw"
-            value={user.pw}
-            type="password"
-            placeholder="비밀번호를 입력해주세요."
-            onChange={e => setUser({ ...user, pw: e.target.value })}
-          />
-        </form>
-        <div className="loginbts">
-          <ButtonSubmit type="submit" onClick={handleLogin} label={"로그인"} />
-          <ButtonCancle onClick={joinNavi} label={"회원가입"} />
-        </div>
       </div>
     </div>
   );

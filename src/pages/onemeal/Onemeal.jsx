@@ -3,7 +3,7 @@ import mdisearch from "../../images/mdisearch.svg";
 import Header from "../../components/Header";
 import item1 from "../../images/oneitem1.jpg";
 import Footer from "../../components/Footer";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   OnemealBoxDay,
   OnemealBoxTitle,
@@ -33,11 +33,16 @@ import { CookStateContext } from "../../contexts/cook/CookInfoContext";
 function Onemeal() {
   // js자리
 
+  // const date = new URLSearchParams(useLocation().search).get("date");
+  // const filtered = cooks.filter(
+  //   c => c.userId === userId && (!date || c.createdAt?.startsWith(date)),
+  // );
+
   // 전체요리 더미데이터
   const [foodPost, setFoodPost] = useState([]);
   const cooks = useContext(CookStateContext) || [];
   const loginUser = useContext(LoginStateContext);
-  const userId = loginUser?.id;
+  const userId = loginUser?.userId;
   // 카테고리 버튼
   const [sortedFoodPost, setSortedFoodPost] = useState(foodPost);
   const [activeCategory, setActiveCategory] = useState("전체");

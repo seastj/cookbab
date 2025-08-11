@@ -218,7 +218,9 @@ function User() {
               </InfoLeftTextTitle>
               <InfoLeftTextEmail>{user?.email || ""}</InfoLeftTextEmail>
               <InfoLeftTextintro>{user?.introduction || ""}</InfoLeftTextintro>
-              <InfoLeftTextdate>2025-06-15 부터 요리 시작</InfoLeftTextdate>
+              <InfoLeftTextdate>
+                {user?.joinDate ? `${user.joinDate} 부터 요리 시작!` : ""}
+              </InfoLeftTextdate>
             </InfoLeftText>
           </UserInfoLeft>
           <InfoRight>
