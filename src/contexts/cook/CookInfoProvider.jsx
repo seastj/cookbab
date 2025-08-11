@@ -50,15 +50,15 @@ export function CookProvider({ children }) {
 
   // 레시피(글) 추가 함수
   const addCook = cookData => {
-    if (!loginState?.id) {
+    if (!loginState?.userId) {
       alert("로그인 후 작성해주세요.");
       return;
     }
     const newCook = {
       ...cookData,
       id: Date.now().toString(),
-      userId: loginState.id,
-      nickname: loginState.nickname,
+      userId: loginState.userId,
+      nickname: loginState.nickname || "",
       createdAt: new Date().toISOString(),
     };
     dispatch({ type: "ADD_COOK", payload: newCook });
