@@ -65,6 +65,7 @@ function Onemeal() {
         (a, b) =>
           new Date(b.createdAt || b.date) - new Date(a.createdAt || a.date),
       );
+      setSortedFoodPost(sorted);
     } else if (category === "조리시간순") {
       const cookTimeOrder = {
         "10분": 1,
