@@ -231,7 +231,7 @@ function User() {
         <UserSummaryInfoWrap>
           <UserSummaryInfo />
         </UserSummaryInfoWrap>
-        <UserMedalWrap>
+        <UserMedalWrap id="userMedalWrap">
           <MedalTitle>나의 훈장</MedalTitle>
           <MedalContents>
             <Medalitem>

@@ -188,19 +188,19 @@ function Mealtotal() {
               </ChartsMonthCook>
             </ChartsFirstLine>
             <ChartsRestLine>
-              <ChartsCategoryCook id="chartsCategoryCook">
+              <ChartsCategoryCook>
                 카테고리별 분포
                 <CategoryGraph />
               </ChartsCategoryCook>
-              <ChartsTierCook id="chartsTierCook">
+              <ChartsTierCook>
                 난이도별 요리 수<TierGraph />
               </ChartsTierCook>
-              <ChartsCookTime id="chartsCookTime">
+              <ChartsCookTime>
                 요리 시간 분포
                 <CookTimeGraph />
               </ChartsCookTime>
               <ChartsParams id="monthLevelCook">
-                자주 사용하는 재료
+                자주 사용하는 식재료
                 <LevelCookGraph />
               </ChartsParams>
             </ChartsRestLine>
