@@ -37,7 +37,7 @@ function Onemeal() {
   const [foodPost, setFoodPost] = useState([]);
   const cooks = useContext(CookStateContext) || [];
   const loginUser = useContext(LoginStateContext);
-  const userId = loginUser?.id;
+  const userId = loginUser?.userId;
   // 카테고리 버튼
   const [sortedFoodPost, setSortedFoodPost] = useState(foodPost);
   const [activeCategory, setActiveCategory] = useState("전체");
