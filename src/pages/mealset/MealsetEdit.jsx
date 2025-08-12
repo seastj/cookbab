@@ -173,6 +173,7 @@ function MealsetEdit() {
 
   const finishRegisterClick = () => {
     const errorMessage = dataFinishValid();
+    const found = cooks.find(cook => String(cook.id) === String(id));
     if (errorMessage) {
       alert(errorMessage);
       return;
@@ -180,6 +181,9 @@ function MealsetEdit() {
     if (window.confirm("정말 수정하시겠습니까?")) {
       const updatedCook = {
         id,
+        userId: found.userId,
+        nickname: found.nickname,
+        createdAt: found.createdAt,
         cookName,
         category,
         cookTime,

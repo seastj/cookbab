@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import Header from "../../components/Header";
 import Footer from "../../components/Footer";
 import MonthCookGraph from "../../components/MonthCookGraph";
@@ -12,6 +12,7 @@ import LevelCookGraph from "../../components/LevelCookGraph";
 import UserSummaryInfo from "../../components/UserSummaryInfo";
 import "../../pages/calendar.css";
 import { LoginStateContext } from "../../contexts/LoginContext";
+import { Navigate, useLocation } from "react-router-dom";
 
 const MealTotalWrap = styled.div`
   width: 1200px;
@@ -135,6 +136,13 @@ const ChartsParams = styled.div`
 
 function Mealtotal() {
   const user = useContext(LoginStateContext);
+  const location = useLocation();
+  useEffect(() => {
+    location.hash &&
+      document
+        .getElementById(location.hash.slice(1))
+        ?.scrollIntoView({ behavior: "smooth" });
+  }, [location]);
 
   return (
     <>
@@ -150,7 +158,9 @@ function Mealtotal() {
               {user?.email ? `${user.email}` : "로그인이 필요한 서비스입니다."}
             </UserInfoEmail>
           </UserInfo>
-          <UserInfoDate>2025-06-15 부터 요리 시작</UserInfoDate>
+          <UserInfoDate>
+            {user?.joinDate ? `${user.joinDate} 부터 요리 시작!` : ""}
+          </UserInfoDate>
         </UserInfoWrap>
         <UserSummaryInfoWrap>
           <UserSummaryTitle>
@@ -165,9 +175,15 @@ function Mealtotal() {
           <ChartsWrap>
             <ChartsFirstLine>
               <ChartsCalendar>
-                <Calendar />
+                <Calendar
+                  locale="ko-KR"
+                  formatDay={(locale, date) => date.getDate()}
+                  // onClickDay={date =>
+                  //   Navigate(`/Onemeal?date=${date.toISOString().slice(0, 10)}`)
+                  // }
+                />
               </ChartsCalendar>
-              <ChartsMonthCook>
+              <ChartsMonthCook id="chartsMonthCook">
                 월별 요리 기록 <MonthCookGraph />
               </ChartsMonthCook>
             </ChartsFirstLine>
@@ -183,8 +199,8 @@ function Mealtotal() {
                 요리 시간 분포
                 <CookTimeGraph />
               </ChartsCookTime>
-              <ChartsParams>
-                자주 사용하는 재료
+              <ChartsParams id="monthLevelCook">
+                자주 사용하는 식재료
                 <LevelCookGraph />
               </ChartsParams>
             </ChartsRestLine>

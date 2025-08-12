@@ -28,6 +28,7 @@ const initialLoginState = {
   passwordConfirm: "",
   nickName: "",
   introduction: "",
+  joinDate: "",
 };
 
 function LoginReducer(state, action) {

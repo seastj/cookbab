@@ -39,6 +39,12 @@
   color: #424242;
   margin-bottom: 20px;
 }
+.user_login {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 100%;
+}
 .loginid {
   display: flex;
   flex-direction: column;
@@ -78,4 +84,6 @@
 .loginbts {
   display: flex;
   gap: 30px;
+  justify-content: center;
+  align-items: center;
 }

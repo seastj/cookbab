@@ -25,11 +25,11 @@ function App() {
             <Routes>
               <Route path="/" element={<Index />}></Route>
               <Route
-                path="/user/guest"
+                path="/User/guest"
                 element={<UserGuest></UserGuest>}
               ></Route>
               <Route
-                path="/mealset"
+                path="/Mealset"
                 element={
                   <ProtectedRoute>
                     <Mealset />
@@ -37,12 +37,12 @@ function App() {
                 }
               ></Route>
               <Route
-                path="/mealset/edit/:id"
+                path="/Mealset/edit/:id"
                 element={<MealsetEdit></MealsetEdit>}
               ></Route>
 
               <Route
-                path="/onemeal"
+                path="/Onemeal"
                 element={
                   <ProtectedRoute>
                     <Onemeal />
@@ -50,20 +50,20 @@ function App() {
                 }
               ></Route>
               <Route
-                path="/onemeal/view/:id"
+                path="/Onemeal/view/:id"
                 element={<OnemealView></OnemealView>}
               ></Route>
               <Route
-                path="/mealtotal"
+                path="/Mealtotal"
                 element={
                   <ProtectedRoute>
                     <Mealtotal />
                   </ProtectedRoute>
                 }
               ></Route>
-              <Route path="/user" element={<User></User>}></Route>
+              <Route path="/User" element={<User></User>}></Route>
               <Route
-                path="/user/guest"
+                path="/User/guest"
                 element={<UserGuest></UserGuest>}
               ></Route>
               <Route path="/member/google" element={<AfterGoogle />}></Route>

@@ -1,9 +1,11 @@
 import styled from "@emotion/styled";
+import { Link } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
 import megaphonegray from "../images/megaphone_gray.svg";
 import morebt from "../images/more_bt.svg";
-import MonthCookGraph from "./MonthCookGraph";
 import LevelCookGraph from "./LevelCookGraph";
-import { Link } from "react-router-dom";
+import MonthCookGraph from "./MonthCookGraph";
+import MemberMessage from "./randommessage/MemberMessage";
 
 const MealTotalWrap = styled.div``;
 const MealTotalContent = styled.div`
@@ -151,11 +153,11 @@ function HomeMealTotal() {
         {/* 월별 요리 기록 */}
         <MonthCookData>
           <MonthCookDataTitle>
-            <Link to="./Mealtotal">
+            <HashLink to="/Mealtotal#chartsMonthCook">
               <p>월별 요리 기록</p>
-            </Link>
+            </HashLink>
             <MonthCookDataMore>
-              <Link to="./Mealtotal">
+              <Link to="/Mealtotal#chartsMonthCook">
                 <img src={morebt} alt="이미지" />
               </Link>
             </MonthCookDataMore>
@@ -167,11 +169,11 @@ function HomeMealTotal() {
         {/* 이번 달 자주사용한 식재료 */}
         <MonthLevelCook>
           <MonthLevelCookTitle>
-            <Link to="./Mealtotal">
+            <HashLink to="/Mealtotal#monthLevelCook">
               <p>이번 달 자주 사용한 식재료</p>
-            </Link>
+            </HashLink>
             <MonthLevelCookMore>
-              <Link to="./Mealtotal">
+              <Link to="/Mealtotal#monthLevelCook">
                 <img src={morebt} alt="이미지" />
               </Link>
             </MonthLevelCookMore>
@@ -183,13 +185,13 @@ function HomeMealTotal() {
         {/* 나의 훈장 */}
         <MyMedal>
           <MyMedalTitle>
-            <Link to="./Mealtotal">
+            <HashLink to="/user#userMedalWrap">
               <p>나의 훈장</p>
-            </Link>
+            </HashLink>
             <MyMedalMore>
-              <Link to="./Mealtotal">
+              <HashLink to="/user#userMedalWrap">
                 <img src={morebt} alt="이미지" />
-              </Link>
+              </HashLink>
             </MyMedalMore>
           </MyMedalTitle>
           <MyMedalContent>
@@ -224,16 +226,16 @@ function HomeMealTotal() {
                 </MyMedalBox>
                 <MyMedalName>재료부자</MyMedalName>
               </MyMedalListItem>
-              <Link to="./user">
+              <HashLink to="/user#userMedalWrap">
                 <MyMedalPlusBt>
                   <img src={morebt} alt="morebt" />
                 </MyMedalPlusBt>
-              </Link>
+              </HashLink>
             </MyMedalList>
             {/* 랜덤멘트 */}
             <MyMedalComment>
               <MegaphoneImg src={megaphonegray} alt="megaphone" />
-              <p>7일 연속 요리를 해낸 당신은 진정한 셰프!</p>
+              <MemberMessage />
             </MyMedalComment>
           </MyMedalContent>
         </MyMedal>
