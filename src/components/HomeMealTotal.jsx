@@ -158,7 +158,14 @@ function HomeMealTotal() {
   const monthlyCounts = countPostsMonth(cooks, userId);
   const ingredientCounts = countIngredients(cooks, userId);
 
-  const colors = ["#bd1010", "#332e2e", "#f37373", "#ef4444", "#eb1515"];
+  const colors = [
+    "#bd1010",
+    "#f7a2a2",
+    "#f37373",
+    "#ef4444",
+    "#eb1515",
+    "#a33a3a",
+  ];
   // Nivo Pie가 사용할 형태로 변환
   const pieData = Object.entries(ingredientCounts).map(([id, value], idx) => ({
     id,

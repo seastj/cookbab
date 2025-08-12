@@ -35,6 +35,7 @@ function LoginModal({ closeLogin }) {
           passwordConfirm: foundUser.passwordConfirm,
           profileImage: foundUser.profileImage,
           provider: foundUser.provider || null,
+          joinDate: foundUser.joinDate,
         },
       });
       alert("로그인 성공!");

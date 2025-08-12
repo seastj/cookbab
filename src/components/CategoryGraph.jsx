@@ -1,8 +1,9 @@
 import { ResponsivePie } from "@nivo/pie";
+import MemberMessage from "./randommessage/MemberMessage";
 
 function CategoryGraph({ data }) {
-  return (
-    <ResponsivePie /* or Pie for fixed dimensions */
+  return data.some(d => d.value > 0) ? (
+    <ResponsivePie
       data={data}
       sortByValue={true}
       colors={{ datum: "data.color" }}
@@ -17,10 +18,22 @@ function CategoryGraph({ data }) {
       arcLinkLabelsTextColor="#473838"
       arcLinkLabelsThickness={2}
       arcLinkLabelsColor={{ theme: "background" }}
-      arcLabel={e => (e.value > 4 ? `${e.id} (${e.value})` : "")}
+      arcLabel={e => (e.value > 0 ? `${e.id} (${e.value})` : "")}
       arcLabelsSkipAngle={10}
       arcLabelsTextColor="#ffffff"
     />
+  ) : (
+    <p
+      style={{
+        marginTop: "150px",
+        textAlign: "center",
+        fontWeight: "bold",
+        fontSize: "20px",
+        color: "#888",
+      }}
+    >
+      <MemberMessage />
+    </p>
   );
 }
 
