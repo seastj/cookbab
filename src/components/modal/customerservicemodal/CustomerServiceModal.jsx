@@ -13,6 +13,16 @@ function CustomerServiceModal({ closeCs }) {
     "기타",
   ];
   const [category, setCategory] = useState();
+  const [content, setContent] = useState();
+
+  const handleSubmit = () => {
+    if (!content) {
+      alert("문의할 내용이 없습니다.");
+      return;
+    }
+    alert("문의가 접수되었습니다.");
+    closeCs();
+  };
 
   return (
     <div className="overlay">
@@ -36,9 +46,18 @@ function CustomerServiceModal({ closeCs }) {
               ))}
             </select>
           </div>
-          <textarea type="text" className="cs_text" placeholder="문의 내용" />
+          <textarea
+            type="text"
+            className="cs_text"
+            value={e => setContent(e.target.value)}
+            placeholder="문의 내용"
+          />
           <div className="cs_bts">
-            <ButtonSubmit className="cs_submit_bt" label="보내기" />
+            <ButtonSubmit
+              className="cs_submit_bt"
+              label="보내기"
+              onClick={handleSubmit}
+            />
             <ButtonCancle
               className="cs_cancle_bt"
               label="취소"

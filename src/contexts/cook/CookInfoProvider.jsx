@@ -48,6 +48,8 @@ export function CookProvider({ children }) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(cooks));
   }, [cooks]);
 
+  const todayDate = new Date().toISOString().slice(0, 10);
+
   // 레시피(글) 추가 함수
   const addCook = cookData => {
     if (!loginState?.userId) {
@@ -59,7 +61,7 @@ export function CookProvider({ children }) {
       id: Date.now().toString(),
       userId: loginState.userId,
       nickname: loginState.nickname || "",
-      createdAt: new Date().toISOString(),
+      createdAt: todayDate,
     };
     dispatch({ type: "ADD_COOK", payload: newCook });
     return newCook.id;

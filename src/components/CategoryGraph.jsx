@@ -1,23 +1,6 @@
 import { ResponsivePie } from "@nivo/pie";
-import { useEffect, useState } from "react";
 
-function CategoryGraph() {
-  const [data, setData] = useState([]);
-
-  const getData = async () => {
-    try {
-      const res = await fetch("/CategoryData.json");
-      const json = await res.json();
-      setData(json);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
-
+function CategoryGraph({ data }) {
   return (
     <ResponsivePie /* or Pie for fixed dimensions */
       data={data}
