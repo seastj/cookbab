@@ -33,11 +33,6 @@ import { CookStateContext } from "../../contexts/cook/CookInfoContext";
 function Onemeal() {
   // js자리
 
-  // const date = new URLSearchParams(useLocation().search).get("date");
-  // const filtered = cooks.filter(
-  //   c => c.userId === userId && (!date || c.createdAt?.startsWith(date)),
-  // );
-
   // 전체요리 더미데이터
   const [foodPost, setFoodPost] = useState([]);
   const cooks = useContext(CookStateContext) || [];
@@ -47,8 +42,12 @@ function Onemeal() {
   const [sortedFoodPost, setSortedFoodPost] = useState(foodPost);
   const [activeCategory, setActiveCategory] = useState("전체");
   const navigate = useNavigate();
+  const date = new URLSearchParams(useLocation().search).get("date");
 
-  const myCooks = cooks.filter(cook => cook.userId === userId);
+  const myCooks = cooks.filter(
+    cook =>
+      cook.userId === userId && (!date || cook.createdAt?.startsWith(date)),
+  );
 
   const onCategoryClick = category => {
     setActiveCategory(category);
@@ -86,7 +85,7 @@ function Onemeal() {
   useEffect(() => {
     setSortedFoodPost(myCooks);
     setActiveCategory("전체");
-  }, [cooks, userId]);
+  }, [cooks, userId, date]);
 
   // 검색필터 기능
   const [searchText, setSearchText] = useState("");

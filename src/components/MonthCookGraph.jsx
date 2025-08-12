@@ -1,27 +1,38 @@
 import React, { useEffect, useState } from "react";
 import { ResponsiveLine } from "@nivo/line";
 
-function MonthCookGraph() {
+function MonthCookGraph({ monthlyCounts }) {
   // js 자리
-  const [data, setData] = useState([]);
-  // 데이터 부르는 함수 만들기
-  const getData = async () => {
-    try {
-      // fetch 를 이용한 데이터 호출
-      const res = await fetch("/MonthCookData.json");
-      const json = await res.json();
-      // 데이터 갱신
-      setData(json);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const dataCounts = monthlyCounts || {};
 
-  useEffect(() => {
-    getData();
-  }, []);
+  const year = new Date().getFullYear().toString();
+  const allMonths = Array.from({ length: 12 }, (_, i) => {
+    const month = (i + 1).toString().padStart(2, "0");
+    return `${year}-${month}`;
+  });
+
+  // 누락된 달은 0으로 채움
+  const filledData = allMonths.map(month => ({
+    x: month,
+    y: dataCounts[month] || 0,
+  }));
+
+  const data = [
+    {
+      id: "요리 게시물 수",
+      color: "#EF4444",
+      data: filledData,
+    },
+  ];
+
+  const maxY = Math.ceil(Math.max(...filledData.map(d => d.y)));
+  const maxYAdjusted = maxY % 2 === 0 ? maxY : maxY + 1; // 최대값이 짝수인지 맞춤
+  const ticks = Array.from(
+    { length: Math.floor(maxYAdjusted / 2) + 1 },
+    (_, i) => i * 1,
+  );
+
   // jsx 자리
-
   return (
     <div
       style={{
@@ -42,8 +53,20 @@ function MonthCookGraph() {
           stacked: true,
           reverse: false,
         }}
-        axisBottom={{ legend: "", legendOffset: 36 }}
-        axisLeft={{ legend: "", legendOffset: -40 }}
+        axisBottom={{
+          legend: "",
+          legendOffset: 36,
+          format: value => {
+            const monthNumber = parseInt(value.slice(5), 10);
+            return `${monthNumber}월`;
+          },
+        }}
+        axisLeft={{
+          legend: "",
+          legendOffset: -40,
+          tickValues: ticks,
+          format: value => value,
+        }}
         pointSize={10}
         pointColor={{ theme: "background" }}
         pointBorderWidth={2}

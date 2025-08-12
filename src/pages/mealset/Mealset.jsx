@@ -189,8 +189,6 @@ function Mealset() {
     }
   };
 
-  // 등록하기 버튼 클릭시 확인창
-
   // jsx 자리
   return (
     <>

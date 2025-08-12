@@ -1,23 +1,7 @@
 import { ResponsivePie } from "@nivo/pie";
 import React, { useEffect, useState } from "react";
 
-function LevelCookGraph() {
-  const [data, setData] = useState([]);
-
-  const getData = async () => {
-    try {
-      const res = await fetch("/MonthLevelCookData.json");
-      const json = await res.json();
-      setData(json);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
-
+function LevelCookGraph({ data }) {
   return (
     <ResponsivePie /* or Pie for fixed dimensions */
       data={data}
