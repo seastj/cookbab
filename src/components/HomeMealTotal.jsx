@@ -1,11 +1,16 @@
+import { useContext } from "react";
+import { CookStateContext } from "../contexts/cook/CookInfoContext";
+import { LoginStateContext } from "../contexts/LoginContext";
 import styled from "@emotion/styled";
 import { Link } from "react-router-dom";
 import { HashLink } from "react-router-hash-link";
 import megaphonegray from "../images/megaphone_gray.svg";
 import morebt from "../images/more_bt.svg";
-import LevelCookGraph from "./LevelCookGraph";
-import MonthCookGraph from "./MonthCookGraph";
+import LevelCookGraph from "../components/LevelCookGraph";
+import MonthCookGraph from "../components/MonthCookGraph";
 import MemberMessage from "./randommessage/MemberMessage";
+import { countPostsMonth } from "../utils/CountPostsMonth";
+import { countIngredients } from "../utils/CountIngredients";
 
 const MealTotalWrap = styled.div``;
 const MealTotalContent = styled.div`
@@ -147,6 +152,28 @@ const MegaphoneImg = styled.img`
   width: 24px;
 `;
 function HomeMealTotal() {
+  const cooks = useContext(CookStateContext) || [];
+  const user = useContext(LoginStateContext);
+  const userId = user?.userId;
+  const monthlyCounts = countPostsMonth(cooks, userId);
+  const ingredientCounts = countIngredients(cooks, userId);
+
+  const colors = [
+    "#bd1010",
+    "#f7a2a2",
+    "#f37373",
+    "#ef4444",
+    "#eb1515",
+    "#a33a3a",
+  ];
+  // Nivo Pie가 사용할 형태로 변환
+  const pieData = Object.entries(ingredientCounts).map(([id, value], idx) => ({
+    id,
+    label: id,
+    value,
+    color: colors[idx % colors.length],
+  }));
+
   return (
     <MealTotalWrap>
       <MealTotalContent>
@@ -163,7 +190,7 @@ function HomeMealTotal() {
             </MonthCookDataMore>
           </MonthCookDataTitle>
           <MonthCookDataGraph>
-            <MonthCookGraph />
+            <MonthCookGraph monthlyCounts={monthlyCounts} />
           </MonthCookDataGraph>
         </MonthCookData>
         {/* 이번 달 자주사용한 식재료 */}
@@ -179,7 +206,7 @@ function HomeMealTotal() {
             </MonthLevelCookMore>
           </MonthLevelCookTitle>
           <MonthLevelCookGraph>
-            <LevelCookGraph />
+            <LevelCookGraph data={pieData} />
           </MonthLevelCookGraph>
         </MonthLevelCook>
         {/* 나의 훈장 */}

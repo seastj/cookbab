@@ -1,38 +1,48 @@
 import { ResponsiveBar } from "@nivo/bar";
-import { useEffect, useState } from "react";
+import MemberMessage from "./randommessage/MemberMessage";
 
-function TierGraph() {
-  const [data, setData] = useState([]);
-  const getData = async () => {
-    try {
-      const res = await fetch("/TierData.json");
-      const json = await res.json();
+function TierGraph({ data }) {
+  const colors = ["#bd1010", "#f7a2a2", "#f37373", "#ef4444", "#eb1515"];
+  const maxCount = Math.max(...data.map(d => d.count));
+  const tickValues = [];
+  for (let i = 0; i <= maxCount + 1; i += 1) {
+    tickValues.push(i);
+  }
 
-      setData(json);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
+  if (!data.some(d => d.count > 0)) {
+    return (
+      <p
+        style={{
+          marginTop: 150,
+          textAlign: "center",
+          fontWeight: "bold",
+          fontSize: 20,
+          color: "#888",
+        }}
+      >
+        <MemberMessage />
+      </p>
+    );
+  }
 
   return (
-    <ResponsiveBar /* or Bar for fixed dimensions */
+    <ResponsiveBar
       data={data}
-      indexBy="tier"
-      keys={["value"]}
-      colors={bar => bar.data.color}
+      indexBy="level"
+      keys={["count"]}
+      colors={({ index }) => colors[index % colors.length]}
       theme={{
         labels: { text: { fontSize: 20, fill: "#fff" } },
         axis: { ticks: { text: { fontSize: 15 } } },
       }}
-      // labelSkipWidth={12}
-      // labelSkipHeight={12}
-      labelTextColor="#ffffff"
-      borderColor={{ from: "color", modifiers: [] }}
+      labelTextColor="#fff"
+      borderColor={{ from: "color" }}
       margin={{ top: 40, right: 50, bottom: 60, left: 50 }}
+      padding={0.3}
+      axisLeft={{
+        tickValues,
+        format: v => (Number.isInteger(v) ? v : null),
+      }}
     />
   );
 }

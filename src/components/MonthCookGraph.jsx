@@ -1,28 +1,37 @@
-import React, { useEffect, useState } from "react";
 import { ResponsiveLine } from "@nivo/line";
+import MemberMessage from "./randommessage/MemberMessage";
 
-function MonthCookGraph() {
+function MonthCookGraph({ monthlyCounts }) {
   // js 자리
-  const [data, setData] = useState([]);
-  // 데이터 부르는 함수 만들기
-  const getData = async () => {
-    try {
-      // fetch 를 이용한 데이터 호출
-      const res = await fetch("/MonthCookData.json");
-      const json = await res.json();
-      // 데이터 갱신
-      setData(json);
-    } catch (error) {
-      console.log(error);
-    }
-  };
 
-  useEffect(() => {
-    getData();
-  }, []);
+  const dataCounts = monthlyCounts || {};
+
+  const year = new Date().getFullYear().toString();
+  const allMonths = Array.from({ length: 12 }, (_, i) => {
+    const month = (i + 1).toString().padStart(2, "0");
+    return `${year}-${month}`;
+  });
+
+  // 누락된 달은 0으로 채움
+  const filledData = allMonths.map(month => ({
+    x: month,
+    y: dataCounts[month] || 0,
+  }));
+
+  const data = [
+    {
+      id: "요리 게시물 수",
+      color: "#EF4444",
+      data: filledData,
+    },
+  ];
+
+  const maxY = Math.ceil(Math.max(...filledData.map(d => d.y)));
+  const maxYAdjusted = maxY % 1 === 0 ? maxY : Math.ceil(maxY);
+  const ticks = Array.from({ length: maxYAdjusted + 1 }, (_, i) => i);
+
   // jsx 자리
-
-  return (
+  return filledData.some(d => d.y > 0) ? (
     <div
       style={{
         padding: "20px",
@@ -31,7 +40,7 @@ function MonthCookGraph() {
         boxSizing: "border-box",
       }}
     >
-      <ResponsiveLine /* or Line for fixed dimensions */
+      <ResponsiveLine
         data={data}
         colors={{ datum: "color" }}
         margin={{ top: 10, right: 20, bottom: 30, left: 30 }}
@@ -42,8 +51,20 @@ function MonthCookGraph() {
           stacked: true,
           reverse: false,
         }}
-        axisBottom={{ legend: "", legendOffset: 36 }}
-        axisLeft={{ legend: "", legendOffset: -40 }}
+        axisBottom={{
+          legend: "",
+          legendOffset: 36,
+          format: value => {
+            const monthNumber = parseInt(value.slice(5), 10);
+            return `${monthNumber}월`;
+          },
+        }}
+        axisLeft={{
+          legend: "",
+          legendOffset: -40,
+          tickValues: ticks,
+          format: value => value,
+        }}
         pointSize={10}
         pointColor={{ theme: "background" }}
         pointBorderWidth={2}
@@ -64,6 +85,18 @@ function MonthCookGraph() {
         // ]}
       />
     </div>
+  ) : (
+    <p
+      style={{
+        marginTop: "150px",
+        textAlign: "center",
+        fontWeight: "bold",
+        fontSize: "20px",
+        color: "#888",
+      }}
+    >
+      <MemberMessage />
+    </p>
   );
 }
 

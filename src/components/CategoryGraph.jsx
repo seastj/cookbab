@@ -1,25 +1,9 @@
 import { ResponsivePie } from "@nivo/pie";
-import { useEffect, useState } from "react";
+import MemberMessage from "./randommessage/MemberMessage";
 
-function CategoryGraph() {
-  const [data, setData] = useState([]);
-
-  const getData = async () => {
-    try {
-      const res = await fetch("/CategoryData.json");
-      const json = await res.json();
-      setData(json);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
-
-  return (
-    <ResponsivePie /* or Pie for fixed dimensions */
+function CategoryGraph({ data }) {
+  return data.some(d => d.value > 0) ? (
+    <ResponsivePie
       data={data}
       sortByValue={true}
       colors={{ datum: "data.color" }}
@@ -34,10 +18,22 @@ function CategoryGraph() {
       arcLinkLabelsTextColor="#473838"
       arcLinkLabelsThickness={2}
       arcLinkLabelsColor={{ theme: "background" }}
-      arcLabel={e => (e.value > 4 ? `${e.id} (${e.value})` : "")}
+      arcLabel={e => (e.value > 0 ? `${e.id} (${e.value})` : "")}
       arcLabelsSkipAngle={10}
       arcLabelsTextColor="#ffffff"
     />
+  ) : (
+    <p
+      style={{
+        marginTop: "150px",
+        textAlign: "center",
+        fontWeight: "bold",
+        fontSize: "20px",
+        color: "#888",
+      }}
+    >
+      <MemberMessage />
+    </p>
   );
 }
 
