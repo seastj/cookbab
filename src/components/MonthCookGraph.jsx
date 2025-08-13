@@ -88,7 +88,7 @@ function MonthCookGraph({ monthlyCounts }) {
   ) : (
     <p
       style={{
-        marginTop: "150px",
+        marginTop: "50%",
         textAlign: "center",
         fontWeight: "bold",
         fontSize: "20px",
