@@ -25,11 +25,11 @@
 
 #### 사용 언어 및 라이브러리
 
-VSCode, React, Ant Design,
+VSCode, React, Ant Design, nivo, react-icons, react-calendar, kakao developers
 
-#### 형상관리 도구
+#### 협업 도구
 
-GitHub, notion
+GitHub, notion, slack
 
 ---
 
@@ -96,8 +96,8 @@ GitHub, notion
 
 ### 🎯 향후 개선사항
 
-- 추천 레시피 기능
-- 레시피 공유 커뮤니티 추가
+- 디자인 개선(전체적인 비율 축소)
+- 오류 개선 및 최적화 작업
 
 ---
 
