@@ -4,6 +4,7 @@ import bab from "../images/oneitem1.jpg";
 import morebt from "../images/more_bt.svg";
 import { Link, useNavigate } from "react-router-dom";
 import { CookStateContext } from "../contexts/cook/CookInfoContext";
+import { LoginStateContext } from "../contexts/LoginContext";
 
 const HomeOneMealMain = styled.div`
   width: 1365px;
@@ -36,6 +37,7 @@ const HomeOneMealBt = styled.button`
   border-radius: 4px;
   border: none;
   cursor: pointer;
+  font-weight: bold;
 `;
 const HomeOneMealBanner = styled.div`
   display: flex;
@@ -117,14 +119,18 @@ function HomeOneMeal() {
   // 데이터 연동
   const navigate = useNavigate();
   const cooks = useContext(CookStateContext) || [];
+  const loginState = useContext(LoginStateContext);
+  const isLogin = !!loginState?.userId;
 
   // 최신순(내림차순) 정렬 후 3개만
-  const latestCooks = [...cooks]
-    .sort(
-      (a, b) =>
-        new Date(b.createdAt || b.date) - new Date(a.createdAt || a.date),
-    )
-    .slice(0, 3);
+  const latestCooks = isLogin
+    ? [...cooks]
+        .sort(
+          (a, b) =>
+            new Date(b.createdAt || b.date) - new Date(a.createdAt || a.date),
+        )
+        .slice(0, 3)
+    : [];
 
   return (
     <HomeOneMealMain>
@@ -134,66 +140,96 @@ function HomeOneMeal() {
           <Link to="/Mealset">
             <HomeOneMealBt>밥상차리기</HomeOneMealBt>
           </Link>
+
           <HomeOneMealBanner>
-            {latestCooks.length === 0 ? (
-              <HomeOneMealBannerItem>
-                <BannerItemImgWrap>
-                  <div
-                    style={{
-                      width: "100%",
-                      height: "100%",
-                      backgroundColor: "#ccc",
-                    }}
-                  ></div>
-                </BannerItemImgWrap>
-                <BannerItemText>
-                  <BannerItemCookName>
-                    등록된 한끼가 없습니다.
-                  </BannerItemCookName>
-                </BannerItemText>
-              </HomeOneMealBannerItem>
-            ) : (
-              latestCooks.map(cook => (
-                <HomeOneMealBannerItem
-                  key={cook.id}
-                  onClick={() => navigate(`/onemeal/view/${cook.id}`)}
-                  style={{ cursor: "pointer" }}
-                >
+            {/* 로그인 안 했을 때 */}
+            {!isLogin &&
+              Array.from({ length: 3 }).map((_, i) => (
+                <HomeOneMealBannerItem>
                   <BannerItemImgWrap>
-                    {cook.imageUrl ? (
-                      <BannerItemImg src={cook.imageUrl} alt={cook.cookName} />
-                    ) : (
-                      <div
-                        style={{
-                          width: "100%",
-                          height: "330px",
-                          backgroundColor: "#f0f0f0",
-                        }}
-                      ></div>
-                    )}
+                    <div
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        backgroundColor: "#ccc",
+                      }}
+                    ></div>
                   </BannerItemImgWrap>
                   <BannerItemText>
-                    <BannerItemCookName>{cook.cookName}</BannerItemCookName>
-                    <BannerItemCookDate>
-                      {cook.createdAt ? cook.createdAt.substring(0, 10) : "-"}
-                    </BannerItemCookDate>
-                    <BannerItemCookMaterial>
-                      <BannerItemCookMaterialItems>
-                        {(cook.userTags || []).slice(0, 3).map((tag, idx) => (
-                          <CookMaterialItem key={idx}>#{tag}</CookMaterialItem>
-                        ))}
-                      </BannerItemCookMaterialItems>
-                      {cook.userTags && cook.userTags.length > 3 && (
-                        <CookMaterialItemPlus>
-                          +{cook.userTags.length - 3}
-                        </CookMaterialItemPlus>
-                      )}
-                    </BannerItemCookMaterial>
+                    <BannerItemCookName style={{ fontWeight: "normal" }}>
+                      로그인 후 이용가능한 서비스입니다.
+                    </BannerItemCookName>
                   </BannerItemText>
                 </HomeOneMealBannerItem>
-              ))
-            )}
+              ))}
+
+            {/* 로그인 했을 때 */}
+            {isLogin &&
+              (latestCooks.length === 0 ? (
+                <HomeOneMealBannerItem>
+                  <BannerItemImgWrap>
+                    <div
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        backgroundColor: "#ccc",
+                      }}
+                    ></div>
+                  </BannerItemImgWrap>
+                  <BannerItemText>
+                    <BannerItemCookName style={{ fontWeight: "normal" }}>
+                      등록된 한끼가 없습니다.
+                    </BannerItemCookName>
+                  </BannerItemText>
+                </HomeOneMealBannerItem>
+              ) : (
+                latestCooks.map(cook => (
+                  <HomeOneMealBannerItem
+                    key={cook.id}
+                    onClick={() => navigate(`/onemeal/view/${cook.id}`)}
+                    style={{ cursor: "pointer" }}
+                  >
+                    <BannerItemImgWrap>
+                      {cook.imageUrl ? (
+                        <BannerItemImg
+                          src={cook.imageUrl}
+                          alt={cook.cookName}
+                        />
+                      ) : (
+                        <div
+                          style={{
+                            width: "100%",
+                            height: "330px",
+                            backgroundColor: "#f0f0f0",
+                          }}
+                        ></div>
+                      )}
+                    </BannerItemImgWrap>
+                    <BannerItemText>
+                      <BannerItemCookName>{cook.cookName}</BannerItemCookName>
+                      <BannerItemCookDate>
+                        {cook.createdAt ? cook.createdAt.substring(0, 10) : "-"}
+                      </BannerItemCookDate>
+                      <BannerItemCookMaterial>
+                        <BannerItemCookMaterialItems>
+                          {(cook.userTags || []).slice(0, 3).map((tag, idx) => (
+                            <CookMaterialItem key={idx}>
+                              #{tag}
+                            </CookMaterialItem>
+                          ))}
+                        </BannerItemCookMaterialItems>
+                        {cook.userTags && cook.userTags.length > 3 && (
+                          <CookMaterialItemPlus>
+                            +{cook.userTags.length - 3}
+                          </CookMaterialItemPlus>
+                        )}
+                      </BannerItemCookMaterial>
+                    </BannerItemText>
+                  </HomeOneMealBannerItem>
+                ))
+              ))}
           </HomeOneMealBanner>
+
           <Link to="/Onemeal">
             <MoreBt>
               <img src={morebt} alt="more" />
