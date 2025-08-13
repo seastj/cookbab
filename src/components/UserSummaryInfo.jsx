@@ -1,5 +1,8 @@
 import styled from "@emotion/styled";
-import React from "react";
+import React, { useContext } from "react";
+import { CookStateContext } from "../contexts/cook/CookInfoContext";
+import MemberMessage from "../components/randommessage/MemberMessage";
+import { LoginStateContext } from "../contexts/LoginContext";
 const UserSummaryWrap = styled.div`
   display: flex;
   flex-direction: column;
@@ -87,35 +90,61 @@ const UserSummaryComment = styled.p`
   color: #0f0f0f;
 `;
 function UserSummaryInfo() {
+  const cooks = useContext(CookStateContext);
+  const user = useContext(LoginStateContext);
+
+  const userCooks = cooks?.filter(cook => cook.userId === user?.userId) || [];
+
+  const cookCount = userCooks.length;
+  const displayedNumber =
+    cookCount === 0 ? 0 : Math.floor((cookCount - 1) / 6) + 1;
+
+  const today = new Date();
+  today.setHours(23, 59, 59, 999);
+  const dayOfWeek = today.getDay();
+  const diffToMonday = dayOfWeek === 0 ? 6 : dayOfWeek - 1;
+  const monday = new Date(today);
+  monday.setHours(0, 0, 0, 0);
+  monday.setDate(today.getDate() - diffToMonday);
+
+  const weeklyCooks = userCooks.filter(cook => {
+    const cookDate = new Date(cook.createdAt);
+    return cookDate >= monday && cookDate <= today;
+  });
+
+  const totalCooks = cookCount;
+
   return (
     <UserSummaryWrap>
       <UserSummary>
         <UserSummaryItemW>
           <UserSummaryItemTitleW>나의 요리 레벨</UserSummaryItemTitleW>
           <UserSummaryLevelWrapW>
-            <UserSummaryLevelNumW>12</UserSummaryLevelNumW>
+            <UserSummaryLevelNumW>{displayedNumber}</UserSummaryLevelNumW>
             <UserSummaryLevelTxtW>LV</UserSummaryLevelTxtW>
           </UserSummaryLevelWrapW>
           <UserSummaryCommentW>
-            다음 레벨까지 42그릇 남았습니다.
+            <MemberMessage />
           </UserSummaryCommentW>
         </UserSummaryItemW>
         <UserSummaryItem>
           <UserSummaryItemTitle>이번주 요리 횟수</UserSummaryItemTitle>
           <UserSummaryLevelWrap>
-            <UserSummaryLevelNum>04</UserSummaryLevelNum>
+            <UserSummaryLevelNum>{weeklyCooks.length}</UserSummaryLevelNum>
             <UserSummaryLevelTxt>번</UserSummaryLevelTxt>
           </UserSummaryLevelWrap>
-          <UserSummaryComment>저번주보다 3번 더 만들었어요.</UserSummaryComment>
+          <UserSummaryComment>
+            <MemberMessage />
+          </UserSummaryComment>
         </UserSummaryItem>
         <UserSummaryItem>
           <UserSummaryItemTitle>총 요리 횟수</UserSummaryItemTitle>
           <UserSummaryLevelWrap>
-            <UserSummaryLevelNum>24</UserSummaryLevelNum>
+            <UserSummaryLevelNum>{totalCooks}</UserSummaryLevelNum>
             <UserSummaryLevelTxt>번</UserSummaryLevelTxt>
           </UserSummaryLevelWrap>
           <UserSummaryComment>
-            꾸준히 요리 횟수가 늘어나고 있어요.
+            <MemberMessage />
           </UserSummaryComment>
         </UserSummaryItem>
         <UserSummaryItem>
@@ -124,7 +153,9 @@ function UserSummaryInfo() {
             <UserSummaryLevelNum>12</UserSummaryLevelNum>
             <UserSummaryLevelTxt>개</UserSummaryLevelTxt>
           </UserSummaryLevelWrap>
-          <UserSummaryComment>당신은 진정한 셰프예요!</UserSummaryComment>
+          <UserSummaryComment>
+            <MemberMessage />
+          </UserSummaryComment>
         </UserSummaryItem>
       </UserSummary>
     </UserSummaryWrap>

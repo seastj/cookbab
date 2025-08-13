@@ -147,11 +147,10 @@ function HomeWeekCook() {
     );
   };
 
-  // 오늘 날짜 기준으로 이번 주 월요일부터 일요일까지 날짜 배열 만들기
   const getThisWeekDates = () => {
     const today = new Date();
-    const dayOfWeek = today.getDay(); // 0(일)~6(토)
-    const mondayDiff = dayOfWeek === 0 ? -6 : 1 - dayOfWeek; // 일요일이면 -6, 아니면 월요일까지 차이
+    const dayOfWeek = today.getDay();
+    const mondayDiff = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
 
     const weekDates = [];
     for (let i = 0; i < 7; i++) {
@@ -164,7 +163,6 @@ function HomeWeekCook() {
 
   const weekDates = getThisWeekDates();
 
-  // 요일 한글 이름 (월~일)
   const weekDayNames = ["월", "화", "수", "목", "금", "토", "일"];
 
   return (

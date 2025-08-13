@@ -1,23 +1,25 @@
 import styled from "@emotion/styled";
-import React, { useContext, useEffect } from "react";
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
-import MonthCookGraph from "../../components/MonthCookGraph";
+import { useContext, useEffect } from "react";
 import Calendar from "react-calendar";
+import { useLocation, useNavigate } from "react-router-dom";
 import CategoryGraph from "../../components/CategoryGraph";
-import TierGraph from "../../components/TierGraph";
 import CookTimeGraph from "../../components/CookTimeGraph";
+import Footer from "../../components/Footer";
+import Header from "../../components/Header";
 import LevelCookGraph from "../../components/LevelCookGraph";
+import MonthCookGraph from "../../components/MonthCookGraph";
+import TierGraph from "../../components/TierGraph";
 import UserSummaryInfo from "../../components/UserSummaryInfo";
-import "../../pages/calendar.css";
 import { LoginStateContext } from "../../contexts/LoginContext";
 import { CookStateContext } from "../../contexts/cook/CookInfoContext";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import cooklv1 from "../../images/cooklv1.svg";
 import cooklv2 from "../../images/cooklv2.svg";
 import cooklv3 from "../../images/cooklv3.svg";
-import { countIngredients } from "../../utils/CountIngredients";
+import "../../pages/calendar.css";
 import { countCategories } from "../../utils/CountCategories";
+import { countCookTimes } from "../../utils/CountCookTimes";
+import { countIngredients } from "../../utils/CountIngredients";
+import { countLevels } from "../../utils/CountLevels";
 
 const MealTotalWrap = styled.div`
   width: 1200px;
@@ -145,11 +147,20 @@ function Mealtotal() {
   const userId = user?.userId;
   const ingredientCounts = countIngredients(cooks, userId);
   const categoryCounts = countCategories(cooks, userId);
+  const levelsCounts = countLevels(cooks, userId);
+  const cookTimeCounts = countCookTimes(cooks, userId);
 
   const location = useLocation();
   const navigate = useNavigate();
 
-  const colors = ["#bd1010", "#f7a2a2", "#f37373", "#ef4444", "#eb1515"];
+  const colors = [
+    "#bd1010",
+    "#f7a2a2",
+    "#f37373",
+    "#ef4444",
+    "#eb1515",
+    "#a33a3a",
+  ];
   // Nivo Pie가 사용할 형태로 변환
   const catePieData = Object.entries(categoryCounts).map(
     ([id, value], idx) => ({
@@ -167,12 +178,26 @@ function Mealtotal() {
       color: colors[idx % colors.length],
     }),
   );
+  const defaultLevels = ["쉬움", "보통", "어려움"];
+
+  const levelBarData = defaultLevels.map(level => ({
+    level,
+    count: levelsCounts[level] || 0,
+  }));
+
+  const cookTimeBarData = Object.entries(cookTimeCounts).map(
+    ([time, value]) => ({
+      time,
+      value,
+    }),
+  );
 
   const toLocalDateString = date => {
-    const tzOffset = date.getTimezoneOffset() * 60000;
-    return new Date(date - tzOffset).toISOString().slice(0, 10);
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
   };
-
   // 시간대 맞추기
   const countPostsByDate = date => {
     const dateStr = toLocalDateString(date);
@@ -278,11 +303,11 @@ function Mealtotal() {
                 <CategoryGraph data={catePieData} />
               </ChartsCategoryCook>
               <ChartsTierCook>
-                난이도별 요리 수<TierGraph />
+                난이도별 요리 수<TierGraph data={levelBarData} />
               </ChartsTierCook>
               <ChartsCookTime>
                 요리 시간 분포
-                <CookTimeGraph />
+                <CookTimeGraph data={cookTimeBarData} />
               </ChartsCookTime>
               <ChartsParams id="monthLevelCook">
                 자주 사용하는 식재료

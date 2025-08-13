@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
 import { ResponsiveLine } from "@nivo/line";
+import MemberMessage from "./randommessage/MemberMessage";
 
 function MonthCookGraph({ monthlyCounts }) {
   // js 자리
+
   const dataCounts = monthlyCounts || {};
 
   const year = new Date().getFullYear().toString();
@@ -26,14 +27,11 @@ function MonthCookGraph({ monthlyCounts }) {
   ];
 
   const maxY = Math.ceil(Math.max(...filledData.map(d => d.y)));
-  const maxYAdjusted = maxY % 2 === 0 ? maxY : maxY + 1; // 최대값이 짝수인지 맞춤
-  const ticks = Array.from(
-    { length: Math.floor(maxYAdjusted / 2) + 1 },
-    (_, i) => i * 1,
-  );
+  const maxYAdjusted = maxY % 1 === 0 ? maxY : Math.ceil(maxY);
+  const ticks = Array.from({ length: maxYAdjusted + 1 }, (_, i) => i);
 
   // jsx 자리
-  return (
+  return filledData.some(d => d.y > 0) ? (
     <div
       style={{
         padding: "20px",
@@ -42,7 +40,7 @@ function MonthCookGraph({ monthlyCounts }) {
         boxSizing: "border-box",
       }}
     >
-      <ResponsiveLine /* or Line for fixed dimensions */
+      <ResponsiveLine
         data={data}
         colors={{ datum: "color" }}
         margin={{ top: 10, right: 20, bottom: 30, left: 30 }}
@@ -87,6 +85,18 @@ function MonthCookGraph({ monthlyCounts }) {
         // ]}
       />
     </div>
+  ) : (
+    <p
+      style={{
+        marginTop: "150px",
+        textAlign: "center",
+        fontWeight: "bold",
+        fontSize: "20px",
+        color: "#888",
+      }}
+    >
+      <MemberMessage />
+    </p>
   );
 }
 
