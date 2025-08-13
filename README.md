@@ -104,11 +104,11 @@ GitHub, notion
 #### git tree
 
 cookbab
-├─] .env (ignored)
+├─ .env (ignored)
 ├── .gitignore
 ├── .prettierrc.json
 ├── eslint.config.mjs
-├─] node_modules/ (ignored)
+├─ node_modules/ (ignored)
 ├── package-lock.json
 ├── package.json
 ├── public/
