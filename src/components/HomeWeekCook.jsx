@@ -5,6 +5,7 @@ import failIcon from "../images/fail_icon.svg";
 import megaphone from "../images/megaphone.svg";
 import success_w from "../images/success_white.svg";
 import styled from "@emotion/styled";
+import MemberMessage from "./randommessage/MemberMessage";
 
 const HomeWeek = styled.div`
   background-color: #f5f5f5;
@@ -204,8 +205,7 @@ function HomeWeekCook() {
                 <img src={megaphone} alt="megaphone" />
               </WeekCommentIcon>
               <WeekComment>
-                3 일을 출석하셨군요! 전보다 더 출석하셨어요! <br />
-                우리 조금 만 더 힘내볼까요?
+                <MemberMessage />
               </WeekComment>
             </WeekCommentBox>
             <WeekCommentBox>
@@ -213,7 +213,9 @@ function HomeWeekCook() {
               <WeekCommentIcon>
                 <img src={megaphone} alt="megaphone" />
               </WeekCommentIcon>
-              <WeekComment>다음주는 볶음밥 도전 ?</WeekComment>
+              <WeekComment>
+                <MemberMessage />
+              </WeekComment>
             </WeekCommentBox>
           </WeekCommentWrap>
         </WeekInner>

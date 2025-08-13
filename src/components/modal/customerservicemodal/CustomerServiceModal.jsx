@@ -47,9 +47,9 @@ function CustomerServiceModal({ closeCs }) {
             </select>
           </div>
           <textarea
-            type="text"
             className="cs_text"
-            value={e => setContent(e.target.value)}
+            value={content}
+            onChange={e => setContent(e.target.value)}
             placeholder="문의 내용"
           />
           <div className="cs_bts">

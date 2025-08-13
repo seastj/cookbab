@@ -34,7 +34,7 @@ function CookTimeGraph({ data }) {
     return (
       <p
         style={{
-          marginTop: 150,
+          marginTop: "50%",
           textAlign: "center",
           fontWeight: "bold",
           fontSize: 20,
