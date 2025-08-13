@@ -51,21 +51,15 @@ function Onemeal() {
 
   const onCategoryClick = category => {
     setActiveCategory(category);
+  };
+  useEffect(() => {
     let sorted = [...myCooks];
-    if (category === "전체") {
-      // 최신 글이 맨 끝으로 (생성일자 오름차순 정렬)
-      sorted.sort(
-        (a, b) =>
-          new Date(a.createdAt || a.date) - new Date(b.createdAt || b.date),
-      );
-      setSortedFoodPost(sorted);
-    } else if (category === "최신순") {
-      sorted.sort(
-        (a, b) =>
-          new Date(b.createdAt || b.date) - new Date(a.createdAt || a.date),
-      );
-      setSortedFoodPost(sorted);
-    } else if (category === "조리시간순") {
+
+    if (activeCategory === "전체") {
+      sorted.sort((a, b) => new Date(a.createdAt) - new Date(b.createdAt));
+    } else if (activeCategory === "최신순") {
+      sorted.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    } else if (activeCategory === "조리시간순") {
       const cookTimeOrder = {
         "10분": 1,
         "10~30분": 2,
@@ -79,13 +73,10 @@ function Onemeal() {
         (a, b) =>
           (cookTimeOrder[a.cookTime] || 99) - (cookTimeOrder[b.cookTime] || 99),
       );
-      setSortedFoodPost(sorted);
     }
-  };
-  useEffect(() => {
-    setSortedFoodPost(myCooks);
-    setActiveCategory("전체");
-  }, [cooks, userId, date]);
+
+    setSortedFoodPost(sorted);
+  }, [activeCategory, cooks, userId, date]);
 
   // 검색필터 기능
   const [searchText, setSearchText] = useState("");
