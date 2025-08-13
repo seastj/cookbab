@@ -113,6 +113,7 @@ function UserSummaryInfo() {
   });
 
   const totalCooks = cookCount;
+  const medalCount = user?.medals?.length || 0;
 
   return (
     <UserSummaryWrap>
@@ -150,7 +151,7 @@ function UserSummaryInfo() {
         <UserSummaryItem>
           <UserSummaryItemTitle>획득한 훈장수</UserSummaryItemTitle>
           <UserSummaryLevelWrap>
-            <UserSummaryLevelNum>12</UserSummaryLevelNum>
+            <UserSummaryLevelNum>{medalCount}</UserSummaryLevelNum>
             <UserSummaryLevelTxt>개</UserSummaryLevelTxt>
           </UserSummaryLevelWrap>
           <UserSummaryComment>
