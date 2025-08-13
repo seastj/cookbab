@@ -11,6 +11,8 @@ import MonthCookGraph from "../components/MonthCookGraph";
 import MemberMessage from "./randommessage/MemberMessage";
 import { countPostsMonth } from "../utils/CountPostsMonth";
 import { countIngredients } from "../utils/CountIngredients";
+import MedalDummy from "../data/MedalDummy";
+import { medalIconMap, medalList } from "../data/medalList";
 
 const MealTotalWrap = styled.div``;
 const MealTotalContent = styled.div`
@@ -110,14 +112,14 @@ const MyMedalBox = styled.div`
   width: 85px;
   height: 85px;
   margin: 0 auto;
-  background: linear-gradient(to bottom, #ef4444 0%, #f37373 100%);
-
+  /* background: linear-gradient(to bottom, #ef4444 0%, #f37373 100%); */
   border-radius: 30px;
 `;
 const MyMedalIcon = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-top: 15px;
 `;
 const MyMedalName = styled.div`
   display: flex;
@@ -223,36 +225,33 @@ function HomeMealTotal() {
           </MyMedalTitle>
           <MyMedalContent>
             <MyMedalList>
-              <MyMedalListItem>
-                <MyMedalBox>
-                  <MyMedalIcon>medal</MyMedalIcon>
-                </MyMedalBox>
-                <MyMedalName>요리 초보자</MyMedalName>
-              </MyMedalListItem>
-              <MyMedalListItem>
-                <MyMedalBox>
-                  <MyMedalIcon>medal</MyMedalIcon>
-                </MyMedalBox>
-                <MyMedalName>요리 숙련자</MyMedalName>
-              </MyMedalListItem>
-              <MyMedalListItem>
-                <MyMedalBox>
-                  <MyMedalIcon>medal</MyMedalIcon>
-                </MyMedalBox>
-                <MyMedalName>요리의 달인</MyMedalName>
-              </MyMedalListItem>
-              <MyMedalListItem>
-                <MyMedalBox>
-                  <MyMedalIcon>medal</MyMedalIcon>
-                </MyMedalBox>
-                <MyMedalName>청결 초보</MyMedalName>
-              </MyMedalListItem>
-              <MyMedalListItem>
-                <MyMedalBox>
-                  <MyMedalIcon>medal</MyMedalIcon>
-                </MyMedalBox>
-                <MyMedalName>재료부자</MyMedalName>
-              </MyMedalListItem>
+              {(() => {
+                const shownTypes = new Set();
+                const filteredMedals = medalList
+                  .filter(medal => {
+                    if (!shownTypes.has(medal.type)) {
+                      shownTypes.add(medal.type);
+                      return true;
+                    }
+                    return false;
+                  })
+                  .slice(0, 5);
+
+                return filteredMedals.map(medal => {
+                  const IconComponent = medalIconMap[medal.id];
+                  return (
+                    <MyMedalListItem key={medal.id}>
+                      <MyMedalBox>
+                        <MyMedalIcon>
+                          {IconComponent ? <IconComponent /> : "medal"}
+                        </MyMedalIcon>
+                      </MyMedalBox>
+                      <MyMedalName>{medal.name}</MyMedalName>
+                    </MyMedalListItem>
+                  );
+                });
+              })()}
+
               <HashLink to="/user#userMedalWrap">
                 <MyMedalPlusBt>
                   <img src={morebt} alt="morebt" />

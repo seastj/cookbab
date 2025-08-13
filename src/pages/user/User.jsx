@@ -16,6 +16,7 @@ import {
   LoginDispatchContext,
   LoginStateContext,
 } from "../../contexts/LoginContext";
+import { medalIconMap, medalList } from "../../data/medalList";
 
 const UserWrap = styled.div`
   width: 1200px;
@@ -107,7 +108,8 @@ const MedalTitle = styled.p`
 `;
 const MedalContents = styled.div`
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  gap: 100px;
 `;
 const Medalitem = styled.div`
   display: flex;
@@ -117,7 +119,7 @@ const Medalitem = styled.div`
   align-items: center;
 `;
 const Medalitemicon = styled.div`
-  background: linear-gradient(to bottom, #ef4444, #f37373);
+  /* background: linear-gradient(to bottom, #ef4444, #f37373); */
   width: 85px;
   height: 85px;
   border-radius: 30px;
@@ -234,15 +236,30 @@ function User() {
         <UserMedalWrap id="userMedalWrap">
           <MedalTitle>나의 훈장</MedalTitle>
           <MedalContents>
-            <Medalitem>
-              <Medalitemicon>
-                <img src={medalicon} alt="medalicon" />
-              </Medalitemicon>
-              <MedalitemTitle>성실요리사</MedalitemTitle>
-            </Medalitem>
-            <MedalContentsArrow>
+            {medalList
+              .filter(
+                (medal, index, self) =>
+                  self.findIndex(m => m.type === medal.type) === index,
+              )
+              .slice(0, 5)
+              .map(medal => {
+                const MedalIconComponent = medalIconMap[medal.id];
+                return (
+                  <Medalitem key={medal.id}>
+                    <Medalitemicon>
+                      {MedalIconComponent ? (
+                        <MedalIconComponent />
+                      ) : (
+                        <img src={medalicon} alt="medalicon" />
+                      )}
+                    </Medalitemicon>
+                    <MedalitemTitle>{medal.name}</MedalitemTitle>
+                  </Medalitem>
+                );
+              })}
+            {/* <MedalContentsArrow>
               <img src={arrow} alt="arrow" />
-            </MedalContentsArrow>
+            </MedalContentsArrow> */}
           </MedalContents>
         </UserMedalWrap>
         <UserMenuWrap>

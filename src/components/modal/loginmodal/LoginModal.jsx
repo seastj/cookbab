@@ -5,6 +5,7 @@ import logo from "../../../images/cookbab_logo.png";
 import ButtonCancle from "../../buttons/ButtonCancle";
 import ButtonSubmit from "../../buttons/ButtonSubmit";
 import "./loginmodal.css";
+import { onLogin } from "../../../utils/userUtils";
 
 function LoginModal({ closeLogin }) {
   const initUser = { id: "", pw: "" };
@@ -15,36 +16,36 @@ function LoginModal({ closeLogin }) {
   const joinNavi = () => navigate("/User/join");
   const homeNavi = () => navigate("/");
 
-  const handleLogin = () => {
-    // 입력값이 회원가입 데이터와 일치하는지 확인
+  const handleLogin = e => {
+    e.preventDefault();
+
     const foundUser = userdata.find(
       u => u.userId === user.id && u.userPass === user.pw,
     );
     if (foundUser) {
-      // 로그인 성공 처리: Context 로그인 상태 업데이트
+      onLogin(foundUser);
+
+      const updatedUser = JSON.parse(localStorage.getItem("user"));
+
       dispatch({
         type: "LOGIN",
         payload: {
+          ...updatedUser,
           isLogin: true,
-          userId: foundUser.userId,
-          userPass: foundUser.userPass,
-          email: foundUser.email,
-          nickName: foundUser.nickName,
-          introduction: foundUser.introduction,
-          profileImage: foundUser.profileImage,
-          passwordConfirm: foundUser.passwordConfirm,
-          profileImage: foundUser.profileImage,
-          provider: foundUser.provider || null,
-          joinDate: foundUser.joinDate,
         },
       });
+      onLogin(foundUser);
+      localStorage.setItem("user", JSON.stringify(foundUser));
+      localStorage.setItem("myAppLoginState", JSON.stringify(foundUser));
+
       alert("로그인 성공!");
-      closeLogin(); // 모달 닫기
+      closeLogin();
       navigate("/user");
     } else {
       alert("아이디 또는 비밀번호가 일치하지 않습니다.");
     }
   };
+
   return (
     <div
       className="overlay"

@@ -2,11 +2,11 @@ import { ResponsiveBar } from "@nivo/bar";
 import MemberMessage from "./randommessage/MemberMessage";
 
 const colors = [
-  "#bd1010",
   "#f7a2a2",
   "#f37373",
   "#ef4444",
   "#eb1515",
+  "#bd1010",
   "#a33a3a",
 ];
 
