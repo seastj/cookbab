@@ -1,7 +1,5 @@
 # 1차 Team Mini Project
 
----
-
 ## 프로젝트 기간
 
 📅 2025.07.10 ~ 2025.08.14
@@ -33,7 +31,7 @@ GitHub, notion, slack
 
 ---
 
-### ⭐주요기능
+## ⭐주요기능
 
 ### 팀장: 여채현
 
@@ -74,13 +72,13 @@ GitHub, notion, slack
   - 고객센터
   - 로그아웃
 
-### 🚀 기대 효과
+## 🚀 기대 효과
 
 - 레시피를 쉽게 관리할 수 있다.
 - 요리 실력 향상에 대한 기대를 높일 수 있다.
 - 데이터 기반의 요리 습관을 분석할 수 있다.
 
-### 📅 프로젝트 일정
+## 📅 프로젝트 일정
 
 [프로젝트 일정 (Notion)](https://fair-mimosa-69b.notion.site/2419f76bdabf8077b15cfe0c74d5c1c5)
 
@@ -92,9 +90,7 @@ GitHub, notion, slack
 2025년 8월 12일: ppt 제작
 2025년 8월 14일: 발표 및 회고
 
----
-
-### 🎯 향후 개선사항
+## 🎯 향후 개선사항
 
 - 디자인 개선(전체적인 비율 축소)
 - 오류 개선 및 최적화 작업
@@ -253,9 +249,7 @@ GitHub, notion, slack
 └── 📄 userUtils.js
 ```
 
----
-
-### 프로젝트 발표
+## 프로젝트 발표
 
 [프로젝트 발표(Canva)](https://www.canva.com/design/DAGv1pu-s0w/OuFnv-lBxMc9AGN5DbQbiw/view?utm_content=DAGv1pu-s0w&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hc1802c404d)
 
