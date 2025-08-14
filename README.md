@@ -103,142 +103,158 @@ GitHub, notion, slack
 
 #### git tree
 
-cookbab
-├─ .env (ignored)
-├── .gitignore
-├── .prettierrc.json
-├── eslint.config.mjs
-├─ node_modules/ (ignored)
-├── package-lock.json
-├── package.json
-├── public/
-│ ├── apple-touch-icon.png
-│ ├── CategoryData.json
-│ ├── CookTimeData.json
-│ ├── favicon-96x96.png
-│ ├── favicon.ico
-│ ├── favicon.svg
-│ ├── index.html
-│ ├── manifest.json
-│ ├── MonthCookData.json
-│ ├── MonthLevelCookData.json
-│ ├── ParamsData.json
-│ ├── robots.txt
-│ ├── site.webmanifest
-│ ├── TierData.json
-│ ├── web-app-manifest-192x192.png
-│ └── web-app-manifest-512x512.png
-├── README.md
-└── src/
-├── apis/
-│ └── LoginApi.js
-├── App.js
-├── assets/
-├── atoms/
-│ └── kkologinAton.js
-├── components/
-│ ├── buttons/
-│ │ ├── ButtonCancle.jsx
-│ │ ├── ButtonSubmit.jsx
-│ │ ├── canclebutton.css
-│ │ └── submitbutton.css
-│ ├── CategoryGraph.jsx
-│ ├── CookTimeGraph.jsx
-│ ├── Footer.jsx
-│ ├── Header.jsx
-│ ├── HomeBanner.jsx
-│ ├── HomeMealTotal.jsx
-│ ├── HomeOneMeal.jsx
-│ ├── HomeWeekCook.jsx
-│ ├── LevelCookGraph.jsx
-│ ├── MealsetBase.jsx
-│ ├── modal/
-│ │ ├── customerservicemodal/
-│ │ │ ├── customerservicemodal.css
-│ │ │ └── CustomerServiceModal.jsx
-│ │ ├── loginmodal/
-│ │ │ ├── loginmodal.css
-│ │ │ └── LoginModal.jsx
-│ │ └── usereditmodal/
-│ │ └── UserEditModal.jsx
-│ ├── MonthCookGraph.jsx
-│ ├── ParamsGraph.jsx
-│ ├── TierGraph.jsx
-│ ├── ui/
-│ │ ├── LoginState.jsx
-│ │ └── ProtectedRoute.jsx
-│ └── UserSummaryInfo.jsx
-├── contexts/
-│ ├── cook/
-│ │ ├── CookInfoContext.jsx
-│ │ └── CookInfoProvider.jsx
-│ ├── LoginContext.jsx
-│ └── LoginProvider.jsx
-├── css/
-├── google/
-│ └── googleapi.js
-├── hooks/
-├── images/
-│ ├── arrow-filled.svg
-│ ├── arrow.svg
-│ ├── backbanner.jpg
-│ ├── camera-pink.svg
-│ ├── camera-plus.svg
-│ ├── chefhat.svg
-│ ├── clock.svg
-│ ├── cookbab_logo.png
-│ ├── cooklv1.svg
-│ ├── exit-light.svg
-│ ├── fail_icon.svg
-│ ├── foodicon.svg
-│ ├── google_logo.svg
-│ ├── kakao_logo.svg
-│ ├── kko_ficture.jpg
-│ ├── mainimg.jpg
-│ ├── mdisearch.svg
-│ ├── megaphone.svg
-│ ├── megaphone_gray.svg
-│ ├── minus.svg
-│ ├── more_bt.svg
-│ ├── oneitem1.jpg
-│ ├── pavicon.png
-│ ├── question-mark-circled.svg
-│ ├── question.svg
-│ ├── success_white.svg
-│ └── topimgp.png
-├── index.css
-├── index.js
-├── kko/
-│ └── kkoapi.js
-├── modules/
-│ └── customerervice/
-├── pages/
-│ ├── calendar.css
-│ ├── Index.jsx
-│ ├── mealset/
-│ │ ├── Mealset.jsx
-│ │ ├── Mealset.styles.js
-│ │ ├── MealsetEdit.jsx
-│ │ └── MealsetEdit.styles.js
-│ ├── mealtotal/
-│ │ └── Mealtotal.jsx
-│ ├── member/
-│ │ ├── AfterGoogle.jsx
-│ │ └── AfterKko.jsx
-│ ├── onemeal/
-│ │ ├── Onemeal.jsx
-│ │ ├── Onemeal.styles.js
-│ │ ├── OnemealView.jsx
-│ │ └── OnemealView.styles.js
-│ └── user/
-│ ├── User.jsx
-│ ├── UserGuest.jsx
-│ ├── UserJoin.jsx
-│ └── UserJoin.styles.js
-└── scss/
+📁 cookbab
+├── 📄 .gitignore
+├── 📄 .prettierrc.json
+├── 📄 eslint.config.mjs
+├── 📄 package-lock.json
+├── 📄 package.json
+├── 📁 public/
+│ ├── 📄 apple-touch-icon.png
+│ ├── 📄 CategoryData.json
+│ ├── 📄 CookTimeData.json
+│ ├── 📄 favicon-96x96.png
+│ ├── 📄 favicon.ico
+│ ├── 📄 favicon.svg
+│ ├── 📄 index.html
+│ ├── 📄 manifest.json
+│ ├── 📄 MonthCookData.json
+│ ├── 📄 MonthLevelCookData.json
+│ ├── 📄 ParamsData.json
+│ ├── 📄 robots.txt
+│ ├── 📄 site.webmanifest
+│ ├── 📄 TierData.json
+│ ├── 📄 web-app-manifest-192x192.png
+│ └── 📄 web-app-manifest-512x512.png
+├── 📄 README.md
+└── 📁 src/
+├── 📁 apis/
+│ └── 📄 LoginApi.js
+├── 📄 App.js
+├── 📁 assets/
+│ └── 📄 발표자료.hwp
+├── 📁 atoms/
+│ └── 📄 kkologinAton.js
+├── 📁 components/
+│ ├── 📁 buttons/
+│ │ ├── 📄 ButtonCancle.jsx
+│ │ ├── 📄 ButtonSubmit.jsx
+│ │ ├── 📄 canclebutton.css
+│ │ └── 📄 submitbutton.css
+│ ├── 📄 CategoryGraph.jsx
+│ ├── 📄 CookTimeGraph.jsx
+│ ├── 📄 Footer.jsx
+│ ├── 📄 Header.jsx
+│ ├── 📄 HomeBanner.jsx
+│ ├── 📄 HomeMealTotal.jsx
+│ ├── 📄 HomeOneMeal.jsx
+│ ├── 📄 HomeWeekCook.jsx
+│ ├── 📄 LevelCookGraph.jsx
+│ ├── 📄 MealsetBase.jsx
+│ ├── 📁 modal/
+│ │ ├── 📁 customerservicemodal/
+│ │ │ ├── 📄 customerservicemodal.css
+│ │ │ └── 📄 CustomerServiceModal.jsx
+│ │ ├── 📁 loginmodal/
+│ │ │ ├── 📄 loginmodal.css
+│ │ │ └── 📄 LoginModal.jsx
+│ │ └── 📁 usereditmodal/
+│ │ └── 📄 UserEditModal.jsx
+│ ├── 📄 MonthCookGraph.jsx
+│ ├── 📁 randommessage/
+│ │ ├── 📄 MemberMessage.jsx
+│ │ └── 📄 SignupMessage.jsx
+│ ├── 📄 TierGraph.jsx
+│ ├── 📁 ui/
+│ │ ├── 📄 LoginState.jsx
+│ │ └── 📄 ProtectedRoute.jsx
+│ └── 📄 UserSummaryInfo.jsx
+├── 📁 contexts/
+│ ├── 📁 cook/
+│ │ ├── 📄 CookInfoContext.jsx
+│ │ └── 📄 CookInfoProvider.jsx
+│ ├── 📄 LoginContext.jsx
+│ └── 📄 LoginProvider.jsx
+├── 📁 css/
+├── 📁 data/
+│ ├── 📄 MedalDummy.jsx
+│ └── 📄 medalList.js
+├── 📁 google/
+│ └── 📄 googleapi.js
+├── 📁 hooks/
+├── 📁 images/
+│ ├── 📄 arrow-filled.svg
+│ ├── 📄 arrow.svg
+│ ├── 📄 backbanner.jpg
+│ ├── 📄 camera-pink.svg
+│ ├── 📄 camera-plus.svg
+│ ├── 📄 chefhat.svg
+│ ├── 📄 clock.svg
+│ ├── 📄 cookbab_logo.png
+│ ├── 📄 cooklv1.svg
+│ ├── 📄 cooklv2.svg
+│ ├── 📄 cooklv3.svg
+│ ├── 📄 exit-light.svg
+│ ├── 📄 fail_icon.svg
+│ ├── 📄 foodicon.svg
+│ ├── 📄 google_logo.svg
+│ ├── 📄 kakao_logo.svg
+│ ├── 📄 kko_ficture.jpg
+│ ├── 📄 mainimg.jpg
+│ ├── 📄 mdisearch.svg
+│ ├── 📄 megaphone.svg
+│ ├── 📄 megaphone_gray.svg
+│ ├── 📄 minus.svg
+│ ├── 📄 more_bt.svg
+│ ├── 📄 oneitem1.jpg
+│ ├── 📄 pavicon.png
+│ ├── 📄 question-mark-circled.svg
+│ ├── 📄 question.svg
+│ ├── 📄 success_white.svg
+│ └── 📄 topimgp.png
+├── 📄 index.css
+├── 📄 index.js
+├── 📁 kko/
+│ └── 📄 kkoapi.js
+├── 📁 modules/
+│ └── 📁 customerervice/
+├── 📁 pages/
+│ ├── 📄 calendar.css
+│ ├── 📄 Index.jsx
+│ ├── 📁 mealset/
+│ │ ├── 📄 Mealset.jsx
+│ │ ├── 📄 Mealset.styles.js
+│ │ ├── 📄 MealsetEdit.jsx
+│ │ └── 📄 MealsetEdit.styles.js
+│ ├── 📁 mealtotal/
+│ │ └── 📄 Mealtotal.jsx
+│ ├── 📁 member/
+│ │ ├── 📄 AfterGoogle.jsx
+│ │ └── 📄 AfterKko.jsx
+│ ├── 📁 onemeal/
+│ │ ├── 📄 Onemeal.jsx
+│ │ ├── 📄 Onemeal.styles.js
+│ │ ├── 📄 OnemealView.jsx
+│ │ └── 📄 OnemealView.styles.js
+│ └── 📁 user/
+│ ├── 📄 User.jsx
+│ ├── 📄 UserGuest.jsx
+│ ├── 📄 UserJoin.jsx
+│ └── 📄 UserJoin.styles.js
+├── 📁 scss/
+└── 📁 utils/
+├── 📄 CountCategories.jsx
+├── 📄 CountCookTimes.jsx
+├── 📄 CountIngredients.jsx
+├── 📄 CountLevels.jsx
+├── 📄 CountPostsMonth.jsx
+├── 📄 medalUtils.js
+└── 📄 userUtils.js
 
 ---
 
 ### 프로젝트 발표
 
-[프로젝트 발표(Canva)](https://www.canva.com/design/DAGv1pu-s0w/6W6Vn8xGj39v5QtGNU76Qg/edit?utm_content=DAGv1pu-s0w&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+[프로젝트 발표(Canva)](https://www.canva.com/design/DAGv1pu-s0w/OuFnv-lBxMc9AGN5DbQbiw/view?utm_content=DAGv1pu-s0w&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=hc1802c404d)
+
+[쿡밥 사이트(Vercel)](https://cookbab.vercel.app/)
