@@ -103,6 +103,7 @@ GitHub, notion, slack
 
 #### git tree
 
+```
 📁 cookbab
 ├── 📄 .gitignore
 ├── 📄 .prettierrc.json
@@ -250,6 +251,7 @@ GitHub, notion, slack
 ├── 📄 CountPostsMonth.jsx
 ├── 📄 medalUtils.js
 └── 📄 userUtils.js
+```
 
 ---
 
